@@ -2,7 +2,7 @@
 
 namespace ProgramSystem.Data.Repository.Interfaces;
 
-public interface IUserRepository : IEntityRepository<UserEntity>
+public interface IUserRepository : IBaseRepository<UserEntity>
 {
 
 }

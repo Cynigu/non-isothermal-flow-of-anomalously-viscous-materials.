@@ -2,7 +2,7 @@
 
 namespace ProgramSystem.Data.Repository.Interfaces;
 
-public interface IMaterialRepository : IEntityRepository<MaterialEntity>
+public interface IMaterialRepository : IBaseRepository<MaterialEntity>
 {
 
 }

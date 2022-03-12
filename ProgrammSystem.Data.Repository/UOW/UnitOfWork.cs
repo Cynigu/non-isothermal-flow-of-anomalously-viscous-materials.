@@ -1,4 +1,7 @@
-﻿namespace ProgramSystem.Data.Repository.UOW
+﻿using ProgramSystem.Data.Repository.Interfaces;
+using ProgramSystem.Data.Repository.Repositories;
+
+namespace ProgramSystem.Data.Repository.UOW
 {
     public class UnitOfWork : IUnitOfWork, IDisposable
     {
@@ -10,19 +13,20 @@
                 throw new ArgumentNullException("context");
             }
             _repositoryContext = context;
-            //EmployeeRepository = new EmployeeRepository(context);
-            //WorkRepository = new WorkRepository(context);
-            //FolderRepository = new FoldersRepository(context);
-            //AuthUserRepository = new AuthUserRepository(context);
+            CanalRepository = new CanalRepository(_repositoryContext);
+            MaterialRepository = new MaterialRepository(_repositoryContext);
+            ParameterCanalMaterialRepository = new ParameterCanalMaterialRepository(_repositoryContext);
+            ParameterRepository = new ParameterRepository(_repositoryContext);
+            UnitOfMeasRepository = new UnitOfMeasRepository(_repositoryContext);
+            UserRepository = new UserRepository(_repositoryContext);
         }
 
-        //public IEmployeeRepository EmployeeRepository { get; }
-
-        //public IWorkRepository WorkRepository { get; }
-
-        //public IFolderRepository FolderRepository { get; }
-
-        //public IAuthUserRepository AuthUserRepository { get; }
+        public ICanalRepository CanalRepository { get; }
+        public IMaterialRepository MaterialRepository { get; }
+        public IParameterCanalMaterialRepository ParameterCanalMaterialRepository { get; }
+        public IParameterRepository ParameterRepository { get; }
+        public IUnitOfMeasRepository UnitOfMeasRepository { get; }
+        public IUserRepository UserRepository { get; }
 
         private bool disposed = false;
         public void Save()

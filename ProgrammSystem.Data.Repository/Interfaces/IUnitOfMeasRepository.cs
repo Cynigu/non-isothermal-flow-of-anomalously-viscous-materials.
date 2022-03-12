@@ -2,7 +2,7 @@
 
 namespace ProgramSystem.Data.Repository.Interfaces;
 
-public interface IUnitOfMeasRepository : IEntityRepository<UnitOfMeasEntity>
+public interface IUnitOfMeasRepository : IBaseRepository<UnitOfMeasEntity>
 {
 
 }

@@ -2,7 +2,7 @@
 
 namespace ProgramSystem.Data.Repository.Interfaces;
 
-public interface ICanalRepository : IEntityRepository<CanalEntity>
+public interface ICanalRepository : IBaseRepository<CanalEntity>
 {
 
 }

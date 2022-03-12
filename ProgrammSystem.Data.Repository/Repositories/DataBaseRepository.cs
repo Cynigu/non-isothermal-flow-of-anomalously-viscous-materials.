@@ -26,16 +26,11 @@ namespace ProgramSystem.Data.Repository.Repositories
             await SaveAsync();
         }
 
-        public IEnumerable<TEntity> Find(Func<TEntity, bool> predicate)
-        {
-            return _repositoryContext.Set<TEntity>().Where(predicate);
-        }
-
-        public virtual IEnumerable<TEntity> Get()
+        public virtual IQueryable<TEntity> GetEntityQuery()
         {
             IEnumerable<TEntity> result = _repositoryContext.Set<TEntity>();
 
-            return result;
+            return (IQueryable<TEntity>) result;
         }
 
         public virtual async Task SaveAsync()

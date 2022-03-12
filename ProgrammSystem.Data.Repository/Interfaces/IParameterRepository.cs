@@ -2,7 +2,7 @@
 
 namespace ProgramSystem.Data.Repository.Interfaces;
 
-public interface IParameterRepository : IEntityRepository<ParameterEntity>
+public interface IParameterRepository : IBaseRepository<ParameterEntity>
 {
 
 }
