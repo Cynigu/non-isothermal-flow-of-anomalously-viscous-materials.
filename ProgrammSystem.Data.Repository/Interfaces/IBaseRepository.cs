@@ -3,11 +3,11 @@
     public interface IBaseRepository<T>
         where T : class
     {
-        Task Add(T item); // добавление объекта
-        Task AddRange(ICollection<T> item); // добавление объекта
-        Task Update(T item); // обновление объекта
+        Task AddAsync(T item); // добавление объекта
+        Task AddRangeAsync(ICollection<T> item); // добавление объекта
+        Task UpdateAsync(T item); // обновление объекта
         Task SaveAsync();  // сохранение изменений
-        Task<IEnumerable<T>> DeleteRange(Func<T, bool> predicate); // удаление объекта по id
+        Task<IEnumerable<T>> RemoveRangeAsync(Func<T, bool> predicate); // удаление объекта по id
         IQueryable<T> GetEntityQuery();
     }
 }

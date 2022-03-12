@@ -14,13 +14,13 @@ namespace ProgramSystem.Data.Repository.Repositories
             _repositoryContext = context;
         }
 
-        public virtual async Task Add(TEntity item)
+        public virtual async Task AddAsync(TEntity item)
         {
             await _repositoryContext.Set<TEntity>().AddAsync(item);
             await SaveAsync();
         }
 
-        public async Task AddRange(ICollection<TEntity> items)
+        public async Task AddRangeAsync(ICollection<TEntity> items)
         {
             await _repositoryContext.Set<TEntity>().AddRangeAsync(items);
             await SaveAsync();
@@ -35,25 +35,19 @@ namespace ProgramSystem.Data.Repository.Repositories
 
         public virtual async Task SaveAsync()
         {
-
             await _repositoryContext.SaveChangesAsync();
-
         }
 
-        public async Task<IEnumerable<TEntity>> DeleteRange(Func<TEntity, bool> predicate)
+        public async Task<IEnumerable<TEntity>> RemoveRangeAsync(Func<TEntity, bool> predicate)
         {
             var entitis = _repositoryContext.Set<TEntity>().Where(predicate);
-            if (entitis.Any())
-            {
-                _repositoryContext.Set<TEntity>().RemoveRange(entitis);
-                await SaveAsync();
-                return entitis;
-            }
 
-            return null;
+            _repositoryContext.Set<TEntity>().RemoveRange(entitis);
+            await SaveAsync();
+            return entitis;
         }
 
-        public virtual async Task Update(TEntity item)
+        public virtual async Task UpdateAsync(TEntity item)
         {
 
             _repositoryContext.Entry(item).State = EntityState.Modified;
