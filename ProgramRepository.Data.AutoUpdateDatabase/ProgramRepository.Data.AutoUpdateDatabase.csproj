@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ProgrammSystem.Data.Repository\ProgramSystem.Data.Repository.csproj" />
+    <ProjectReference Include="..\ProgramSystem.Bll.Services\ProgramSystem.Bll.Services.csproj" />
   </ItemGroup>
 
 </Project>

@@ -13,7 +13,7 @@ namespace ProgramSystem.Data.Models
         public string TypeParameter { get; set; } = null!; // тип параметра
         public string Name { get; set; } // название параметра
         public int UnitOfMeasId { get; set; }
-        public UnitOfMeasEntity UnitOfMeasEntity { get; set; } = null!; // единица измерения
+        public UnitOfMeasEntity UnitOfMeas { get; set; } = null!; // единица измерения
         public ICollection<ParameterMaterialCanalEntity>? ParameterMaterialCanal { get; set; }
     }
 }

@@ -293,7 +293,7 @@ namespace ProgramSystem.Data.Repository.Migrations
                         });
                 });
 
-            modelBuilder.Entity("ProgramSystem.Data.Models.UnitOfMeas", b =>
+            modelBuilder.Entity("ProgramSystem.Data.Models.UnitOfMeasEntity", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -396,7 +396,7 @@ namespace ProgramSystem.Data.Repository.Migrations
 
             modelBuilder.Entity("ProgramSystem.Data.Models.ParameterEntity", b =>
                 {
-                    b.HasOne("ProgramSystem.Data.Models.UnitOfMeas", "UnitOfMeas")
+                    b.HasOne("ProgramSystem.Data.Models.UnitOfMeasEntity", "UnitOfMeas")
                         .WithMany()
                         .HasForeignKey("UnitOfMeasId")
                         .OnDelete(DeleteBehavior.Cascade)
