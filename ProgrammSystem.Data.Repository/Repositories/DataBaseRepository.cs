@@ -30,7 +30,7 @@ namespace ProgramSystem.Data.Repository.Repositories
         {
             IEnumerable<TEntity> result = _repositoryContext.Set<TEntity>();
 
-            return (IQueryable<TEntity>) result;
+            return (IQueryable<TEntity>)result;
         }
 
         public virtual async Task SaveAsync()
@@ -40,11 +40,12 @@ namespace ProgramSystem.Data.Repository.Repositories
 
         public async Task<IEnumerable<TEntity>> RemoveRangeAsync(Func<TEntity, bool> predicate)
         {
-            var entitis = _repositoryContext.Set<TEntity>().Where(predicate);
+            var entities = _repositoryContext.Set<TEntity>().Where(predicate);
 
-            _repositoryContext.Set<TEntity>().RemoveRange(entitis);
+            var removeRangeAsync = entities as TEntity[] ?? entities.ToArray();
+            _repositoryContext.Set<TEntity>().RemoveRange(removeRangeAsync);
             await SaveAsync();
-            return entitis;
+            return removeRangeAsync;
         }
 
         public virtual async Task UpdateAsync(TEntity item)
