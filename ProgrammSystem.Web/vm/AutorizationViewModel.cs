@@ -1,22 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using WpfApp1.Annotations;
-using WpfApp1.Commands;
+﻿using System.Threading.Tasks;
+using ProgrammSystem.Web.Commands;
+using ProgramSystem.Bll.Services.Interfaces;
 
-namespace WpfApp1.vm
+namespace ProgrammSystem.Web.vm
 {
     public class AutorizationViewModel: ViewModelBase
     {
         private readonly IUserBaseService _userBaseService;
 
-        [CanBeNull] private string login;
-        [CanBeNull] private string password;
+        private string? login;
+        private string? password;
 
-        [CanBeNull]
-        public string Login
+        
+        public string? Login
         {
             get
             {
@@ -29,8 +25,8 @@ namespace WpfApp1.vm
             }
         }
 
-        [CanBeNull]
-        public string Password
+       
+        public string? Password
         {
             get
             {

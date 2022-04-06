@@ -1,0 +1,36 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Autofac" Version="6.3.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ProgramSystem.Bll.Services\ProgramSystem.Bll.Services.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="AutorizationWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="AutorizationWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="MainWindowProgram.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WindowEdit.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+
+</Project>

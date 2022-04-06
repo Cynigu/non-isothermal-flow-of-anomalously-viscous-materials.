@@ -7,11 +7,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Threading;
+using ProgrammSystem.Web.vm;
 
-namespace WpfApp1
+namespace ProgrammSystem.Web
 {
     /// <summary>
-    /// Логика взаимодействия для App.xaml
+    /// Interaction logic for App.xaml
     /// </summary>
     public partial class App : Application
     {
@@ -27,17 +28,17 @@ namespace WpfApp1
             //builderBase.RegisterType<ViewModelBase>().AsSelf();
 
             var containerBase = builderBase.Build();
-            //var viewmodelBase = new ViewModel();
+            var viewmodelBase = new AutorizationViewModel();
             //var viewBase = new MainWindow { DataContext = viewmodelBase };
 
-            var viewBase = new AutorizationWindow();
+            var viewBase = new AutorizationWindow { DataContext = viewmodelBase };
             viewBase.Show();
         }
 
         void App_DispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
         {
             MessageBox.Show("Ошибка\n" + e.Exception.StackTrace + " " + "Исключение: "
-                                             + e.Exception.GetType().ToString() + " " + e.Exception.Message);
+                            + e.Exception.GetType().ToString() + " " + e.Exception.Message);
 
             e.Handled = true;
         }
