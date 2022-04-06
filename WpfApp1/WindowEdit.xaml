@@ -1,0 +1,69 @@
+﻿<Window x:Class="WpfApp1.WindowEdit"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApp1"
+        mc:Ignorable="d"
+        Title="WindowEdit" Height="450" Width="800">
+    <Grid>
+        <TabControl x:Name="tabItems">
+            <TabItem Header="Логин/Пароль">
+                <TabItem.Content>
+                    <Canvas Margin="158,60,142,197" Height="227">
+                        <TextBlock x:Name="textBlockLog" FontSize="14" Text="Логин:" Width="51" HorizontalAlignment="Center" Canvas.Left="19" Canvas.Top="20" VerticalAlignment="Top" />
+                        <TextBox x:Name="textBoxLog" Width="128" Canvas.Left="75" Canvas.Top="20" HorizontalAlignment="Left" Height="19" VerticalAlignment="Center"/>
+                        <TextBlock  x:Name="textBlockPassword" FontSize="14" Text="Пароль:" Width="60" HorizontalAlignment="Center" Canvas.Left="19" Canvas.Top="53" VerticalAlignment="Top"/>
+                        <TextBox x:Name="textBoxPassword" Width="128" Canvas.Left="75" Canvas.Top="53" HorizontalAlignment="Center" Height="19" VerticalAlignment="Top"/>
+                        <DataGrid x:Name="dataGridLog" Width="248" Canvas.Left="226" Canvas.Top="10" HorizontalAlignment="Center" VerticalAlignment="Top" Height="175">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Логин"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Пароль"></DataGridTextColumn>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                        <Button x:Name="buttonAddLog" Content="Добавить" Canvas.Left="13" Canvas.Top="85" HorizontalAlignment="Left" Height="30" VerticalAlignment="Center" Width="190"></Button>
+                        <Button x:Name="buttonDelete" Content="Удалить" Canvas.Left="13" Canvas.Top="155" HorizontalAlignment="Center" Height="30" VerticalAlignment="Top" Width="190"></Button>
+                        <Button x:Name="buttonEdit" Content="Изменить" Canvas.Left="13" Canvas.Top="120" HorizontalAlignment="Center" Height="30" VerticalAlignment="Top" Width="190"></Button>
+
+                    </Canvas>
+                </TabItem.Content>
+            </TabItem>
+            <TabItem Header="Тип материала">
+                <TabItem.Content>
+                    <Canvas>
+                        <TextBlock x:Name="textBlockTm" FontSize="14" Text="Тип материала:" Canvas.Left="18" Canvas.Top="11" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Center" ></TextBlock>
+                        <ComboBox x:Name="comboBoxTm" Canvas.Left="134" Canvas.Top="13" Height="20" HorizontalAlignment="Left" VerticalAlignment="Center" Width="162"></ComboBox>
+
+                        <TextBlock x:Name="textBlockPm" FontSize="14" Text="Параметры свойств материала:" Canvas.Left="18" Canvas.Top="182" FontWeight="Bold"></TextBlock>
+                        <TextBlock x:Name="textBlockro" FontSize="14" Text="Плотность (кг/ь^3)" Canvas.Left="20" Canvas.Top="204"></TextBlock>
+                        <TextBox x:Name="textBoxro" HorizontalAlignment="Left" VerticalAlignment="Top" Width="116" Canvas.Left="260" Canvas.Top="203" Height="20"></TextBox>
+                        <TextBlock x:Name="textBlockc" FontSize="14" Text="Удельная теплоемкость (Дж/(кг*С))" Canvas.Left="18" Canvas.Top="229"></TextBlock>
+                        <TextBox x:Name="textBoxc" HorizontalAlignment="Center" VerticalAlignment="Top" Width="116" Canvas.Left="260" Canvas.Top="228" Height="20"></TextBox>
+                        <TextBlock x:Name="textBlockT0" FontSize="14" Text="Температура плавления (С)" Canvas.Left="20" Canvas.Top="252" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBlock>
+                        <TextBox x:Name="textBoxT0" HorizontalAlignment="Center" VerticalAlignment="Top" Width="116" Canvas.Left="260" Canvas.Top="253" Height="20"></TextBox>
+
+                        <TextBlock x:Name="textBlockKm" FontSize="14" Text="Эмпирические коэффициенты математической модели: " FontWeight="Bold" HorizontalAlignment="Left" Canvas.Top="35" VerticalAlignment="Center" Canvas.Left="18"></TextBlock>
+                        <TextBlock x:Name="textBlockm0" FontSize="14" Text="Коэффициент консистенции материала при температуре приведения (Па*с^n)" HorizontalAlignment="Left" Canvas.Top="59" VerticalAlignment="Center" Canvas.Left="18"></TextBlock>
+                        <TextBox x:Name="textBoxm0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="116" Canvas.Left="540" Canvas.Top="59" Height="20"></TextBox>
+                        <TextBlock x:Name="textBlockb" FontSize="14" Text="Температурный коэффициент вязкости материала (1/C)" Canvas.Left="18" Canvas.Top="84" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBlock>
+                        <TextBox x:Name="textBoxb" HorizontalAlignment="Left" VerticalAlignment="Top" Width="116" Canvas.Left="540" Canvas.Top="84" Height="20"></TextBox>
+                        <TextBlock x:Name="textBlockTr" FontSize="14" Text="Температура приведения (C)" Canvas.Left="20" Canvas.Top="107" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBlock>
+                        <TextBox x:Name="textBoxTr" HorizontalAlignment="Left" VerticalAlignment="Top" Width="116" Canvas.Left="540" Canvas.Top="109" Height="20"></TextBox>
+                        <TextBlock x:Name="textBlockn" FontSize="14" Text="Индекс течения материала" Canvas.Left="18" Canvas.Top="131" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBlock>
+                        <TextBox x:Name="textBoxn" HorizontalAlignment="Left" VerticalAlignment="Top" Width="116" Canvas.Left="540" Canvas.Top="134" Height="20"></TextBox>
+                        <TextBlock x:Name="textBlockau" FontSize="14" Text="Коэффициент теплоотдачи от крышки канала к материалу (Вт/(м^2*С))" HorizontalAlignment="Center" Canvas.Top="152" VerticalAlignment="Top" Canvas.Left="18"></TextBlock>
+                        <TextBox x:Name="textBoxau" HorizontalAlignment="Left" VerticalAlignment="Top" Width="116" Canvas.Left="540" Canvas.Top="161" Height="20"></TextBox>
+
+                        <!--<DataGrid x:Name="dataGrid" Width="248" Canvas.Left="260" Canvas.Top="23" HorizontalAlignment="Left" VerticalAlignment="Top" Height="175">
+                        </DataGrid>-->
+
+                        <Button x:Name="buttonAddPm" Width="146" Height="38" Canvas.Left="18" Canvas.Top="284" HorizontalAlignment="Left" VerticalAlignment="Center" Content="Добавить"></Button>
+                        <Button x:Name="buttonEditPm" Content="Редактировать" Width="146" Height="38" Canvas.Left="174" Canvas.Top="284"></Button>
+                        <Button x:Name="buttonDeletPm" Width="146" Height="38" Canvas.Left="329" Canvas.Top="284" HorizontalAlignment="Left" VerticalAlignment="Center" Content="Удалить"></Button>
+                    </Canvas>
+                </TabItem.Content>
+
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>

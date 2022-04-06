@@ -20,7 +20,7 @@ namespace ProgramSystem.Data.Repository.Repositories
             await SaveAsync();
         }
 
-        public async Task AddRangeAsync(ICollection<TEntity> items)
+        public virtual async Task AddRangeAsync(ICollection<TEntity> items)
         {
             await _repositoryContext.Set<TEntity>().AddRangeAsync(items);
             await SaveAsync();
@@ -38,7 +38,7 @@ namespace ProgramSystem.Data.Repository.Repositories
             await _repositoryContext.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<TEntity>> RemoveRangeAsync(Func<TEntity, bool> predicate)
+        public virtual async Task<IEnumerable<TEntity>> RemoveRangeAsync(Func<TEntity, bool> predicate)
         {
             var entities = _repositoryContext.Set<TEntity>().Where(predicate);
 
