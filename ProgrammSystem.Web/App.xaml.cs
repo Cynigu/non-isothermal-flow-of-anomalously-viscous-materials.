@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Threading;
 using ProgrammSystem.Web.vm;
+using ProgramSystem.Bll.Services.Interfaces;
+using ProgramSystem.Bll.Services.Services;
 
 namespace ProgrammSystem.Web
 {
@@ -24,11 +26,11 @@ namespace ProgrammSystem.Web
         protected override void OnStartup(StartupEventArgs e)
         {
             var builderBase = new ContainerBuilder();
-            //builderBase.RegisterType<IService>().As<Service>()
+            builderBase.RegisterType<IUserBaseService>().As<UserBaseService>();
             //builderBase.RegisterType<ViewModelBase>().AsSelf();
-
             var containerBase = builderBase.Build();
-            var viewmodelBase = new AutorizationViewModel();
+
+            var viewmodelBase = new AutorizationViewModel(containerBase.Resolve<IUserBaseService>());
             //var viewBase = new MainWindow { DataContext = viewmodelBase };
 
             var viewBase = new AutorizationWindow { DataContext = viewmodelBase };
