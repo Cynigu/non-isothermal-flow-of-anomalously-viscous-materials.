@@ -9,8 +9,8 @@ namespace ProgrammSystem.BLL.Autofac
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.Register(c => new UserBaseService(c.Resolve<ISqlLiteRepositoryContextFactory>()))
-                .As<IUserBaseService>();
+            builder.Register(c => new UserServiceAsync(c.Resolve<ISqlLiteRepositoryContextFactory>()))
+                .As<IUserService>();
         }
     }
 }
