@@ -6,4 +6,12 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Autofac" Version="6.3.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ProgramSystem.Bll.Services\ProgramSystem.Bll.Services.csproj" />
+  </ItemGroup>
+
 </Project>

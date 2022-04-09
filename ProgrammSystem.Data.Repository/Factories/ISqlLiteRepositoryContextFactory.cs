@@ -1,6 +1,6 @@
 ﻿namespace ProgramSystem.Data.Repository.Factories
 {
-    public interface IRepositoryContextFactory
+    public interface ISqlLiteRepositoryContextFactory
     {
         RepositoryContext Create();
     }

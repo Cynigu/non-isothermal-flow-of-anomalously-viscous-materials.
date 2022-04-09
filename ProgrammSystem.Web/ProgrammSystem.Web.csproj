@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ProgrammSystem.BLL.Autofac\ProgrammSystem.BLL.Autofac.csproj" />
     <ProjectReference Include="..\ProgramSystem.Bll.Services\ProgramSystem.Bll.Services.csproj" />
   </ItemGroup>
 

@@ -1,5 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Net;
+using System.Security;
+using Autofac;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using ProgrammSystem.BLL.Autofac;
 using ProgramSystem.Bll.Services.DTO;
 using ProgramSystem.Bll.Services.Interfaces;
 using ProgramSystem.Bll.Services.Services;
@@ -31,8 +35,13 @@ Console.WriteLine("Введите пароль");
 
 string password = Console.ReadLine();
 
-IUserBaseService userBaseService = new UserBaseService(new SqlRepositoryContextFactory());
+var builderBase = new ContainerBuilder();
+builderBase.RegisterModule(new ContextFactoriesModule());
+builderBase.RegisterModule(new ServicesModule());
 
+var containerBase = builderBase.Build();
+
+var userBaseService = containerBase.Resolve<IUserBaseService>();
 UserDTO? user = userBaseService.GetAccountByLoginPassword(login, password);
 
 if (user == null)

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Threading;
+using ProgrammSystem.BLL.Autofac;
 using ProgrammSystem.Web.vm;
 using ProgramSystem.Bll.Services.Interfaces;
 using ProgramSystem.Bll.Services.Services;
@@ -20,14 +21,16 @@ namespace ProgrammSystem.Web
     {
         public App()
         {
-            this.DispatcherUnhandledException += new DispatcherUnhandledExceptionEventHandler(App_DispatcherUnhandledException);
+            this.DispatcherUnhandledException += App_DispatcherUnhandledException;
 
         }
         protected override void OnStartup(StartupEventArgs e)
         {
             var builderBase = new ContainerBuilder();
-            builderBase.RegisterType<IUserBaseService>().As<UserBaseService>();
-            //builderBase.RegisterType<ViewModelBase>().AsSelf();
+
+            builderBase.RegisterModule(new ContextFactoriesModule());
+            builderBase.RegisterModule(new ServicesModule());
+            
             var containerBase = builderBase.Build();
 
             var viewmodelBase = new AutorizationViewModel(containerBase.Resolve<IUserBaseService>());
