@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ProgramSystem.Data.Models
 {
-    public class ParameterEntity: IEntity
+    public class ParameterEntity
     {
         public int Id { get; set; }
         public string TypeParameter { get; set; } = null!; // тип параметра

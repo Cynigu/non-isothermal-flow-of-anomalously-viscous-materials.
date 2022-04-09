@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ProgramSystem.Data.Models
 {
-    public class MaterialEntity : IEntity
+    public class MaterialEntity
     {
         public int Id { get; set; }
         public string Name { get; set; } = null!;

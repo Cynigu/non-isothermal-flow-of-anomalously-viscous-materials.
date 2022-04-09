@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ProgramSystem.Data.Models
 {
-    public class CanalEntity: IEntity
+    public class CanalEntity
     {
         public int Id { get; set; }
         public string Name { get; set; } = null!;

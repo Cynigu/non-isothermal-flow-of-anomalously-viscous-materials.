@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ProgramSystem.Data.Models
 {
-    public class UserEntity: IEntity
+    public class UserEntity
     {
         public int Id { get; set; }
         public string Login { get; set; } = null!;
