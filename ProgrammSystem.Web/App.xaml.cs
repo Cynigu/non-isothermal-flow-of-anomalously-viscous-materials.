@@ -50,7 +50,7 @@ namespace ProgrammSystem.Web
             //}
 
             Console.WriteLine("Миграции завершились успешно");
-            var viewmodelBase = new AutorizationViewModel(containerBase.Resolve<IUserBaseService>());
+            var viewmodelBase = new AutorizationViewModel(containerBase.Resolve<IUserService>());
             //var viewBase = new MainWindow { DataContext = viewmodelBase };
 
             var viewBase = new AutorizationWindow { DataContext = viewmodelBase };

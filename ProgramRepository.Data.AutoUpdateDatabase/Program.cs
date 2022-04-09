@@ -41,7 +41,7 @@ builderBase.RegisterModule(new ServicesModule());
 
 var containerBase = builderBase.Build();
 
-var userBaseService = containerBase.Resolve<IUserBaseService>();
+var userBaseService = containerBase.Resolve<IUserService>();
 UserDTO? user = userBaseService.GetAccountByLoginPassword(login, password);
 
 if (user == null)

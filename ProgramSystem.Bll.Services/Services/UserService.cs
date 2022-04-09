@@ -7,15 +7,15 @@ using ProgramSystem.Data.Repository.UOW;
 
 namespace ProgramSystem.Bll.Services.Services
 {
-    public class UserBaseService : IUserBaseService
+    public class UserService : IUserService
     {
         private readonly ISqlLiteRepositoryContextFactory _contextFactory;
-        public UserBaseService(ISqlLiteRepositoryContextFactory sqlLiteRepositoryContextFactory)
+        public UserService(ISqlLiteRepositoryContextFactory sqlLiteRepositoryContextFactory)
         {
             _contextFactory = sqlLiteRepositoryContextFactory;
         }
 
-        public async Task AddAsync(UserDTO item)
+        public async Task AddUserAsync(UserDTO item)
         {
             using (var uow = new UnitOfWork(_contextFactory.Create()))
             {
@@ -23,27 +23,11 @@ namespace ProgramSystem.Bll.Services.Services
             }
         }
 
-        public async Task AddRangeAsync(ICollection<UserDTO> item)
-        {
-            using (var uow = new UnitOfWork(_contextFactory.Create()))
-            {
-                await uow.UserRepository.AddRangeAsync(item.Select(x => x.ToEntity()).ToList());
-            }
-        }
-
-        public async Task UpdateAsync(UserDTO item)
+        public async Task UpdateUserAsync(UserDTO item)
         {
             using (var uow = new UnitOfWork(_contextFactory.Create()))
             {
                 await uow.UserRepository.UpdateAsync(item.ToEntity());
-            }
-        }
-
-        public async Task SaveAsync()
-        {
-            using (var uow = new UnitOfWork(_contextFactory.Create()))
-            {
-                await uow.SaveAsync();
             }
         }
 
@@ -58,12 +42,12 @@ namespace ProgramSystem.Bll.Services.Services
             return deletedUsers;
         }
 
-        public IQueryable<UserDTO> GetEntityQuery()
+        public IEnumerable<UserDTO> GetAllUsers()
         {
-            IQueryable<UserDTO> users;
+            IEnumerable<UserDTO> users;
             using (var uow = new UnitOfWork(_contextFactory.Create()))
             {
-                users = uow.UserRepository.GetEntityQuery().Select(x => x.ToDto());
+                users = uow.UserRepository.GetEntityQuery().Select(x => x.ToDto()).ToList();
             }
 
             return users;

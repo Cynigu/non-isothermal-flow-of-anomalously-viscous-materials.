@@ -9,7 +9,7 @@ namespace ProgrammSystem.Web.vm
 {
     public class AutorizationViewModel: ViewModelBase
     {
-        private readonly IUserBaseService _userBaseService;
+        private readonly IUserService _userService;
 
         #region Fields
         private string? login;
@@ -51,18 +51,25 @@ namespace ProgrammSystem.Web.vm
         public AsyncCommand AuthorizationCommand { get; set; }
         #endregion
 
-        public AutorizationViewModel(IUserBaseService userBaseService)
+        public AutorizationViewModel(IUserService userService)
         {
             Login = "researcher/admin";
             //Password = "researcher";
-            _userBaseService = userBaseService;
+            _userService = userService;
             AuthorizationCommand = new AsyncCommand(AuthorizationAsync, CanAuthorization);
         }
 
         #region Methods
         private async Task AuthorizationAsync()
         {
-            var user = _userBaseService.GetAccountByLoginPassword(Login, new NetworkCredential("", Password).Password);
+            var user = _userService.GetAccountByLoginPassword(Login, new NetworkCredential("", Password).Password);
+            var users = _userService.GetAllUsers();
+            string uString = "";
+            foreach (var u in users)
+            {
+                uString += u.Id + " Логин: " + u.Login + " Роль: " + u.Role +"\n";
+            }
+            MessageBox.Show(uString);
             if (user == null)
             {
                 MessageBox.Show("Неверный логин или пароль");
