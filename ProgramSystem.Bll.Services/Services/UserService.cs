@@ -7,15 +7,15 @@ using ProgramSystem.Data.Repository.UOW;
 
 namespace ProgramSystem.Bll.Services.Services
 {
-    public class UserBaseService : IUserBaseService
+    public class UserService : IUserService
     {
         private readonly ISqlLiteRepositoryContextFactory _contextFactory;
-        public UserBaseService(ISqlLiteRepositoryContextFactory sqlLiteRepositoryContextFactory)
+        public UserService(ISqlLiteRepositoryContextFactory sqlLiteRepositoryContextFactory)
         {
             _contextFactory = sqlLiteRepositoryContextFactory;
         }
 
-        public async Task AddAsync(UserDTO item)
+        public async Task AddUserAsync(UserDTO item)
         {
             using (var uow = new UnitOfWork(_contextFactory.Create()))
             {

@@ -3,8 +3,15 @@ using ProgramSystem.Bll.Services.DTO;
 
 namespace ProgramSystem.Bll.Services.Interfaces;
 
-public interface IUserBaseService: IBaseService<UserDTO>
+public interface IUserService
 {
+    /// <summary>
+    /// Добавить пользователя
+    /// </summary>
+    /// <param name="item"></param>
+    /// <returns></returns>
+    Task AddUserAsync(UserDTO item);
+
     /// <summary>
     /// Получить данные аккаунта (id, роль, логин, пароль) по логину, паролю 
     /// </summary>
