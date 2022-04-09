@@ -1,4 +1,5 @@
-﻿using ProgramSystem.Bll.Services.DTO;
+﻿using System.Security;
+using ProgramSystem.Bll.Services.DTO;
 using ProgramSystem.Bll.Services.Interfaces;
 using ProgramSystem.Bll.Services.Mapper;
 using ProgramSystem.Data.Repository.Factories;
@@ -8,10 +9,10 @@ namespace ProgramSystem.Bll.Services.Services
 {
     public class UserBaseService : IUserBaseService
     {
-        private readonly IRepositoryContextFactory _contextFactory;
-        public UserBaseService(IRepositoryContextFactory repositoryContextFactory)
+        private readonly ISqlLiteRepositoryContextFactory _contextFactory;
+        public UserBaseService(ISqlLiteRepositoryContextFactory sqlLiteRepositoryContextFactory)
         {
-            _contextFactory = repositoryContextFactory;
+            _contextFactory = sqlLiteRepositoryContextFactory;
         }
 
         public async Task AddAsync(UserDTO item)
