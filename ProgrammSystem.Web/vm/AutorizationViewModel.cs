@@ -11,10 +11,13 @@ namespace ProgrammSystem.Web.vm
     {
         private readonly IUserBaseService _userBaseService;
 
+        #region Fields
         private string? login;
         private SecureString? password;
+        #endregion
 
-        
+        #region Properties
+
         public string? Login
         {
             get
@@ -27,8 +30,6 @@ namespace ProgrammSystem.Web.vm
                 OnPropertyChanged();
             }
         }
-
-       
         public SecureString? Password
         {
             get
@@ -42,16 +43,23 @@ namespace ProgrammSystem.Web.vm
             }
         }
 
-        public AsyncCommand AuthorizationCommand;
+
+        #endregion
+
+
+        #region Commands
+        public AsyncCommand AuthorizationCommand { get; set; }
+        #endregion
 
         public AutorizationViewModel(IUserBaseService userBaseService)
         {
             Login = "researcher/admin";
             //Password = "researcher";
             _userBaseService = userBaseService;
-            AuthorizationCommand = new AsyncCommand(AuthorizationAsync, null);
+            AuthorizationCommand = new AsyncCommand(AuthorizationAsync, CanAuthorization);
         }
 
+        #region Methods
         private async Task AuthorizationAsync()
         {
             var user = _userBaseService.GetAccountByLoginPassword(Login, new NetworkCredential("", Password).Password);
@@ -63,12 +71,15 @@ namespace ProgrammSystem.Web.vm
             {
                 MessageBox.Show("Вход под админом\n Пользователь " + user.Login);
             }
-            else if (user.Role == "user")
+            else if (user.Role == "researcher")
             {
-                MessageBox.Show("Вход под пользователем\n Пользователь " + user.Login);
+                MessageBox.Show("Вход под исследователем\n Пользователь " + user.Login);
             }
         }
 
         private bool CanAuthorization() => !string.IsNullOrEmpty(Login) && Password != null;
+
+        #endregion
+
     }
 }

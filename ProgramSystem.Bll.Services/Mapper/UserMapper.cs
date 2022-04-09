@@ -10,7 +10,7 @@ namespace ProgramSystem.Bll.Services.Mapper
 {
     public static class UserMapper
     {
-        public static UserDTO ToDto(this UserEntity user)
+        public static UserDTO ToDto(this UserEntity? user)
         {
             if (user == null)
                 throw new ArgumentNullException();

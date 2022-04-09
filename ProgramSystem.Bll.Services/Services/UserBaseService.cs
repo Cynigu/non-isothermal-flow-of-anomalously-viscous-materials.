@@ -74,7 +74,7 @@ namespace ProgramSystem.Bll.Services.Services
             UserDTO? user;
             using var uow = new UnitOfWork(_contextFactory.Create());
 
-            user = uow.UserRepository.GetEntityQuery().First(x => x.Login == login && x.Password == password).ToDto();
+            user = uow.UserRepository.GetEntityQuery().FirstOrDefault(x => x.Login == login && x.Password == password).ToDto();
 
             return user;
         }
