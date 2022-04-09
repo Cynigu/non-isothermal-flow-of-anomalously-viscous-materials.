@@ -63,6 +63,13 @@ namespace ProgrammSystem.Web.vm
         private async Task AuthorizationAsync()
         {
             var user = _userService.GetAccountByLoginPassword(Login, new NetworkCredential("", Password).Password);
+            var users = _userService.GetAllUsers();
+            string uString = "";
+            foreach (var u in users)
+            {
+                uString += u.Id + " Логин: " + u.Login + " Роль: " + u.Role +"\n";
+            }
+            MessageBox.Show(uString);
             if (user == null)
             {
                 MessageBox.Show("Неверный логин или пароль");
