@@ -62,7 +62,7 @@ namespace ProgrammSystem.Web.vm
         #region Methods
         private async Task AuthorizationAsync()
         {
-            var user = _userService.GetAccountByLoginPassword(Login, new NetworkCredential("", Password).Password);
+            var user = _userService.GetAccountByLoginPassword(Login ?? "", new NetworkCredential("", Password).Password);
             var users = _userService.GetAllUsers();
             string uString = "";
             foreach (var u in users)
