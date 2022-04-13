@@ -35,6 +35,10 @@
                                 <TextBlock  x:Name="textBlockPassword" Text="Пароль:" />
                                 <TextBox x:Name="textBoxPassword"/>
                             </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock  x:Name="textBlockRole" Text="Роль:" />
+                                <ComboBox x:Name="comboBoxRole" Width="130" Height="25"/>
+                            </StackPanel>
                             <Button x:Name="buttonAddLog" Content="Добавить" ></Button>
                             <Button x:Name="buttonDelete" Content="Удалить" ></Button>
                             <Button x:Name="buttonEdit" Content="Изменить"></Button>
@@ -54,9 +58,9 @@
                 <TabItem.Content>
                     <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
                         <StackPanel>
-                            <TextBlock Text="Входные параметры:" FontSize="20" Height="25" FontWeight="Bold"/>
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock x:Name="textBlockTm" Text="Тип материала:" FontWeight="Bold"></TextBlock>
+                                <TextBox x:Name="textBoxTypeOfMaterial"></TextBox>
                                 <ComboBox x:Name="comboBoxTm" Width="150"></ComboBox>
                             </StackPanel>
                             <TextBlock x:Name="textBlockPm" Text="Параметры свойств материала:" FontWeight="Bold"></TextBlock>
@@ -74,7 +78,6 @@
                             </StackPanel>
                         </StackPanel>
                         <StackPanel>
-                            <TextBlock Text="Параметры математической модели:" FontSize="20" Height="25" FontWeight="Bold"/>
                             <TextBlock x:Name="textBlockKm" FontSize="14" Text="Эмпирические коэффициенты математической модели: " FontWeight="Bold" HorizontalAlignment="Left" Canvas.Top="35" VerticalAlignment="Center" Canvas.Left="18"></TextBlock>
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock x:Name="textBlockm0" Text="Коэффициент консистенции материала при температуре приведения (Па*с^n)"></TextBlock>
@@ -122,6 +125,9 @@
                         <Button Content="Добавить"/>
                         <Button Content="Удалить"/>
                         <Button Content="Изменить"/>
+                    </StackPanel>
+                    <StackPanel>
+                        <Button x:Name="copyOfDataBase" Content="Резервная копия базы данных" Width="540"/>
                     </StackPanel>
                     <!--<DataGrid x:Name="dataGrid" Width="248" Height="auto">
                         </DataGrid>-->

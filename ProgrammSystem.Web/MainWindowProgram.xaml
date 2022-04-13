@@ -68,7 +68,7 @@
                                 <TextBox x:Name="textBoxc" ></TextBox>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock x:Name="textBlockT0" Text="Темп. плавления (С)"></TextBlock>
+                                <TextBlock x:Name="textBlockT0" Text="Температура плавления (С)"></TextBlock>
                                 <TextBox x:Name="textBoxT0"></TextBox>
                             </StackPanel>
 
@@ -82,11 +82,11 @@
                             <TextBlock Text="Варьируемые параметры:" FontSize="20" FontWeight="Bold"  Height="30"></TextBlock>
                             <TextBlock x:Name="textBlockU" FontSize="14" Text="Режимные параметры процесса:" FontWeight="Bold"/>
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock x:Name="textBlockVu" FontSize="14" Text="Скорость крышки (м/с)"  Height="22" />
+                                <TextBlock x:Name="textBlockVu" FontSize="14" Text="Скорость крышки (м/с) "  Height="22" />
                                 <TextBox x:Name="textBoxVu" Height="23"></TextBox>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock x:Name="textBlockTu" FontSize="14" Text="Темп. крышки (С)" ></TextBlock>
+                                <TextBlock x:Name="textBlockTu" FontSize="14" Text="Температура крышки (С) " ></TextBlock>
                                 <TextBox x:Name="textBoxTu"></TextBox>
                             </StackPanel>
                         </StackPanel>
@@ -94,13 +94,18 @@
                     <Border>
                         <StackPanel>
                             <TextBlock Text="Параметры математической модели:" FontSize="20" FontWeight="Bold" Height="30"/>
-                            <TextBlock x:Name="textBlockKm" Text="Эмпирические коэффициенты математтической модели:" FontWeight="Bold"/>
+                            <TextBlock Text="Параметры математической модели:" FontWeight="Bold"/>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Шаг по длине канала (м) "/>
+                                <TextBox x:Name="textBoxStep"/>
+                            </StackPanel>
+                            <TextBlock x:Name="textBlockKm" Text="Эмпирические коэффициенты математемаческой модели:" FontWeight="Bold"/>
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock x:Name="textBlockm0"  Text="Коэффициент консистенции материала при температуре приведения (Па*с^n)"/>
                                 <TextBox x:Name="textBoxm0"></TextBox>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock x:Name="textBlockb" Text="Темп. коэф. вязкости материала (1/С)"></TextBlock>
+                                <TextBlock x:Name="textBlockb" Text="Температурный коэффициент вязкости материала (1/С)"></TextBlock>
                                 <TextBox x:Name="textBoxb"></TextBox>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal">
@@ -117,11 +122,7 @@
                             </StackPanel>
                         </StackPanel>
                     </Border>
-                    
-                    
-                    
                 </StackPanel>
-                
             </StackPanel>
         </StackPanel>
                          
