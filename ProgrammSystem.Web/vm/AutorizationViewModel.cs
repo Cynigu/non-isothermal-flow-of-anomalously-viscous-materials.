@@ -60,7 +60,7 @@ namespace ProgrammSystem.Web.vm
         }
 
         #region Methods
-        private async Task AuthorizationAsync()
+        private async Task AuthorizationAsync() //запускается при клике на кнопку
         {
             var user = _userService.GetAccountByLoginPassword(Login ?? "", new NetworkCredential("", Password).Password);
             var users = _userService.GetAllUsers();
@@ -84,7 +84,7 @@ namespace ProgrammSystem.Web.vm
             }
         }
 
-        private bool CanAuthorization() => !string.IsNullOrEmpty(Login) && Password != null;
+        private bool CanAuthorization() => !string.IsNullOrEmpty(Login) && Password != null; //проверка
 
         #endregion
 

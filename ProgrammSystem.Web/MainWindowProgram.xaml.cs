@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System.Linq;
+using System.Windows;
+using System.Windows.Input;
 
 namespace ProgrammSystem.Web
 {
@@ -10,6 +12,11 @@ namespace ProgrammSystem.Web
         public MainWindowProgram()
         {
             InitializeComponent();
+        }
+
+        private void Text_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            e.Handled = !char.IsDigit(e.Text.Last()) && !e.Text.Last().Equals('.');
         }
     }
 }

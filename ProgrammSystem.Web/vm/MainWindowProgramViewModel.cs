@@ -9,46 +9,43 @@ namespace ProgrammSystem.Web.vm
 {
     public class MainWindowProgramViewModel: ViewModelBase
     {
-        private readonly IUserService _userService;
-
+        private readonly IMathService _mathService;
+        private Results _res;
         #region Fields
-        private string? lenght; //длина
-        private string? weight;//ширина
-        private string? height; //глубина
+        private double lenght; //длина
+        private double weight;//ширина
+        private double height; //глубина
 
-        private string? typeOfMaterial;
-        private string? ro;
-        private string? c;
-        private string? temp0;
+        private double typeOfMaterial;
+        private double ro;
+        private double c;
+        private double temp0;
 
-        private string? speedU;
-        private string? tempU;
+        private double speedU;
+        private double tempU;
 
-        private string? step;
+        private double step;
 
-        private string? m0;
-        private string? b;
-        private string? tempR;
-        private string? n;
-        private string? koefU;
+        private double m0;
+        private double b;
+        private double tempR;
+        private double n;
+        private double koefU;
 
         #endregion
 
         #region Properties
 
-        public string? Lenght
+        public double Lenght
         {
-            get
-            {
-                return lenght;
-            }
+            get => lenght;
             set
             {
                 lenght = value;
                 OnPropertyChanged();
             }
         }
-        public string? Weight
+        public double Weight
         {
             get
             {
@@ -60,7 +57,7 @@ namespace ProgrammSystem.Web.vm
                 OnPropertyChanged();
             }
         }
-        public string? Height
+        public double Height
         {
             get 
             { 
@@ -73,7 +70,7 @@ namespace ProgrammSystem.Web.vm
             }
 
         }
-        public string? TypeOfMaterial
+        public double TypeOfMaterial
         {
             get
             {
@@ -85,7 +82,7 @@ namespace ProgrammSystem.Web.vm
                 OnPropertyChanged();
             }
         }
-        public string? Ro
+        public double Ro
         {
             get
             { 
@@ -97,7 +94,7 @@ namespace ProgrammSystem.Web.vm
                 OnPropertyChanged();
             }
         }
-        public string? C
+        public double C
         {
             get
             {
@@ -109,7 +106,7 @@ namespace ProgrammSystem.Web.vm
                 OnPropertyChanged();
             }
         }
-        public string? Temp0
+        public double Temp0
         {
             get
             {
@@ -121,7 +118,7 @@ namespace ProgrammSystem.Web.vm
                 OnPropertyChanged();
             }
         }
-        public string? SpeedU
+        public double SpeedU
         {
             get
             {
@@ -133,7 +130,7 @@ namespace ProgrammSystem.Web.vm
                 OnPropertyChanged();
             }
         }
-        public string? TempU
+        public double TempU
         {
             get
             {
@@ -145,7 +142,7 @@ namespace ProgrammSystem.Web.vm
                 OnPropertyChanged();
             }
         }
-        public string? Step
+        public double Step
         {
             get
             {
@@ -157,7 +154,7 @@ namespace ProgrammSystem.Web.vm
                 OnPropertyChanged();
             }
         }
-        public string? M0
+        public double M0
         {
             get
             {
@@ -169,7 +166,7 @@ namespace ProgrammSystem.Web.vm
                 OnPropertyChanged();
             }
         }
-        public string? B
+        public double B
         {
             get
             {
@@ -181,7 +178,7 @@ namespace ProgrammSystem.Web.vm
                 OnPropertyChanged();
             }
         }
-        public string? TempR
+        public double TempR
         {
             get
             {
@@ -193,7 +190,7 @@ namespace ProgrammSystem.Web.vm
                 OnPropertyChanged();
             }
         }
-        public string? N
+        public double N
         {
             get
             {
@@ -205,7 +202,7 @@ namespace ProgrammSystem.Web.vm
                 OnPropertyChanged();
             }
         }
-        public string? KoefU
+        public double KoefU
         {
             get
             {
@@ -220,21 +217,29 @@ namespace ProgrammSystem.Web.vm
         
         #endregion
 
-
         #region Commands
-        public AsyncCommand MainWindowProgramCommand { get; set; }
+        public AsyncCommand MainWindowProgramCalculateCommand { get; set; }
         #endregion
 
-        public MainWindowProgramViewModel(IUserService userService)
+        public MainWindowProgramViewModel(/*IMathService mathService*/)
         {
             //Login = "researcher/admin";
             //Password = "researcher";
 
-            _userService = userService;
-           // AuthorizationCommand = new AsyncCommand(AuthorizationAsync, CanAuthorization);
+            //_mathService = mathService;
+            MainWindowProgramCalculateCommand = new AsyncCommand(CalculateResults, CheckData);
         }
 
         #region Methods
+        private async Task CalculateResults()
+        {
+            //длина=сервис.методсервиса
+            _res = _mathService.Calculation(weight, height, lenght, ro, c, temp0, speedU, tempU, m0, b, tempR, n, koefU, step);
+
+
+            //var sumResult = _mathService.SumTwoElement(1, 2);
+            //Lenght = sumResult;//вывод на экран
+        }
         //private async Task AuthorizationAsync()
         //{
         //    var user = _userService.GetAccountByLoginPassword(Login ?? "", new NetworkCredential("", Password).Password);
@@ -259,7 +264,7 @@ namespace ProgrammSystem.Web.vm
         //    }
         //}
 
-        //private bool CanAuthorization() => !string.IsNullOrEmpty(Login) && Password != null;
+        private bool CheckData() => /*!string.IsNullOrEmpty(Login) && Password != null && */Lenght != null;
 
         #endregion
 
