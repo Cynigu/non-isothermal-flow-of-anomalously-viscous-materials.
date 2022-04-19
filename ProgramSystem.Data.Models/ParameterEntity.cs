@@ -10,10 +10,16 @@ namespace ProgramSystem.Data.Models
     public class ParameterEntity
     {
         public int Id { get; set; }
+        /// <summary>
+        /// "Варьируемый" "Входной" "Математический"
+        /// </summary>
         public string TypeParameter { get; set; } = null!; // тип параметра
         public string Name { get; set; } // название параметра
         public int UnitOfMeasId { get; set; }
         public UnitOfMeasEntity UnitOfMeas { get; set; } = null!; // единица измерения
-        public ICollection<ParameterMaterialCanalEntity>? ParameterMaterialCanal { get; set; }
+        public ICollection<VariableParameterMaterialCanalEntity>? VariableParameterMaterialCanal { get; set; }
+        public ICollection<ParameterCanalEntity>? ParameterCanal { get; set; }
+        public ICollection<ParameterMaterialEntity>? ParameterMaterial { get; set; }
+        public ICollection<EmpiricalParameterMaterialEntity>? EmpiricalParameterMaterial { get; set; }
     }
 }

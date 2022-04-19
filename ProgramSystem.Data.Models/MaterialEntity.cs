@@ -10,6 +10,8 @@ namespace ProgramSystem.Data.Models
     {
         public int Id { get; set; }
         public string Name { get; set; } = null!;
-        public ICollection<ParameterMaterialCanalEntity>? ParameterMaterialCanal { get; set; }
+        public ICollection<VariableParameterMaterialCanalEntity>? VariableParameterMaterialCanal { get; set; }
+        public ICollection<ParameterMaterialEntity>? ParameterMaterial { get; set; }
+        public ICollection<EmpiricalParameterMaterialEntity>? EmpiricalParameterMaterial { get; set; }
     }
 }

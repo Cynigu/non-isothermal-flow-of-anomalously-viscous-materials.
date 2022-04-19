@@ -9,7 +9,10 @@ namespace ProgramSystem.Data.Repository
         {
         }
 
-        public DbSet<ParameterMaterialCanalEntity> ParameterValues { get; set; } = null!;
+        public DbSet<VariableParameterMaterialCanalEntity> VariableParameters { get; set; } = null!;
+        public DbSet<ParameterCanalEntity> CanalParameters { get; set; } = null!;
+        public DbSet<ParameterMaterialEntity> MaterialParameters { get; set; } = null!;
+        public DbSet<EmpiricalParameterMaterialEntity> EmpiricalParameters { get; set; } = null!;
         public DbSet<UnitOfMeasEntity> UnitsOfMeas { get; set; } = null!;
         public DbSet<ParameterEntity> Parameters { get; set; } = null!;
         public DbSet<MaterialEntity> Materials { get; set; } = null!;
@@ -57,38 +60,88 @@ namespace ProgramSystem.Data.Repository
                 new(){Id = 12, UnitOfMeasId = 9, Name = "Индекс течения материала, n", TypeParameter = "Эмпирические коэффициенты математической модели"}, 
                 new(){Id = 13, UnitOfMeasId = 8, Name = "Коэффициент теплоотдачи от крышки канала к материалу, Tu", TypeParameter = "Эмпирические коэффициенты математической модели"});
 
-            modelBuilder.Entity<ParameterMaterialCanalEntity>().HasData(
-                new(){CanalId = 1, MaterialId = 1, ParameterId = 1, Value = 0.2f}, 
-                new(){CanalId = 1, MaterialId = 1, ParameterId = 2, Value = 0.003f}, 
-                new(){CanalId = 1, MaterialId = 1, ParameterId = 3, Value = 7.5f}, 
-                new(){CanalId = 1, MaterialId = 1, ParameterId = 4, Value = 900f}, 
-                new(){CanalId = 1, MaterialId = 1, ParameterId = 5, Value = 2230f}, 
-                new(){CanalId = 1, MaterialId = 1, ParameterId = 6, Value = 172f}, 
-                new(){CanalId = 1, MaterialId = 1, ParameterId = 7, Value = 1.5f}, 
-                new(){CanalId = 1, MaterialId = 1, ParameterId = 8, Value = 180f}, 
-                new(){CanalId = 1, MaterialId = 1, ParameterId = 9, Value = 1500f}, 
-                new(){CanalId = 1, MaterialId = 1, ParameterId = 10, Value = 0.014f}, 
-                new(){CanalId = 1, MaterialId = 1, ParameterId = 11, Value = 185f}, 
-                new(){CanalId = 1, MaterialId = 1, ParameterId = 12, Value = 0.38f}, 
-                new(){CanalId = 1, MaterialId = 1, ParameterId = 13, Value = 1500f});
+            modelBuilder.Entity<ParameterMaterialEntity>().HasData(
+                new() { MaterialId = 1, ParameterId = 4, Value = 900f },
+                new() { MaterialId = 1, ParameterId = 5, Value = 2230f },
+                new() { MaterialId = 1, ParameterId = 6, Value = 172f }
+            );
+            modelBuilder.Entity<ParameterCanalEntity>().HasData(
+                new() { CanalId = 1, ParameterId = 1, Value = 0.2f },
+                new() { CanalId = 1, ParameterId = 2, Value = 0.003f },
+                new() { CanalId = 1, ParameterId = 3, Value = 7.5f }
+                );
+            modelBuilder.Entity<EmpiricalParameterMaterialEntity>().HasData(
+                new() {  MaterialId = 1, ParameterId = 9, Value = 1500f },
+                new() {  MaterialId = 1, ParameterId = 10, Value = 0.014f },
+                new() {  MaterialId = 1, ParameterId = 11, Value = 185f },
+                new() {  MaterialId = 1, ParameterId = 12, Value = 0.38f },
+                new() {  MaterialId = 1, ParameterId = 13, Value = 1500f }
+
+            );
+            modelBuilder.Entity<VariableParameterMaterialCanalEntity>().HasData(
+                new(){CanalId = 1, MaterialId = 1, ParameterId = 7, ValueLower = 1.5f}, 
+                new(){CanalId = 1, MaterialId = 1, ParameterId = 8, ValueLower = 180f}
+                );
 
             // Ключи
-            modelBuilder.Entity<ParameterMaterialCanalEntity>()
+            modelBuilder.Entity<VariableParameterMaterialCanalEntity>()
                 .HasKey(t => new { t.MaterialId, t.ParameterId, t.CanalId });
 
-            modelBuilder.Entity<ParameterMaterialCanalEntity>()
+            modelBuilder.Entity<VariableParameterMaterialCanalEntity>()
                 .HasOne(pt => pt.Material)
-                .WithMany(p => p.ParameterMaterialCanal)
+                .WithMany(p => p.VariableParameterMaterialCanal)
                 .HasForeignKey(pt => pt.MaterialId);
 
-            modelBuilder.Entity<ParameterMaterialCanalEntity>()
+            modelBuilder.Entity<VariableParameterMaterialCanalEntity>()
                 .HasOne(pt => pt.Parameter)
-                .WithMany(t => t.ParameterMaterialCanal)
+                .WithMany(t => t.VariableParameterMaterialCanal)
                 .HasForeignKey(pt => pt.ParameterId);
 
-            modelBuilder.Entity<ParameterMaterialCanalEntity>()
+            modelBuilder.Entity<VariableParameterMaterialCanalEntity>()
                 .HasOne(pt => pt.Canal)
-                .WithMany(t => t.ParameterMaterialCanal)
+                .WithMany(t => t.VariableParameterMaterialCanal)
+                .HasForeignKey(pt => pt.CanalId);
+
+            // Параметры материала
+            modelBuilder.Entity<ParameterMaterialEntity>()
+                .HasKey(t => new { t.MaterialId, t.ParameterId });
+
+            modelBuilder.Entity<ParameterMaterialEntity>()
+                .HasOne(pt => pt.Parameter)
+                .WithMany(t => t.ParameterMaterial)
+                .HasForeignKey(pt => pt.ParameterId);
+
+            modelBuilder.Entity<ParameterMaterialEntity>()
+                .HasOne(pt => pt.Material)
+                .WithMany(p => p.ParameterMaterial)
+                .HasForeignKey(pt => pt.MaterialId);
+
+            // Эмпирические параметры материала
+            modelBuilder.Entity<EmpiricalParameterMaterialEntity>()
+                .HasKey(t => new { t.MaterialId, t.ParameterId });
+
+            modelBuilder.Entity<EmpiricalParameterMaterialEntity>()
+                .HasOne(pt => pt.Parameter)
+                .WithMany(t => t.EmpiricalParameterMaterial)
+                .HasForeignKey(pt => pt.ParameterId);
+
+            modelBuilder.Entity<EmpiricalParameterMaterialEntity>()
+                .HasOne(pt => pt.Material)
+                .WithMany(p => p.EmpiricalParameterMaterial)
+                .HasForeignKey(pt => pt.MaterialId);
+
+            //  параметры канала
+            modelBuilder.Entity<ParameterCanalEntity>()
+                .HasKey(t => new { t.CanalId, t.ParameterId });
+
+            modelBuilder.Entity<ParameterCanalEntity>()
+                .HasOne(pt => pt.Parameter)
+                .WithMany(t => t.ParameterCanal)
+                .HasForeignKey(pt => pt.ParameterId);
+
+            modelBuilder.Entity<ParameterCanalEntity>()
+                .HasOne(pt => pt.Canal)
+                .WithMany(p => p.ParameterCanal)
                 .HasForeignKey(pt => pt.CanalId);
 
             base.OnModelCreating(modelBuilder);

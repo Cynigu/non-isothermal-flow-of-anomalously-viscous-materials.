@@ -2,7 +2,7 @@
 
 namespace ProgramSystem.Data.Repository.Interfaces
 {
-    public interface IParameterCanalMaterialRepository : IBaseRepository<ParameterMaterialCanalEntity>
+    public interface IParameterCanalMaterialRepository : IBaseRepository<VariableParameterMaterialCanalEntity>
     {
 
     }
