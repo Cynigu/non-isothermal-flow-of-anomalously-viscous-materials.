@@ -11,11 +11,14 @@
             <TextBlock Text="{Binding Q}"/>
             <TextBlock Text="{Binding Temp}"/>
             <TextBlock Text="{Binding Visc}"/>
-            <DataGrid x:Name="resultsGrid" ItemsSource="{Binding}">
+            <DataGrid x:Name="resultsGrid" ItemsSource="{Binding DataForTable}" AutoGenerateColumns="False">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Длина канала, м" Binding = "{Binding len}"/>
-                    <DataGridTextColumn Header="Температура, С" Binding = "{Binding tempInside}"/>
-                    <DataGridTextColumn Header="Вязкость, Па*с" Binding = "{Binding viscInside}"/> 
+                    <DataGridTextColumn Header="Длина канала, м"/>
+                    <!--Binding = "{Binding Len}" />-->
+                    <DataGridTextColumn Header="Температура, С"/>
+                    <!--Binding = "{Binding TempInside}" />-->
+                    <DataGridTextColumn Header="Вязкость, Па*с"/>
+                    <!--Binding = "{Binding ViscInside}" /> -->
                 </DataGrid.Columns>
             </DataGrid>
         </StackPanel>

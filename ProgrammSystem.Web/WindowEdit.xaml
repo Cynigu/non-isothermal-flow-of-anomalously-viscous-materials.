@@ -29,11 +29,11 @@
                         <StackPanel>
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock x:Name="textBlockLog" Text="Логин:" />
-                                <TextBox x:Name="textBoxLog" />
+                                <TextBox x:Name="textBoxLog" Text="{Binding Login}"/>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock  x:Name="textBlockPassword" Text="Пароль:" />
-                                <TextBox x:Name="textBoxPassword"/>
+                                <TextBox x:Name="textBoxPassword" Text="{Binding Password}"/>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock  x:Name="textBlockRole" Text="Роль:" />
@@ -60,44 +60,44 @@
                         <StackPanel>
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock x:Name="textBlockTm" Text="Тип материала:" FontWeight="Bold"></TextBlock>
-                                <TextBox x:Name="textBoxTypeOfMaterial"></TextBox>
+                                <TextBox x:Name="textBoxTypeOfMaterial" Text="{Binding TypeOfMaterial}"></TextBox>
                                 <ComboBox x:Name="comboBoxTm" Width="150"></ComboBox>
                             </StackPanel>
                             <TextBlock x:Name="textBlockPm" Text="Параметры свойств материала:" FontWeight="Bold"></TextBlock>
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock x:Name="textBlockro" Text="Плотность (кг/м^3)"></TextBlock>
-                                <TextBox x:Name="textBoxro" PreviewTextInput="Text_PreviewTextInput"></TextBox>
+                                <TextBox x:Name="textBoxro" PreviewTextInput="Text_PreviewTextInput" Text="{Binding Ro}"></TextBox>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock x:Name="textBlockc" Text="Удельная теплоемкость (Дж/(кг*С))"></TextBlock>
-                                <TextBox x:Name="textBoxc" PreviewTextInput="Text_PreviewTextInput"></TextBox>
+                                <TextBox x:Name="textBoxc" PreviewTextInput="Text_PreviewTextInput" Text="{Binding C}"></TextBox>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock x:Name="textBlockT0" Text="Температура плавления (С)"></TextBlock>
-                                <TextBox x:Name="textBoxT0" PreviewTextInput="Text_PreviewTextInput"></TextBox>
+                                <TextBox x:Name="textBoxT0" PreviewTextInput="Text_PreviewTextInput" Text="{Binding Temp0}"></TextBox>
                             </StackPanel>
                         </StackPanel>
                         <StackPanel>
                             <TextBlock x:Name="textBlockKm" FontSize="14" Text="Эмпирические коэффициенты математической модели: " FontWeight="Bold" HorizontalAlignment="Left" Canvas.Top="35" VerticalAlignment="Center" Canvas.Left="18"></TextBlock>
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock x:Name="textBlockm0" Text="Коэффициент консистенции материала при температуре приведения (Па*с^n)"></TextBlock>
-                                <TextBox x:Name="textBoxm0" PreviewTextInput="Text_PreviewTextInput"></TextBox>
+                                <TextBox x:Name="textBoxm0" PreviewTextInput="Text_PreviewTextInput" Text="{Binding M0}"></TextBox>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock x:Name="textBlockb" Text="Температурный коэффициент вязкости материала (1/C)"></TextBlock>
-                                <TextBox x:Name="textBoxb" PreviewTextInput="Text_PreviewTextInput"></TextBox>
+                                <TextBox x:Name="textBoxb" PreviewTextInput="Text_PreviewTextInput" Text="{Binding B}"></TextBox>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock x:Name="textBlockTr" Text="Температура приведения (C)" ></TextBlock>
-                                <TextBox x:Name="textBoxTr" PreviewTextInput="Text_PreviewTextInput"></TextBox>
+                                <TextBox x:Name="textBoxTr" PreviewTextInput="Text_PreviewTextInput" Text="{Binding TempR}"></TextBox>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock x:Name="textBlockn" Text="Индекс течения материала"></TextBlock>
-                                <TextBox x:Name="textBoxn" PreviewTextInput="Text_PreviewTextInput"></TextBox>
+                                <TextBox x:Name="textBoxn" PreviewTextInput="Text_PreviewTextInput" Text="{Binding N}"></TextBox>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock x:Name="textBlockau" Text="Коэффициент теплоотдачи от крышки канала к материалу (Вт/(м^2*С))"></TextBlock>
-                                <TextBox x:Name="textBoxau" PreviewTextInput="Text_PreviewTextInput"></TextBox>
+                                <TextBox x:Name="textBoxau" PreviewTextInput="Text_PreviewTextInput" Text="{Binding KoefU}"></TextBox>
                             </StackPanel>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal">
@@ -115,11 +115,11 @@
                 <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="Название: "/>
-                        <TextBox/>
+                        <TextBox Text="{Binding Name}"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="Единица измерения: "/>
-                        <TextBox/>
+                        <TextBox Text="{Binding Unit}"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <Button Content="Добавить"/>

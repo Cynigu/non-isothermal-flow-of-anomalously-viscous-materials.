@@ -88,6 +88,10 @@ namespace ProgrammSystem.Web.vm
             else if (user.Role == "admin")
             {
                 MessageBox.Show("Вход под админом\n Пользователь " + user.Login);
+                var viewmodelBase = new WindowEditViewModel();
+                var viewBase = new WindowEdit { DataContext = viewmodelBase };
+
+                viewBase.Show();
             }
             else if (user.Role == "researcher")
             {

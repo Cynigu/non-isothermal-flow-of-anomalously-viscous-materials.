@@ -18,6 +18,7 @@ namespace ProgrammSystem.Web.vm
         private List<double> len;
         private List<double> tempIn;
         private List<double> viscIn;
+        private List<string[]> dataForTable;
 
         #endregion
 
@@ -89,6 +90,18 @@ namespace ProgrammSystem.Web.vm
                 viscIn = value;
             }
         }
+
+        public List<string[]> DataForTable
+        {
+            get
+            {
+                return dataForTable;
+            }
+            set
+            {
+                dataForTable = value;
+            }
+        }
         #endregion
 
         #region Commands
@@ -106,9 +119,14 @@ namespace ProgrammSystem.Web.vm
             TempIn = res.TempInside;
             ViscIn = res.ViscosityInside;
 
-            
+            List<string[]> d = new List<string[]>();
+            for (int i = 0; i < Len.Count; i++)
+            {
+                string[] str = new string[] { Math.Round(Len[i], 2).ToString(), Math.Round(TempIn[i], 2).ToString(), Math.Round(ViscIn[i], 2).ToString() };
+                d.Add(str);
+            }
 
-            
+            DataForTable = d;
         }
 
         #region Methods        

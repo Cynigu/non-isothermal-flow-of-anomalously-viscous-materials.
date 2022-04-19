@@ -1,24 +1,18 @@
-﻿using System.Net;
-using System.Security;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
-using Autofac;
-using ProgrammSystem.BLL.Autofac;
-using ProgrammSystem.Web.Commands;
-using ProgramSystem.Bll.Services.Interfaces;
 
 namespace ProgrammSystem.Web.vm
 {
-    public class MainWindowProgramViewModel: ViewModelBase
+    internal class WindowEditViewModel: ViewModelBase
     {
-        private readonly IMathService _mathService;
-        private Results _res;
         #region Fields
-        private double lenght; //длина
-        private double weight;//ширина
-        private double height; //глубина
+        private string? login;
+        private string? password;       
 
-        private double typeOfMaterial;
+        private string? typeOfMaterial;
         private double ro;
         private double c;
         private double temp0;
@@ -34,45 +28,38 @@ namespace ProgrammSystem.Web.vm
         private double n;
         private double koefU;
 
+        private string? name;
+        private string? unit; //ед изм
         #endregion
 
         #region Properties
 
-        public double Lenght
-        {
-            get => lenght;
-            set
-            {
-                lenght = value;
-                OnPropertyChanged();
-            }
-        }
-        public double Weight
+        public string? Login
         {
             get
             {
-                return weight;
+                return login;
             }
             set
             {
-                weight = value;
+                login = value;
                 OnPropertyChanged();
             }
         }
-        public double Height
+        public string? Password
         {
-            get 
-            { 
-                return height; 
+            get
+            {
+                return password;
             }
             set
             {
-                height = value;
+                password = value;
                 OnPropertyChanged();
             }
-
         }
-        public double TypeOfMaterial
+        
+        public string? TypeOfMaterial
         {
             get
             {
@@ -87,7 +74,7 @@ namespace ProgrammSystem.Web.vm
         public double Ro
         {
             get
-            { 
+            {
                 return ro;
             }
             set
@@ -216,57 +203,51 @@ namespace ProgrammSystem.Web.vm
                 OnPropertyChanged();
             }
         }
-        
-        #endregion
 
-        #region Commands
-        public RelayCommand MainWindowProgramCalculateCommand { get; set; }
-        #endregion
-
-        public MainWindowProgramViewModel(IMathService mathService)
+        public string? Name
         {
-            _mathService = mathService;
+            get
+            {
+                return name;
+            }
+            set
+            {
+                name = value;
+                OnPropertyChanged();
+            }
+        }
+        public string? Unit
+        {
+            get
+            {
+                return unit;
+            }
+            set
+            {
+                unit = value;
+                OnPropertyChanged();
+            }
+        }
 
-            Lenght = 7.5;
-            Weight = 0.2;
-            Height = 0.003;
-            Ro =900;
-            C =2230;
-            Temp0 =172;
-            SpeedU =1.5;
-            TempU =180;
-            Step =1;
-            M0 =1500;
-            B =0.014;
-            TempR =185;
-            N =0.38;
-            KoefU =1500;
+        #endregion
 
-            MainWindowProgramCalculateCommand = new RelayCommand(obj => CalculateResults(), obj => true);
+
+        #region Commands 
+
+
+        #endregion
+
+        public WindowEditViewModel()
+        {
+            
         }
 
         #region Methods
-        private void CalculateResults()
-        {
-            //длина=сервис.методсервиса
-            _res = _mathService.Calculation(weight, height, lenght, ro, c, temp0, speedU, tempU, m0, b, tempR, n, koefU, step);
-
-            //новое окно как в апп хмл.кс
-            var builderBase = new ContainerBuilder();
-
-            builderBase.RegisterModule(new ContextFactoriesModule());
-            builderBase.RegisterModule(new ServicesModule());
-
-            var containerBase = builderBase.Build();
-
-            var viewmodelBase = new ResultWindowViewModel(_res);
-            var viewBase = new ResultWindow { DataContext = viewmodelBase };
-
-            viewBase.Show();
-
-        }      
+        
 
         #endregion
+
+
 
 
     }
