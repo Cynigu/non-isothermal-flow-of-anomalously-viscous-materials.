@@ -2,6 +2,9 @@
 using System.Security;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Input;
+using Autofac;
+using ProgrammSystem.BLL.Autofac;
 using ProgrammSystem.Web.Commands;
 using ProgramSystem.Bll.Services.Interfaces;
 
@@ -47,8 +50,9 @@ namespace ProgrammSystem.Web.vm
         #endregion
 
 
-        #region Commands
-        public AsyncCommand AuthorizationCommand { get; set; }
+        #region Commands 
+        public RelayCommand AuthorizationCommand { get; set; }
+
         #endregion
 
         public AutorizationViewModel(IUserService userService)
@@ -56,15 +60,22 @@ namespace ProgrammSystem.Web.vm
             Login = "researcher/admin";
             //Password = "researcher";
             _userService = userService;
-            AuthorizationCommand = new AsyncCommand(AuthorizationAsync, CanAuthorization);
+
+            AuthorizationCommand = new RelayCommand(obj => Authorization(), obj => CanAuthorization());
         }
 
         #region Methods
-        private async Task AuthorizationAsync() //запускается при клике на кнопку
+        private void Authorization() //запускается при клике на кнопку
         {
             var user = _userService.GetAccountByLoginPassword(Login ?? "", new NetworkCredential("", Password).Password);
             var users = _userService.GetAllUsers();
             string uString = "";
+            var builderBase = new ContainerBuilder();
+
+            builderBase.RegisterModule(new ContextFactoriesModule());
+            builderBase.RegisterModule(new ServicesModule());
+
+            var containerBase = builderBase.Build();
             foreach (var u in users)
             {
                 uString += u.Id + " Логин: " + u.Login + " Роль: " + u.Role +"\n";
@@ -81,12 +92,20 @@ namespace ProgrammSystem.Web.vm
             else if (user.Role == "researcher")
             {
                 MessageBox.Show("Вход под исследователем\n Пользователь " + user.Login);
+                
+                var viewmodelBase = new MainWindowProgramViewModel(containerBase.Resolve<IMathService>());
+                var viewBase = new MainWindowProgram { DataContext = viewmodelBase };
+
+                viewBase.Show();
+
             }
         }
 
         private bool CanAuthorization() => !string.IsNullOrEmpty(Login) && Password != null; //проверка
 
         #endregion
+
+
 
     }
 }

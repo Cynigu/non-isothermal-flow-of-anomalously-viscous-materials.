@@ -2,6 +2,8 @@
 using System.Security;
 using System.Threading.Tasks;
 using System.Windows;
+using Autofac;
+using ProgrammSystem.BLL.Autofac;
 using ProgrammSystem.Web.Commands;
 using ProgramSystem.Bll.Services.Interfaces;
 
@@ -218,27 +220,54 @@ namespace ProgrammSystem.Web.vm
         #endregion
 
         #region Commands
-        public AsyncCommand MainWindowProgramCalculateCommand { get; set; }
+        public RelayCommand MainWindowProgramCalculateCommand { get; set; }
         #endregion
 
-        public MainWindowProgramViewModel(/*IMathService mathService*/)
+        public MainWindowProgramViewModel(IMathService mathService)
         {
             //Login = "researcher/admin";
             //Password = "researcher";
 
-            //_mathService = mathService;
-            MainWindowProgramCalculateCommand = new AsyncCommand(CalculateResults, CheckData);
+            _mathService = mathService;
+
+            Lenght = 7.5;
+            Weight = 0.2;
+            Height = 0.003;
+            Ro =900;
+            C =2230;
+            Temp0 =172;
+            SpeedU =1.5;
+            TempU =180;
+            Step =1;
+            M0 =1500;
+            B =0.014;
+            TempR =185;
+            N =0.38;
+            KoefU =1500;
+
+            //MainWindowProgramCalculateCommand = new AsyncCommand(CalculateResults, ()=>true);
+            MainWindowProgramCalculateCommand = new RelayCommand(obj => CalculateResults(), obj => true);
         }
 
         #region Methods
-        private async Task CalculateResults()
+        private void CalculateResults()
         {
             //длина=сервис.методсервиса
             _res = _mathService.Calculation(weight, height, lenght, ro, c, temp0, speedU, tempU, m0, b, tempR, n, koefU, step);
 
+            //новое окно как в апп хмл.кс
+            var builderBase = new ContainerBuilder();
 
-            //var sumResult = _mathService.SumTwoElement(1, 2);
-            //Lenght = sumResult;//вывод на экран
+            builderBase.RegisterModule(new ContextFactoriesModule());
+            builderBase.RegisterModule(new ServicesModule());
+
+            var containerBase = builderBase.Build();
+
+            var viewmodelBase = new ResultWindowViewModel(_res);
+            var viewBase = new ResultWindow { DataContext = viewmodelBase };
+
+            viewBase.Show();
+
         }
         //private async Task AuthorizationAsync()
         //{
@@ -264,7 +293,7 @@ namespace ProgrammSystem.Web.vm
         //    }
         //}
 
-        private bool CheckData() => /*!string.IsNullOrEmpty(Login) && Password != null && */Lenght != null;
+       // private bool CheckData() => /*!string.IsNullOrEmpty(Login) && Password != null && */Lenght != null;
 
         #endregion
 

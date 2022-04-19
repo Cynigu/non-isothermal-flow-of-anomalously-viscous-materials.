@@ -49,21 +49,21 @@ namespace ProgrammSystem.Web
             //    return;
             //}
 
-            Console.WriteLine("Миграции завершились успешно");
+            //Console.WriteLine("Миграции завершились успешно");
 
-            // var viewmodelBase = new AutorizationViewModel(containerBase.Resolve<IUserService>());
+             var viewmodelBase = new AutorizationViewModel(containerBase.Resolve<IUserService>());
 
             //var viewBase = new MainWindow { DataContext = viewmodelBase };
 
 
            
 
-            var viewmodelBase = new MainWindowProgramViewModel();
+            //var viewmodelBase = new MainWindowProgramViewModel(containerBase.Resolve<IMathService>());
             //var viewBase = new MainWindowProgram { DataContext = viewmodelBase };
 
-            //var viewBase = new AutorizationWindow { DataContext = viewmodelBase };
+            var viewBase = new AutorizationWindow { DataContext = viewmodelBase };
 
-            var viewBase = new MainWindowProgram();
+            //var viewBase = new MainWindowProgram { DataContext = viewmodelBase};
 
             viewBase.Show();
         }

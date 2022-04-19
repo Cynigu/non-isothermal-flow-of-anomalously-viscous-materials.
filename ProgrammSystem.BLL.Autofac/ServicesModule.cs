@@ -13,6 +13,8 @@ namespace ProgrammSystem.BLL.Autofac
                 .As<IUserService>();
             builder.Register(c => new MathService())
                 .As<IMathService>();
+            builder.Register(c => new Results())
+                .As<Results>();
         }
     }
 }
