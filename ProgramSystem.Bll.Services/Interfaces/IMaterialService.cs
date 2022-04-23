@@ -22,8 +22,7 @@ namespace ProgramSystem.Bll.Services.Interfaces
         Task<ICollection<MaterialDTO>> GetAllMaterialsObjectsAsync();
 
         /// <summary>
-        /// Добавляет материал по наименованию,
-        /// Есть проверка на существование материала с таким же наименованием
+        /// Добавляет материал по наименованию
         /// </summary>
         /// <param name="name"></param>
         Task AddMaterialByNameAsync(string name);
