@@ -5,7 +5,7 @@ namespace ProgramSystem.Bll.Services.Mapper;
 
 public static class ParameterMaterialCanalMapper
 {
-    public static ParameterMaterialCanalDTO? ToDto(this ParameterMaterialCanalEntity entity)
+    public static ParameterMaterialCanalDTO? ToDto(this VariableParameterMaterialCanalEntity entity)
     {
         if (entity == null)
             return null;
@@ -14,20 +14,20 @@ public static class ParameterMaterialCanalMapper
             CanalId = entity.CanalId,
             MaterialId = entity.MaterialId,
             ParameterId = entity.ParameterId,
-            Value = entity.Value
+            Value = entity.ValueLower
         };
     }
 
-    public static ParameterMaterialCanalEntity? ToEntity(this ParameterMaterialCanalDTO entity)
+    public static VariableParameterMaterialCanalEntity? ToEntity(this ParameterMaterialCanalDTO entity)
     {
         if (entity == null)
             return null;
-        return new ParameterMaterialCanalEntity()
+        return new VariableParameterMaterialCanalEntity()
         {
             CanalId = entity.CanalId,
             MaterialId = entity.MaterialId,
             ParameterId = entity.ParameterId,
-            Value = entity.Value
+            ValueLower = entity.Value
         };
     }
 }

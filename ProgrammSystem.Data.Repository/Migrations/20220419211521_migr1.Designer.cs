@@ -10,7 +10,7 @@ using ProgramSystem.Data.Repository;
 namespace ProgramSystem.Data.Repository.Migrations
 {
     [DbContext(typeof(RepositoryContext))]
-    [Migration("20220313010315_migr1")]
+    [Migration("20220419211521_migr1")]
     partial class migr1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -40,6 +40,56 @@ namespace ProgramSystem.Data.Repository.Migrations
                         });
                 });
 
+            modelBuilder.Entity("ProgramSystem.Data.Models.EmpiricalParameterMaterialEntity", b =>
+                {
+                    b.Property<int>("MaterialId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("ParameterId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<float>("Value")
+                        .HasColumnType("REAL");
+
+                    b.HasKey("MaterialId", "ParameterId");
+
+                    b.HasIndex("ParameterId");
+
+                    b.ToTable("EmpiricalParameters");
+
+                    b.HasData(
+                        new
+                        {
+                            MaterialId = 1,
+                            ParameterId = 9,
+                            Value = 1500f
+                        },
+                        new
+                        {
+                            MaterialId = 1,
+                            ParameterId = 10,
+                            Value = 0.014f
+                        },
+                        new
+                        {
+                            MaterialId = 1,
+                            ParameterId = 11,
+                            Value = 185f
+                        },
+                        new
+                        {
+                            MaterialId = 1,
+                            ParameterId = 12,
+                            Value = 0.38f
+                        },
+                        new
+                        {
+                            MaterialId = 1,
+                            ParameterId = 13,
+                            Value = 1500f
+                        });
+                });
+
             modelBuilder.Entity("ProgramSystem.Data.Models.MaterialEntity", b =>
                 {
                     b.Property<int>("Id")
@@ -59,6 +109,44 @@ namespace ProgramSystem.Data.Repository.Migrations
                         {
                             Id = 1,
                             Name = "Полипропилен"
+                        });
+                });
+
+            modelBuilder.Entity("ProgramSystem.Data.Models.ParameterCanalEntity", b =>
+                {
+                    b.Property<int>("CanalId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("ParameterId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<float>("Value")
+                        .HasColumnType("REAL");
+
+                    b.HasKey("CanalId", "ParameterId");
+
+                    b.HasIndex("ParameterId");
+
+                    b.ToTable("CanalParameters");
+
+                    b.HasData(
+                        new
+                        {
+                            CanalId = 1,
+                            ParameterId = 1,
+                            Value = 0.2f
+                        },
+                        new
+                        {
+                            CanalId = 1,
+                            ParameterId = 2,
+                            Value = 0.003f
+                        },
+                        new
+                        {
+                            CanalId = 1,
+                            ParameterId = 3,
+                            Value = 7.5f
                         });
                 });
 
@@ -179,7 +267,7 @@ namespace ProgramSystem.Data.Repository.Migrations
                         });
                 });
 
-            modelBuilder.Entity("ProgramSystem.Data.Models.ParameterMaterialCanalEntity", b =>
+            modelBuilder.Entity("ProgramSystem.Data.Models.ParameterMaterialEntity", b =>
                 {
                     b.Property<int>("MaterialId")
                         .HasColumnType("INTEGER");
@@ -187,111 +275,33 @@ namespace ProgramSystem.Data.Repository.Migrations
                     b.Property<int>("ParameterId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("CanalId")
-                        .HasColumnType("INTEGER");
-
                     b.Property<float>("Value")
                         .HasColumnType("REAL");
 
-                    b.HasKey("MaterialId", "ParameterId", "CanalId");
-
-                    b.HasIndex("CanalId");
+                    b.HasKey("MaterialId", "ParameterId");
 
                     b.HasIndex("ParameterId");
 
-                    b.ToTable("ParameterValues");
+                    b.ToTable("MaterialParameters");
 
                     b.HasData(
                         new
                         {
                             MaterialId = 1,
-                            ParameterId = 1,
-                            CanalId = 1,
-                            Value = 0.2f
-                        },
-                        new
-                        {
-                            MaterialId = 1,
-                            ParameterId = 2,
-                            CanalId = 1,
-                            Value = 0.003f
-                        },
-                        new
-                        {
-                            MaterialId = 1,
-                            ParameterId = 3,
-                            CanalId = 1,
-                            Value = 7.5f
-                        },
-                        new
-                        {
-                            MaterialId = 1,
                             ParameterId = 4,
-                            CanalId = 1,
                             Value = 900f
                         },
                         new
                         {
                             MaterialId = 1,
                             ParameterId = 5,
-                            CanalId = 1,
                             Value = 2230f
                         },
                         new
                         {
                             MaterialId = 1,
                             ParameterId = 6,
-                            CanalId = 1,
                             Value = 172f
-                        },
-                        new
-                        {
-                            MaterialId = 1,
-                            ParameterId = 7,
-                            CanalId = 1,
-                            Value = 1.5f
-                        },
-                        new
-                        {
-                            MaterialId = 1,
-                            ParameterId = 8,
-                            CanalId = 1,
-                            Value = 180f
-                        },
-                        new
-                        {
-                            MaterialId = 1,
-                            ParameterId = 9,
-                            CanalId = 1,
-                            Value = 1500f
-                        },
-                        new
-                        {
-                            MaterialId = 1,
-                            ParameterId = 10,
-                            CanalId = 1,
-                            Value = 0.014f
-                        },
-                        new
-                        {
-                            MaterialId = 1,
-                            ParameterId = 11,
-                            CanalId = 1,
-                            Value = 185f
-                        },
-                        new
-                        {
-                            MaterialId = 1,
-                            ParameterId = 12,
-                            CanalId = 1,
-                            Value = 0.38f
-                        },
-                        new
-                        {
-                            MaterialId = 1,
-                            ParameterId = 13,
-                            CanalId = 1,
-                            Value = 1500f
                         });
                 });
 
@@ -396,6 +406,88 @@ namespace ProgramSystem.Data.Repository.Migrations
                         });
                 });
 
+            modelBuilder.Entity("ProgramSystem.Data.Models.VariableParameterMaterialCanalEntity", b =>
+                {
+                    b.Property<int>("MaterialId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("ParameterId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("CanalId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<float>("ValueLower")
+                        .HasColumnType("REAL");
+
+                    b.Property<float>("ValueUpper")
+                        .HasColumnType("REAL");
+
+                    b.HasKey("MaterialId", "ParameterId", "CanalId");
+
+                    b.HasIndex("CanalId");
+
+                    b.HasIndex("ParameterId");
+
+                    b.ToTable("VariableParameters");
+
+                    b.HasData(
+                        new
+                        {
+                            MaterialId = 1,
+                            ParameterId = 7,
+                            CanalId = 1,
+                            ValueLower = 1.5f,
+                            ValueUpper = 0f
+                        },
+                        new
+                        {
+                            MaterialId = 1,
+                            ParameterId = 8,
+                            CanalId = 1,
+                            ValueLower = 180f,
+                            ValueUpper = 0f
+                        });
+                });
+
+            modelBuilder.Entity("ProgramSystem.Data.Models.EmpiricalParameterMaterialEntity", b =>
+                {
+                    b.HasOne("ProgramSystem.Data.Models.MaterialEntity", "Material")
+                        .WithMany("EmpiricalParameterMaterial")
+                        .HasForeignKey("MaterialId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ProgramSystem.Data.Models.ParameterEntity", "Parameter")
+                        .WithMany("EmpiricalParameterMaterial")
+                        .HasForeignKey("ParameterId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Material");
+
+                    b.Navigation("Parameter");
+                });
+
+            modelBuilder.Entity("ProgramSystem.Data.Models.ParameterCanalEntity", b =>
+                {
+                    b.HasOne("ProgramSystem.Data.Models.CanalEntity", "Canal")
+                        .WithMany("ParameterCanal")
+                        .HasForeignKey("CanalId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ProgramSystem.Data.Models.ParameterEntity", "Parameter")
+                        .WithMany("ParameterCanal")
+                        .HasForeignKey("ParameterId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Canal");
+
+                    b.Navigation("Parameter");
+                });
+
             modelBuilder.Entity("ProgramSystem.Data.Models.ParameterEntity", b =>
                 {
                     b.HasOne("ProgramSystem.Data.Models.UnitOfMeasEntity", "UnitOfMeas")
@@ -407,22 +499,41 @@ namespace ProgramSystem.Data.Repository.Migrations
                     b.Navigation("UnitOfMeas");
                 });
 
-            modelBuilder.Entity("ProgramSystem.Data.Models.ParameterMaterialCanalEntity", b =>
+            modelBuilder.Entity("ProgramSystem.Data.Models.ParameterMaterialEntity", b =>
                 {
-                    b.HasOne("ProgramSystem.Data.Models.CanalEntity", "Canal")
-                        .WithMany("ParameterMaterialCanal")
-                        .HasForeignKey("CanalId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("ProgramSystem.Data.Models.MaterialEntity", "Material")
-                        .WithMany("ParameterMaterialCanal")
+                        .WithMany("ParameterMaterial")
                         .HasForeignKey("MaterialId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("ProgramSystem.Data.Models.ParameterEntity", "Parameter")
-                        .WithMany("ParameterMaterialCanal")
+                        .WithMany("ParameterMaterial")
+                        .HasForeignKey("ParameterId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Material");
+
+                    b.Navigation("Parameter");
+                });
+
+            modelBuilder.Entity("ProgramSystem.Data.Models.VariableParameterMaterialCanalEntity", b =>
+                {
+                    b.HasOne("ProgramSystem.Data.Models.CanalEntity", "Canal")
+                        .WithMany("VariableParameterMaterialCanal")
+                        .HasForeignKey("CanalId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ProgramSystem.Data.Models.MaterialEntity", "Material")
+                        .WithMany("VariableParameterMaterialCanal")
+                        .HasForeignKey("MaterialId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ProgramSystem.Data.Models.ParameterEntity", "Parameter")
+                        .WithMany("VariableParameterMaterialCanal")
                         .HasForeignKey("ParameterId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -436,17 +547,29 @@ namespace ProgramSystem.Data.Repository.Migrations
 
             modelBuilder.Entity("ProgramSystem.Data.Models.CanalEntity", b =>
                 {
-                    b.Navigation("ParameterMaterialCanal");
+                    b.Navigation("ParameterCanal");
+
+                    b.Navigation("VariableParameterMaterialCanal");
                 });
 
             modelBuilder.Entity("ProgramSystem.Data.Models.MaterialEntity", b =>
                 {
-                    b.Navigation("ParameterMaterialCanal");
+                    b.Navigation("EmpiricalParameterMaterial");
+
+                    b.Navigation("ParameterMaterial");
+
+                    b.Navigation("VariableParameterMaterialCanal");
                 });
 
             modelBuilder.Entity("ProgramSystem.Data.Models.ParameterEntity", b =>
                 {
-                    b.Navigation("ParameterMaterialCanal");
+                    b.Navigation("EmpiricalParameterMaterial");
+
+                    b.Navigation("ParameterCanal");
+
+                    b.Navigation("ParameterMaterial");
+
+                    b.Navigation("VariableParameterMaterialCanal");
                 });
 #pragma warning restore 612, 618
         }

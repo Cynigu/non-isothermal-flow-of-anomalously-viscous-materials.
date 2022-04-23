@@ -3,9 +3,11 @@ using ProgramSystem.Data.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = "Data Source = rpkDB.db";
+builder.Services.AddDbContext<RepositoryContext>(options => options.UseSqlite(connectionString));
+
 // Add services to the container.
 builder.Services.AddRazorPages();
-builder.Services.AddDbContext<RepositoryContext>(options => options.UseSqlite(connectionString));
+
 
 var app = builder.Build();
 
