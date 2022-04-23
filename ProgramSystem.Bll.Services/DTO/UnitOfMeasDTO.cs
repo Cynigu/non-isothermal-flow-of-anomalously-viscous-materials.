@@ -11,5 +11,4 @@ public class UnitOfMeasDTO
     /// Наименование
     /// </summary>
     public string Name { get; set; } = null!;
-    private ICollection<Bll.Services.DTO.ParameterDTO>? Parameters { get; set; }
 }

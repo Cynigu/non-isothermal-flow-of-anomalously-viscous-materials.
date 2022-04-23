@@ -62,7 +62,7 @@ namespace ProgramSystem.Bll.Services.Services
             }
         }
 
-        public async Task RemoveUnitOfMeasByDescriptionAsync(int id)
+        public async Task RemoveUnitOfMeasByIdAsync(int id)
         {
             using (UnitOfWork uow = new UnitOfWork(_contextFactory.Create()))
             {

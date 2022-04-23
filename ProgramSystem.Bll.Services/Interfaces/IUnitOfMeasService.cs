@@ -28,10 +28,10 @@ namespace ProgramSystem.Bll.Services.Interfaces
         Task AddUnitOfMeasByDescriptionAsync(string description);
 
         /// <summary>
-        /// Удаляет ед. измерения по описанию
+        /// Удаляет ед. измерения по id
         /// </summary>
         /// <param name="id"></param>
-        Task RemoveUnitOfMeasByDescriptionAsync(int id);
+        Task RemoveUnitOfMeasByIdAsync(int id);
 
     }
 }
