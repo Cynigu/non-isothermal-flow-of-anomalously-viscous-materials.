@@ -76,18 +76,18 @@ namespace ProgrammSystem.Web.vm
             builderBase.RegisterModule(new ServicesModule());
 
             var containerBase = builderBase.Build();
-            foreach (var u in users)
-            {
-                uString += u.Id + " Логин: " + u.Login + " Роль: " + u.Role +"\n";
-            }
-            MessageBox.Show(uString);
+            //foreach (var u in users)
+            //{
+            //    uString += u.Id + " Логин: " + u.Login + " Роль: " + u.Role +"\n";
+            //}
+            //MessageBox.Show(uString);
             if (user == null)
             {
                 MessageBox.Show("Неверный логин или пароль");
             }
             else if (user.Role == "admin")
             {
-                MessageBox.Show("Вход под админом\n Пользователь " + user.Login);
+               // MessageBox.Show("Вход под админом\n Пользователь " + user.Login);
                 var viewmodelBase = new WindowEditViewModel();
                 var viewBase = new WindowEdit { DataContext = viewmodelBase };
 
@@ -95,7 +95,7 @@ namespace ProgrammSystem.Web.vm
             }
             else if (user.Role == "researcher")
             {
-                MessageBox.Show("Вход под исследователем\n Пользователь " + user.Login);
+                //MessageBox.Show("Вход под исследователем\n Пользователь " + user.Login);
                 
                 var viewmodelBase = new MainWindowProgramViewModel(containerBase.Resolve<IMathService>());
                 var viewBase = new MainWindowProgram { DataContext = viewmodelBase };

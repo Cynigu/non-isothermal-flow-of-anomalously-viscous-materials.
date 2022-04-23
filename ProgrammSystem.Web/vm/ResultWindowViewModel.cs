@@ -1,6 +1,7 @@
 ﻿using ProgramSystem.Bll.Services.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,6 +20,7 @@ namespace ProgrammSystem.Web.vm
         private List<double> tempIn;
         private List<double> viscIn;
         private List<string[]> dataForTable;
+        private DataTable dt;
 
         #endregion
 
@@ -90,6 +92,17 @@ namespace ProgrammSystem.Web.vm
                 viscIn = value;
             }
         }
+        public DataTable DT
+        {
+            get
+            {
+                return dt;
+            }
+            set
+            {
+                dt = value;
+            }
+        }
 
         public List<string[]> DataForTable
         {
@@ -119,11 +132,36 @@ namespace ProgrammSystem.Web.vm
             TempIn = res.TempInside;
             ViscIn = res.ViscosityInside;
 
+            DT = new DataTable();
+            DataColumn column;
+            DataRow row;
+
+            column = new DataColumn();
+            column.DataType = System.Type.GetType("System.String");
+            column.ColumnName = "len";
+            DT.Columns.Add(column);
+
+            column = new DataColumn();
+            column.DataType = System.Type.GetType("System.String");
+            column.ColumnName = "temp";
+            DT.Columns.Add(column);
+
+            column = new DataColumn();
+            column.DataType = System.Type.GetType("System.String");
+            column.ColumnName = "visc";
+            DT.Columns.Add(column);
+
             List<string[]> d = new List<string[]>();
             for (int i = 0; i < Len.Count; i++)
             {
-                string[] str = new string[] { Math.Round(Len[i], 2).ToString(), Math.Round(TempIn[i], 2).ToString(), Math.Round(ViscIn[i], 2).ToString() };
-                d.Add(str);
+                //string[] str = new string[] { Math.Round(Len[i], 2).ToString(), Math.Round(TempIn[i], 2).ToString(), Math.Round(ViscIn[i], 2).ToString() };
+                //d.Add(str);
+
+                row = DT.NewRow();
+                row[0] = Math.Round(Len[i], 2).ToString();
+                row["temp"] = Math.Round(TempIn[i], 2).ToString();
+                row["visc"] = Math.Round(ViscIn[i], 2).ToString();
+                DT.Rows.Add(row);
             }
 
             DataForTable = d;

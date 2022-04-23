@@ -17,5 +17,6 @@ namespace ProgrammSystem.Web
             if (this.DataContext != null)
             { ((dynamic)this.DataContext).Password = ((PasswordBox)sender).SecurePassword; }
         }
+
     }
 }
