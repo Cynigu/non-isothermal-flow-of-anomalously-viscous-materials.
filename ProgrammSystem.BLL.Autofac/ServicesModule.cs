@@ -9,14 +9,10 @@ namespace ProgrammSystem.BLL.Autofac
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.Register(c => new UserService(
-                    c.Resolve<ISqlLiteRepositoryContextFactory>()))
-                .As<IUserService>();
-            builder.Register(c => new UnitOfMeasService(
-                    c.Resolve<ISqlLiteRepositoryContextFactory>()))
-                .As<IUnitOfMeasService>();
-            builder.Register(c => new MathService())
-                .As<IMathService>();
+            builder.Register(c => new UserService(c.Resolve<ISqlLiteRepositoryContextFactory>())).As<IUserService>();
+            builder.Register(c => new UnitOfMeasService(c.Resolve<ISqlLiteRepositoryContextFactory>())).As<IUnitOfMeasService>();
+            builder.Register(c => new MaterialService(c.Resolve<ISqlLiteRepositoryContextFactory>())).As<IMaterialService>();
+            builder.Register(c => new MathService()).As<IMathService>();
         }
     }
 }

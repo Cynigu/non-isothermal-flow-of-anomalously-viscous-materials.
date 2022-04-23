@@ -14,11 +14,5 @@
         /// Название параметра
         /// </summary>
         public string Name { get; set; } = null!;// название параметра
-        /// <summary>
-        /// Id ед.измерения
-        /// </summary>
-        public int UnitOfMeasId { get; set; }
-        public UnitOfMeasDTO UnitOfMeasEntity { get; set; } = null!; // единица измерения
-        public ICollection<ParameterMaterialCanalDTO>? ParameterMaterialCanal { get; set; }
     }
 }
