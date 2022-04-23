@@ -19,6 +19,10 @@ namespace ProgramSystem.Bll.Services.Services
         {
             using (var uow = new UnitOfWork(_contextFactory.Create()))
             {
+                var userEntity = uow.UserRepository.GetEntityQuery().FirstOrDefault(x => x.Login == item.Login);
+                if (userEntity != null)
+                    throw new Exception("Такой пользователь уже существует");
+
                 await uow.UserRepository.AddAsync(item.ToEntity() ?? throw new InvalidOperationException());
             }
         }
@@ -58,8 +62,8 @@ namespace ProgramSystem.Bll.Services.Services
             UserDTO? user;
             using var uow = new UnitOfWork(_contextFactory.Create());
 
-            user = uow.UserRepository.GetEntityQuery().FirstOrDefault(x => x.Login == login && x.Password == password).ToDto();
-
+            var u= uow.UserRepository.GetEntityQuery().FirstOrDefault(x => x.Login == login && x.Password == password);
+            user = u?.ToDto();
             return user;
         }
     }
