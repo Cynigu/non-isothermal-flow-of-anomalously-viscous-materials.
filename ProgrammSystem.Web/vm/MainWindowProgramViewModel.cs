@@ -266,6 +266,9 @@ namespace ProgrammSystem.Web.vm
 
         }      
 
+        private bool CanCalculate() => Weight<=0 || Height <=0 || Lenght <= 0 || Ro <= 0 || C <= 0 || Temp0 <= 0 || SpeedU <= 0 || TempU <= 0 || M0 <= 0 || B <= 0 || TempR <= 0 
+            || N <= 0 || KoefU <= 0 || Step <= 0; //проверка
+
         #endregion
 
 
