@@ -48,7 +48,7 @@
                             </StackPanel>
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock x:Name="textBlockL" Text="Длина (м)"/>
-                            <TextBox x:Name="textBoxL" PreviewTextInput="Text_PreviewTextInput" Text="{Binding Lenght}"></TextBox>
+                            <TextBox x:Name="textBoxL" PreviewTextInput="Text_PreviewTextInput" Text="{Binding Lenght, TargetNullValue=''}"></TextBox>
                             </StackPanel>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal">

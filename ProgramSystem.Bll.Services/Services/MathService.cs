@@ -12,7 +12,7 @@ namespace ProgramSystem.Bll.Services.Services
     {
         //реализация сервиса
 
-        public Results Calculation(double W, double H, double L, double ro, double c, double T0, double Vu, double Tu, double mu0, double b, double Tr, double n, double alphau, double step)
+        public Results Calculation(double W, double H, double? L, double ro, double c, double T0, double Vu, double Tu, double mu0, double b, double Tr, double n, double alphau, double step)
         {
             Results results = new Results();
 
@@ -32,7 +32,7 @@ namespace ProgramSystem.Bll.Services.Services
                 results.ViscosityInside.Add(nu);
                 if (i + step > L && check)
                 {
-                    i = L;
+                    i = (double)L;
                     check = false;
                 }
             }

@@ -14,7 +14,7 @@ namespace ProgrammSystem.Web.vm
         private readonly IMathService _mathService;
         private Results _res;
         #region Fields
-        private double lenght; //длина
+        private double? lenght; //длина
         private double weight;//ширина
         private double height; //глубина
 
@@ -38,12 +38,13 @@ namespace ProgrammSystem.Web.vm
 
         #region Properties
 
-        public double Lenght
+        public double? Lenght
         {
             get => lenght;
             set
             {
-                lenght = value;
+                if (value is null) lenght = 0;
+                else lenght = value;
                 OnPropertyChanged();
             }
         }
@@ -242,7 +243,7 @@ namespace ProgrammSystem.Web.vm
             N =0.38;
             KoefU =1500;
 
-            MainWindowProgramCalculateCommand = new RelayCommand(obj => CalculateResults(), obj => true);
+            MainWindowProgramCalculateCommand = new RelayCommand(obj => CalculateResults(), obj => !CanCalculate());
         }
 
         #region Methods
