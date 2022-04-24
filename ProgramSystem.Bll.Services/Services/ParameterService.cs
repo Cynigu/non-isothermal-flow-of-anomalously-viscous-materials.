@@ -45,7 +45,7 @@ namespace ProgramSystem.Bll.Services.Services
             using (var uow = new UnitOfWork(_contextFactory.Create()))
             {
                 parameters = await uow.ParameterRepository.GetEntityQuery()
-                    .Where(x => x.TypeParameter == "Эмпирический коэффициент математической модели")
+                    .Where(x => x.TypeParameter == "Эмпирические коэффициенты математической модели")
                     .Select(x => new ParameterDTO()
                     {
                         Id = x.Id,
