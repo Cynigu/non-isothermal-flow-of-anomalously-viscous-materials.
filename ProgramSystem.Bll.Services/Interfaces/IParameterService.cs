@@ -16,6 +16,18 @@ namespace ProgramSystem.Bll.Services.Interfaces
         Task<ICollection<ParameterDTO>> GetAllParametersObjectsAsync();
 
         /// <summary>
+        /// Получить все существующие типы параметров
+        /// </summary>
+        /// <returns></returns>
+        Task<ICollection<string>> GetAllParameterTypesAsync();
+
+        /// <summary>
+        /// Получить все существующие наименования параметров
+        /// </summary>
+        /// <returns></returns>
+        Task<ICollection<string>> GetAllParametersNamesAsync();
+
+        /// <summary>
         /// Добавляет параметр
         /// Если наименование единицы измерения еще не существует, то она добавляется
         /// </summary>

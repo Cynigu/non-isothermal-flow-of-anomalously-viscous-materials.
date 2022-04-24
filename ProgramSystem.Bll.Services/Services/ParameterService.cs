@@ -38,6 +38,34 @@ namespace ProgramSystem.Bll.Services.Services
             return parameters;
         }
 
+        public async Task<ICollection<string>> GetAllParameterTypesAsync()
+        {
+            ICollection<string> types;
+            using (var uow = new UnitOfWork(_contextFactory.Create()))
+            {
+                types = await uow.ParameterRepository.GetEntityQuery()
+                    .Select(x => x.TypeParameter)
+                    .Distinct()
+                    .ToListAsync();
+            }
+
+            return types;
+        }
+
+        public async Task<ICollection<string>> GetAllParametersNamesAsync()
+        {
+            ICollection<string> names;
+            using (var uow = new UnitOfWork(_contextFactory.Create()))
+            {
+                names = await uow.ParameterRepository.GetEntityQuery()
+                    .Select(x => x.Name)
+                    .Distinct()
+                    .ToListAsync();
+            }
+
+            return names;
+        }
+
         public async Task AddParameterAsync(ParameterDTO parameter)
         {
             using (var uow = new UnitOfWork(_contextFactory.Create()))
