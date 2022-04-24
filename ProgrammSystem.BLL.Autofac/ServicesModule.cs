@@ -20,6 +20,9 @@ namespace ProgrammSystem.BLL.Autofac
             builder.Register(c => new EmpiricalParameterValueService(
                 c.Resolve<ISqlLiteRepositoryContextFactory>(), c.Resolve<IParameterService>(), c.Resolve<IMaterialService>()))
                 .As<IEmpiricalParameterValuesService>();
+            builder.Register(c => new MaterialParameterValuesService(
+                    c.Resolve<ISqlLiteRepositoryContextFactory>(), c.Resolve<IParameterService>(), c.Resolve<IMaterialService>()))
+                .As<IMaterialParameterValuesService>();
 
             builder.Register(c => new MathService()).As<IMathService>();
         }
