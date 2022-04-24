@@ -13,7 +13,30 @@ namespace ProgramSystem.Bll.Services.Interfaces
         /// Получить все параметры (класс включает id, тип параметра, навзание параметра, единица измерения )
         /// </summary>
         /// <returns>Коллекцию материалов с id и наименованиями</returns>
-        Task<ICollection<ParameterDTO>> GetAllParametersObjectsAsync();
+        Task<ICollection<ParameterDTO>> GetAllParametersObjectsByTypeParameterAsync();
+
+        /// <summary>
+        /// Получить все эмпирические параметры
+        /// </summary>
+        /// <returns>Коллекцию параметрво</returns>
+        Task<ICollection<ParameterDTO>> GetAllEmpiricalParametersObjectsAsync();
+
+        /// <summary>
+        /// Получить все параметры материала
+        /// </summary>
+        /// <returns>Коллекцию параметров</returns>
+        Task<ICollection<ParameterDTO>> GetAllMaterialParametersObjectsAsync();
+
+        /// <summary>
+        /// Получить параметры по типу параметра
+        /// </summary>
+        /// <param name="typeParameter">тип параметра:
+        /// Геометрические параметры канала,
+        /// Параметры свойств материала,
+        /// Режимные параметры процесса,
+        /// Эмпирические коэффициенты математической модели</param>
+        /// <returns></returns>
+        Task<ICollection<ParameterDTO>> GetAllParametersObjectsByTypeParameterAsync(string typeParameter);
 
         /// <summary>
         /// Получить все существующие типы параметров

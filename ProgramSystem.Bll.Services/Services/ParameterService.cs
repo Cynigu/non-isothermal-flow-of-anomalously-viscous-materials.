@@ -20,7 +20,7 @@ namespace ProgramSystem.Bll.Services.Services
             _contextFactory = contextFactory;
         }
 
-        public async Task<ICollection<ParameterDTO>> GetAllParametersObjectsAsync()
+        public async Task<ICollection<ParameterDTO>> GetAllParametersObjectsByTypeParameterAsync()
         {
             ICollection<ParameterDTO> parameters;
             using (var uow = new UnitOfWork(_contextFactory.Create()))
@@ -35,6 +35,63 @@ namespace ProgramSystem.Bll.Services.Services
                 }).ToListAsync();
             }
 
+            return parameters;
+        }
+
+        public async Task<ICollection<ParameterDTO>> GetAllEmpiricalParametersObjectsAsync()
+        {
+            ICollection<ParameterDTO> parameters;
+
+            using (var uow = new UnitOfWork(_contextFactory.Create()))
+            {
+                parameters = await uow.ParameterRepository.GetEntityQuery()
+                    .Where(x => x.TypeParameter == "Эмпирический коэффициент математической модели")
+                    .Select(x => new ParameterDTO()
+                    {
+                        Id = x.Id,
+                        Name = x.Name,
+                        TypeParameter = x.TypeParameter,
+                        UnitOfMeasName = x.UnitOfMeas.Name
+                    }).ToListAsync();
+            }
+            return parameters;
+        }
+
+        public async Task<ICollection<ParameterDTO>> GetAllMaterialParametersObjectsAsync()
+        {
+            ICollection<ParameterDTO> parameters;
+
+            using (var uow = new UnitOfWork(_contextFactory.Create()))
+            {
+                parameters = await uow.ParameterRepository.GetEntityQuery()
+                    .Where(x => x.TypeParameter == "Параметры свойств материала")
+                    .Select(x => new ParameterDTO()
+                    {
+                        Id = x.Id,
+                        Name = x.Name,
+                        TypeParameter = x.TypeParameter,
+                        UnitOfMeasName = x.UnitOfMeas.Name
+                    }).ToListAsync();
+            }
+            return parameters;
+        }
+
+        public async Task<ICollection<ParameterDTO>> GetAllParametersObjectsByTypeParameterAsync(string typeParameter)
+        {
+            ICollection<ParameterDTO> parameters;
+
+            using (var uow = new UnitOfWork(_contextFactory.Create()))
+            {
+                parameters = await uow.ParameterRepository.GetEntityQuery()
+                    .Where(x => x.TypeParameter == typeParameter)
+                    .Select(x => new ParameterDTO()
+                    {
+                        Id = x.Id,
+                        Name = x.Name,
+                        TypeParameter = x.TypeParameter,
+                        UnitOfMeasName = x.UnitOfMeas.Name
+                    }).ToListAsync();
+            }
             return parameters;
         }
 
