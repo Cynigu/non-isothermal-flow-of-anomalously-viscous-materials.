@@ -129,7 +129,9 @@ namespace ProgramSystem.Bll.Services.Services
             {
                 var p = uow.ParameterRepository
                     .GetEntityQuery()
-                    .FirstOrDefault(x => x.Name == parameter.Name && x.TypeParameter == parameter.TypeParameter);
+                    .FirstOrDefault(x => x.Name == parameter.Name 
+                                         && x.TypeParameter == parameter.TypeParameter
+                                         && x.UnitOfMeas.Name == parameter.UnitOfMeasName);
                 if (p != null)
                 {
                     throw new Exception("Такой параметр уже существует!");

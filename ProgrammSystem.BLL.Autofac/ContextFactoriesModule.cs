@@ -13,7 +13,7 @@ namespace ProgrammSystem.BLL.Autofac
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.Register(c => new SqlLiteRepositoryContextFactoryAsync("Data Source = rpkDB.db"))
+            builder.Register(c => new SqlLiteRepositoryContextFactory("Data Source = rpkDB.db"))
                 .As<ISqlLiteRepositoryContextFactory>();
         }
     }

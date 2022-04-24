@@ -3,11 +3,11 @@ using Microsoft.Extensions.Configuration;
 
 namespace ProgramSystem.Data.Repository.Factories
 {
-    public class SqlLiteRepositoryContextFactoryAsync : ISqlLiteRepositoryContextFactory
+    public class SqlLiteRepositoryContextFactory : ISqlLiteRepositoryContextFactory
     {
         private string _connectionString;
 
-        public SqlLiteRepositoryContextFactoryAsync(string connectionString)
+        public SqlLiteRepositoryContextFactory(string connectionString)
         {
             _connectionString = connectionString;
         }
