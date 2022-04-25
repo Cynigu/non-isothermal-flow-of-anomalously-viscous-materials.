@@ -4,23 +4,50 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProgrammSystem.Web"
+        xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+        xmlns:oxy="http://oxyplot.org/wpf"
         mc:Ignorable="d"
-        Title="ResultWindow" Height="450" Width="800">
+        Title="ResultWindow" SizeToContent="Height" Width="800">
     <Grid>
         <StackPanel>
+            <TextBlock Text="Критериальные показатели процесса:"/>
             <TextBlock Text="{Binding Q}"/>
             <TextBlock Text="{Binding Temp}"/>
             <TextBlock Text="{Binding Visc}"/>
-            <DataGrid x:Name="resultsGrid" ItemsSource="{Binding Path=DT}" AutoGenerateColumns="False">
+            <TextBlock Text="Параметры состояния процесса:"/>
+            <DataGrid x:Name="resultsGrid" ItemsSource="{Binding Path=DT}" AutoGenerateColumns="False" HeadersVisibility="Column" IsReadOnly="True">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Длина канала, м"
+                    <DataGridTextColumn Header="Длина канала, м" Width="*"
                     Binding = "{Binding len}" />
-                    <DataGridTextColumn Header="Температура, С"
+                    <DataGridTextColumn Header="Температура материала, С" Width="*"
                     Binding = "{Binding temp}" />
-                    <DataGridTextColumn Header="Вязкость, Па*с"
+                    <DataGridTextColumn Header="Вязкость материала, Па*с" Width="*"
                     Binding = "{Binding visc}" /> 
                 </DataGrid.Columns>
             </DataGrid>
+            <Grid>
+                <oxy:Plot Title="Распределение температуры материала по длине канала:" Height="300">
+                    <oxy:Plot.Axes>
+                        <oxy:LinearAxis Position="Bottom" Title="Длина канала, м" />
+                        <oxy:LinearAxis Position="Left" Title="Температура материала, С" />
+                    </oxy:Plot.Axes>
+                    <oxy:Plot.Series>
+                        <oxy:LineSeries ItemsSource="{Binding TempInCanal}"/>
+                    </oxy:Plot.Series>
+                </oxy:Plot>
+            </Grid>
+            <Grid>
+                <oxy:Plot Title="Распределение вязкости материала по длине канала:" Height="300">
+                    <oxy:Plot.Axes>
+                        <oxy:LinearAxis Position="Bottom" Title="Длина канала, м" />
+                        <oxy:LinearAxis Position="Left" Title="Вязкость материала, Па*с" />
+                    </oxy:Plot.Axes>
+                    <oxy:Plot.Series>
+                        <oxy:LineSeries ItemsSource="{Binding ViscInCanal}"/>
+                    </oxy:Plot.Series>
+                </oxy:Plot>
+            </Grid>
+            
         </StackPanel>
     </Grid>
 </Window>

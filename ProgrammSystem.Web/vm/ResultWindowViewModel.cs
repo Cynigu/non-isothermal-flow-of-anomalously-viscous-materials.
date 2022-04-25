@@ -1,4 +1,5 @@
-﻿using ProgramSystem.Bll.Services.Interfaces;
+﻿using OxyPlot;
+using ProgramSystem.Bll.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -21,6 +22,8 @@ namespace ProgrammSystem.Web.vm
         private List<double> viscIn;
         private List<string[]> dataForTable;
         private DataTable dt;
+        private List<DataPoint> tempInCanal;
+        private List<DataPoint> viscInCanal;
 
         #endregion
 
@@ -115,6 +118,31 @@ namespace ProgrammSystem.Web.vm
                 dataForTable = value;
             }
         }
+
+        public List<DataPoint> TempInCanal
+        {
+            get
+            {
+                return tempInCanal;
+            }
+            set
+            {
+                tempInCanal = value;
+            }
+        }
+
+        public List<DataPoint> ViscInCanal
+        {
+            get
+            {
+                return viscInCanal;
+            }
+            set
+            {
+                viscInCanal = value;
+            }
+        }
+
         #endregion
 
         #region Commands
@@ -124,9 +152,9 @@ namespace ProgrammSystem.Web.vm
         {
             _res = res;
 
-            Temp = "Температура = " + Math.Round(res.T, 2).ToString() + " С";
+            Temp = "Температура продукта= " + Math.Round(res.T, 2).ToString() + " С";
             Q = "Производительность = " + Math.Round(res.Q, 2).ToString() + " кг/ч";
-            Visc = "Вязкость = " + Math.Round(res.Visc, 2).ToString() + " Па*с";
+            Visc = "Вязкость продукта = " + Math.Round(res.Visc, 2).ToString() + " Па*с";
 
             Len = res.LengthOfCanal;
             TempIn = res.TempInside;
@@ -152,6 +180,8 @@ namespace ProgrammSystem.Web.vm
             DT.Columns.Add(column);
 
             List<string[]> d = new List<string[]>();
+            List<DataPoint> tp = new List<DataPoint>();
+            List<DataPoint> np = new List<DataPoint>();
             for (int i = 0; i < Len.Count; i++)
             {
                 //string[] str = new string[] { Math.Round(Len[i], 2).ToString(), Math.Round(TempIn[i], 2).ToString(), Math.Round(ViscIn[i], 2).ToString() };
@@ -162,9 +192,14 @@ namespace ProgrammSystem.Web.vm
                 row["temp"] = Math.Round(TempIn[i], 2).ToString();
                 row["visc"] = Math.Round(ViscIn[i], 2).ToString();
                 DT.Rows.Add(row);
+
+                tp.Add(new DataPoint(Math.Round(Len[i], 2), Math.Round(TempIn[i], 2)));
+                np.Add(new DataPoint(Math.Round(Len[i], 2), Math.Round(ViscIn[i], 2)));
             }
 
             DataForTable = d;
+            TempInCanal = tp;
+            ViscInCanal = np;
         }
 
         #region Methods        

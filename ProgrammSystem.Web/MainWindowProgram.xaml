@@ -91,34 +91,34 @@
                     </Border>
                     <Border>
                         <StackPanel>
-                            <TextBlock Text="Параметры математической модели:" FontSize="20" FontWeight="Bold" Height="30"/>
-                            <TextBlock Text="Параметры математической модели:" FontWeight="Bold"/>
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="Шаг по длине канала (м) "/>
-                            <TextBox x:Name="textBoxStep" PreviewTextInput="Text_PreviewTextInput" Text="{Binding Step}"/>
-                            </StackPanel>
-                            <TextBlock x:Name="textBlockKm" Text="Эмпирические коэффициенты математемаческой модели:" FontWeight="Bold"/>
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock x:Name="textBlockm0"  Text="Коэффициент консистенции материала при температуре приведения (Па*с^n)"/>
-                            <TextBox x:Name="textBoxm0" PreviewTextInput="Text_PreviewTextInput" Text="{Binding M0}"></TextBox>
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock x:Name="textBlockb" Text="Температурный коэффициент вязкости материала (1/С)"></TextBlock>
-                            <TextBox x:Name="textBoxb" PreviewTextInput="Text_PreviewTextInput" Text="{Binding B}"></TextBox>
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock x:Name="textBlockTr"  Text="Температура приведения (С)"></TextBlock>
-                            <TextBox x:Name="textBoxTг" PreviewTextInput="Text_PreviewTextInput" Text="{Binding TempR}"></TextBox>
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock x:Name="textBlockn" Text="Индекс течения материала"></TextBlock>
-                            <TextBox x:Name="textBoxn" PreviewTextInput="Text_PreviewTextInput" Text="{Binding N}"></TextBox>
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock x:Name="textBlockau" Text="Коэффициент теплоотдачи от крышки канала к материалу (Вт/(м^2*C))"/>
-                            <TextBox x:Name="textBoxau" PreviewTextInput="Text_PreviewTextInput" Text="{Binding KoefU}"></TextBox>
-                            </StackPanel>
+                        <TextBlock Text="Параметры математической модели:" FontSize="20" FontWeight="Bold" Height="30"/>
+                        <TextBlock x:Name="textBlockKm" Text="Эмпирические коэффициенты математемаческой модели:" FontWeight="Bold"/>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock x:Name="textBlockm0"  Text="Коэффициент консистенции материала при температуре приведения (Па*с^n)"/>
+                        <TextBox x:Name="textBoxm0" PreviewTextInput="Text_PreviewTextInput" Text="{Binding M0}"></TextBox>
                         </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock x:Name="textBlockb" Text="Температурный коэффициент вязкости материала (1/С)"></TextBlock>
+                        <TextBox x:Name="textBoxb" PreviewTextInput="Text_PreviewTextInput" Text="{Binding B}"></TextBox>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock x:Name="textBlockTr"  Text="Температура приведения (С)"></TextBlock>
+                        <TextBox x:Name="textBoxTг" PreviewTextInput="Text_PreviewTextInput" Text="{Binding TempR}"></TextBox>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock x:Name="textBlockn" Text="Индекс течения материала"></TextBlock>
+                        <TextBox x:Name="textBoxn" PreviewTextInput="Text_PreviewTextInput" Text="{Binding N}"></TextBox>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock x:Name="textBlockau" Text="Коэффициент теплоотдачи от крышки канала к материалу (Вт/(м^2*C))"/>
+                            <TextBox x:Name="textBoxau" PreviewTextInput="Text_PreviewTextInput" Text="{Binding KoefU}"></TextBox>
+                        </StackPanel>
+                        <TextBlock Text="Параметры метода решения:" FontWeight="Bold"/>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Шаг рачёта по длине канала (м) "/>
+                            <TextBox x:Name="textBoxStep" PreviewTextInput="Text_PreviewTextInput" Text="{Binding Step}"/>
+                        </StackPanel>
+                    </StackPanel>
                     </Border>
                 </StackPanel>
             </StackPanel>

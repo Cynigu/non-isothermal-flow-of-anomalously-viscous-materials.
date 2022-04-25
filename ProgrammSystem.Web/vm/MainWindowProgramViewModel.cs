@@ -15,24 +15,24 @@ namespace ProgrammSystem.Web.vm
         private Results _res;
         #region Fields
         private double? lenght; //длина
-        private double weight;//ширина
-        private double height; //глубина
+        private double? weight;//ширина
+        private double? height; //глубина
 
-        private double typeOfMaterial;
-        private double ro;
-        private double c;
-        private double temp0;
+        private string? typeOfMaterial;
+        private double? ro;
+        private double? c;
+        private double? temp0;
 
-        private double speedU;
-        private double tempU;
+        private double? speedU;
+        private double? tempU;
 
-        private double step;
+        private double? step;
 
-        private double m0;
-        private double b;
-        private double tempR;
-        private double n;
-        private double koefU;
+        private double? m0;
+        private double? b;
+        private double? tempR;
+        private double? n;
+        private double? koefU;
 
         #endregion
 
@@ -48,32 +48,27 @@ namespace ProgrammSystem.Web.vm
                 OnPropertyChanged();
             }
         }
-        public double Weight
+        public double? Weight
         {
-            get
-            {
-                return weight;
-            }
+            get => weight;
             set
             {
-                weight = value;
+                if (value is null) weight = 0;
+                else weight = value;
                 OnPropertyChanged();
             }
         }
-        public double Height
+        public double? Height
         {
-            get 
-            { 
-                return height; 
-            }
+            get => height;
             set
             {
-                height = value;
+                if (value is null) height = 0;
+                else height = value;
                 OnPropertyChanged();
             }
-
         }
-        public double TypeOfMaterial
+        public string? TypeOfMaterial
         {
             get
             {
@@ -85,137 +80,115 @@ namespace ProgrammSystem.Web.vm
                 OnPropertyChanged();
             }
         }
-        public double Ro
+        public double? Ro
         {
-            get
-            { 
-                return ro;
-            }
+            get => ro;
             set
             {
-                ro = value;
+                if (value is null) ro = 0;
+                else ro = value;
                 OnPropertyChanged();
             }
         }
-        public double C
+        public double? C
         {
-            get
-            {
-                return c;
-            }
+            get => c;
             set
             {
-                c = value;
+                if (value is null) c = 0;
+                else c = value;
+                OnPropertyChanged();
+            }          
+        }
+        public double? Temp0
+        {
+            get => temp0;
+            set
+            {
+                if (value is null) temp0 = 0;
+                else temp0 = value;
                 OnPropertyChanged();
             }
         }
-        public double Temp0
+        public double? SpeedU
         {
-            get
-            {
-                return temp0;
-            }
+            get => speedU;
             set
             {
-                temp0 = value;
+                if (value is null) speedU = 0;
+                else speedU = value;
                 OnPropertyChanged();
             }
         }
-        public double SpeedU
+        public double? TempU
         {
-            get
-            {
-                return speedU;
-            }
+            get => tempU;
             set
             {
-                speedU = value;
+                if (value is null) tempU = 0;
+                else tempU = value;
                 OnPropertyChanged();
             }
         }
-        public double TempU
+        public double? Step
         {
-            get
-            {
-                return tempU;
-            }
+            get => step;
             set
             {
-                tempU = value;
+                if (value is null) step = 0;
+                else step = value;
                 OnPropertyChanged();
             }
         }
-        public double Step
+        public double? M0
         {
-            get
-            {
-                return step;
-            }
+            get => m0;
             set
             {
-                step = value;
+                if (value is null) m0 = 0;
+                else m0 = value;
                 OnPropertyChanged();
             }
         }
-        public double M0
+        public double? B
         {
-            get
-            {
-                return m0;
-            }
+            get => b;
             set
             {
-                m0 = value;
+                if (value is null) b = 0;
+                else b = value;
                 OnPropertyChanged();
             }
         }
-        public double B
+        public double? TempR
         {
-            get
-            {
-                return b;
-            }
+            get => tempR;
             set
             {
-                b = value;
+                if (value is null) tempR = 0;
+                else tempR = value;
                 OnPropertyChanged();
             }
         }
-        public double TempR
+        public double? N
         {
-            get
-            {
-                return tempR;
-            }
+            get => n;
             set
             {
-                tempR = value;
+                if (value is null) n = 0;
+                else n = value;
                 OnPropertyChanged();
             }
         }
-        public double N
+        public double? KoefU
         {
-            get
-            {
-                return n;
-            }
+            get => koefU;
             set
             {
-                n = value;
+                if (value is null) koefU = 0;
+                else koefU = value;
                 OnPropertyChanged();
-            }
-        }
-        public double KoefU
-        {
-            get
-            {
-                return koefU;
-            }
-            set
-            {
-                koefU = value;
-                OnPropertyChanged();
-            }
+            }            
         }
         
         #endregion
