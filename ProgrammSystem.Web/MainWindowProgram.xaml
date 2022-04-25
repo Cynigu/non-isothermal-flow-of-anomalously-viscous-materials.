@@ -113,7 +113,7 @@
                             <TextBlock x:Name="textBlockau" Text="Коэффициент теплоотдачи от крышки канала к материалу (Вт/(м^2*C))"/>
                             <TextBox x:Name="textBoxau" PreviewTextInput="Text_PreviewTextInput" Text="{Binding KoefU}"></TextBox>
                         </StackPanel>
-                        <TextBlock Text="Параметры метода решения:" FontWeight="Bold"/>
+                        <TextBlock Text="Параметры метода решения уравнений модели:" FontWeight="Bold"/>
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="Шаг рачёта по длине канала (м) "/>
                             <TextBox x:Name="textBoxStep" PreviewTextInput="Text_PreviewTextInput" Text="{Binding Step}"/>

@@ -7,12 +7,14 @@ using ProgrammSystem.BLL.Autofac;
 using ProgrammSystem.Web.Commands;
 using ProgramSystem.Bll.Services.Interfaces;
 using System.Diagnostics;
+using Microsoft.Win32;
 
 namespace ProgrammSystem.Web.vm
 {
     public class MainWindowProgramViewModel: ViewModelBase
     {
         private readonly IMathService _mathService;
+        private readonly IFileExcelService _fileExcelService;
         private Results _res;
         #region Fields
         private double? lenght; //длина
@@ -215,10 +217,12 @@ namespace ProgrammSystem.Web.vm
         public RelayCommand MainWindowProgramReportCommand { get; set; }
         #endregion
 
-        public MainWindowProgramViewModel(IMathService mathService)
+        public MainWindowProgramViewModel(IMathService mathService, IFileExcelService fileExcelService)
         {
             _mathService = mathService;
+            _fileExcelService = fileExcelService;
 
+            TypeOfMaterial = "Полипропилен";
             Lenght = 7.5;
             Weight = 0.2;
             Height = 0.003;
@@ -275,28 +279,34 @@ namespace ProgrammSystem.Web.vm
         private void CreateReport()
         {
             //длина=сервис.методсервиса
-            _res = _mathService.Calculation(weight, height, lenght, ro, c, temp0, speedU, tempU, m0, b, tempR, n, koefU, step);
+            //_res = _mathService.Calculation(weight, height, lenght, ro, c, temp0, speedU, tempU, m0, b, tempR, n, koefU, step);
 
-            sw = new Stopwatch();
-            sw.Start();
+            //sw = new Stopwatch();
+            //sw.Start();
 
-            pr = Process.GetCurrentProcess();
-            memory0 = pr.WorkingSet64;
+            //pr = Process.GetCurrentProcess();
+            //memory0 = pr.WorkingSet64;
 
-            CheckCalculate = true;
+            //CheckCalculate = true;
 
             //новое окно как в апп хмл.кс
-            var builderBase = new ContainerBuilder();
+            //var builderBase = new ContainerBuilder();
 
-            builderBase.RegisterModule(new ContextFactoriesModule());
-            builderBase.RegisterModule(new ServicesModule());
+            //builderBase.RegisterModule(new ContextFactoriesModule());
+            //builderBase.RegisterModule(new ServicesModule());
 
-            var containerBase = builderBase.Build();
+            //var containerBase = builderBase.Build();
 
-            var viewmodelBase = new ResultWindowViewModel(_res, ref sw, ref memory0);
-            var viewBase = new ResultWindow { DataContext = viewmodelBase };
+            //var viewmodelBase = new ResultWindowViewModel(_res, ref sw, ref memory0);
+            //var viewBase = new ResultWindow { DataContext = viewmodelBase };
 
-            viewBase.Show();
+            //viewBase.Show();
+
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            if (saveFileDialog.ShowDialog() == true)
+                if (_fileExcelService.CreateExcel(saveFileDialog.FileName, typeOfMaterial, weight, height, lenght, ro, c, temp0, speedU, tempU, m0, b, tempR, n, koefU, step, _res))
+                    MessageBox.Show("Сохранение прошло успешно!");
+                else MessageBox.Show("Произошла ошибка!");
 
         }
 

@@ -25,6 +25,7 @@ namespace ProgrammSystem.BLL.Autofac
                 .As<IMaterialParameterValuesService>();
 
             builder.Register(c => new MathService()).As<IMathService>();
+            builder.Register(c => new FileExcelService()).As<IFileExcelService>();
         }
     }
 }
