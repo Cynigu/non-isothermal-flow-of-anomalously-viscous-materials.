@@ -6,6 +6,7 @@ using Autofac;
 using ProgrammSystem.BLL.Autofac;
 using ProgrammSystem.Web.Commands;
 using ProgramSystem.Bll.Services.Interfaces;
+using System.Diagnostics;
 
 namespace ProgrammSystem.Web.vm
 {
@@ -33,6 +34,12 @@ namespace ProgrammSystem.Web.vm
         private double? tempR;
         private double? n;
         private double? koefU;
+
+        internal static Stopwatch sw;
+        internal static long memory0;
+        internal static Process pr;
+
+        private bool checkCalculate;
 
         #endregion
 
@@ -190,11 +197,22 @@ namespace ProgrammSystem.Web.vm
                 OnPropertyChanged();
             }            
         }
-        
+
+        public bool CheckCalculate
+        {
+            get => checkCalculate;
+            set
+            {
+                checkCalculate = value;
+                OnPropertyChanged();
+            }
+        }
+
         #endregion
 
         #region Commands
         public RelayCommand MainWindowProgramCalculateCommand { get; set; }
+        public RelayCommand MainWindowProgramReportCommand { get; set; }
         #endregion
 
         public MainWindowProgramViewModel(IMathService mathService)
@@ -215,8 +233,11 @@ namespace ProgrammSystem.Web.vm
             TempR =185;
             N =0.38;
             KoefU =1500;
+            CheckCalculate = false;
 
             MainWindowProgramCalculateCommand = new RelayCommand(obj => CalculateResults(), obj => !CanCalculate());
+
+            MainWindowProgramReportCommand = new RelayCommand(obj => CreateReport(), obj => CheckCalculate);
         }
 
         #region Methods
@@ -224,6 +245,14 @@ namespace ProgrammSystem.Web.vm
         {
             //длина=сервис.методсервиса
             _res = _mathService.Calculation(weight, height, lenght, ro, c, temp0, speedU, tempU, m0, b, tempR, n, koefU, step);
+
+            sw = new Stopwatch();
+            sw.Start();
+
+            pr = Process.GetCurrentProcess();
+            memory0 = pr.WorkingSet64;
+
+            CheckCalculate=true;
 
             //новое окно как в апп хмл.кс
             var builderBase = new ContainerBuilder();
@@ -233,8 +262,8 @@ namespace ProgrammSystem.Web.vm
 
             var containerBase = builderBase.Build();
 
-            var viewmodelBase = new ResultWindowViewModel(_res);
-            var viewBase = new ResultWindow { DataContext = viewmodelBase };
+            var viewmodelBase = new ResultWindowViewModel(_res, ref sw, ref memory0);
+            var viewBase = new ResultWindow { DataContext = viewmodelBase };           
 
             viewBase.Show();
 
@@ -242,6 +271,35 @@ namespace ProgrammSystem.Web.vm
 
         private bool CanCalculate() => Weight<=0 || Height <=0 || Lenght <= 0 || Ro <= 0 || C <= 0 || Temp0 <= 0 || SpeedU <= 0 || TempU <= 0 || M0 <= 0 || B <= 0 || TempR <= 0 
             || N <= 0 || KoefU <= 0 || Step <= 0; //проверка
+
+        private void CreateReport()
+        {
+            //длина=сервис.методсервиса
+            _res = _mathService.Calculation(weight, height, lenght, ro, c, temp0, speedU, tempU, m0, b, tempR, n, koefU, step);
+
+            sw = new Stopwatch();
+            sw.Start();
+
+            pr = Process.GetCurrentProcess();
+            memory0 = pr.WorkingSet64;
+
+            CheckCalculate = true;
+
+            //новое окно как в апп хмл.кс
+            var builderBase = new ContainerBuilder();
+
+            builderBase.RegisterModule(new ContextFactoriesModule());
+            builderBase.RegisterModule(new ServicesModule());
+
+            var containerBase = builderBase.Build();
+
+            var viewmodelBase = new ResultWindowViewModel(_res, ref sw, ref memory0);
+            var viewBase = new ResultWindow { DataContext = viewmodelBase };
+
+            viewBase.Show();
+
+        }
+
 
         #endregion
 

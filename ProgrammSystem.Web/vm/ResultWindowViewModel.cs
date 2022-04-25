@@ -3,6 +3,7 @@ using ProgramSystem.Bll.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,6 +25,7 @@ namespace ProgrammSystem.Web.vm
         private DataTable dt;
         private List<DataPoint> tempInCanal;
         private List<DataPoint> viscInCanal;
+        private string? textMessage;
 
         #endregion
 
@@ -59,6 +61,18 @@ namespace ProgrammSystem.Web.vm
             set
             {
                 visc = value;
+            }
+        }
+
+        public string? TextMessage
+        {
+            get
+            {
+                return textMessage;
+            }
+            set
+            {
+                textMessage = value;
             }
         }
 
@@ -148,7 +162,7 @@ namespace ProgrammSystem.Web.vm
         #region Commands
         #endregion
 
-        public ResultWindowViewModel(Results res)
+        public ResultWindowViewModel(Results res, ref Stopwatch sw, ref long memory0)
         {
             _res = res;
 
@@ -200,6 +214,15 @@ namespace ProgrammSystem.Web.vm
             DataForTable = d;
             TempInCanal = tp;
             ViscInCanal = np;
+
+            sw.Stop();
+            TimeSpan time = sw.Elapsed;
+            Process p = Process.GetCurrentProcess();
+            var memuse = p.WorkingSet64 - memory0;
+
+            string elaosedTime = String.Format("{0:00}.{1:00}", time.Seconds, time.Milliseconds / 10);
+            string str = "Время расчета и визуализации = " + elaosedTime.ToString() + " c," + "  объем затраченной оперативной памяти = " + Math.Round(memuse / 1024.0 / 1024.0, 2).ToString() + " МБ";
+            TextMessage = str;
         }
 
         #region Methods        

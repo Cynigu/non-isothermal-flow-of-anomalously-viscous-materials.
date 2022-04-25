@@ -30,7 +30,7 @@
     <StackPanel>
             <StackPanel Orientation="Horizontal">
             <Button x:Name="buttonCalc" Command="{Binding Path=MainWindowProgramCalculateCommand}" FontSize="14" Content="Вычисление"></Button>
-                <Button x:Name="buttonReport" FontSize="14" Content="Отчет"></Button>
+            <Button x:Name="buttonReport" FontSize="14" Content="Отчет" Command="{Binding Path=MainWindowProgramReportCommand}"></Button>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <Border BorderBrush="Black"  BorderThickness="1" HorizontalAlignment="Center" VerticalAlignment="Center">

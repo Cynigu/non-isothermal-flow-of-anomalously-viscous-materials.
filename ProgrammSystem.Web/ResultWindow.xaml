@@ -47,7 +47,7 @@
                     </oxy:Plot.Series>
                 </oxy:Plot>
             </Grid>
-            
+            <TextBlock Text="{Binding TextMessage}"/>
         </StackPanel>
     </Grid>
 </Window>
