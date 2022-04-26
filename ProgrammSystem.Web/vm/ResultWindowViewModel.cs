@@ -1,9 +1,14 @@
 ﻿using OxyPlot;
+using OxyPlot.Axes;
+using OxyPlot.Wpf;
+using ProgrammSystem.Web.Commands;
 using ProgramSystem.Bll.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
+using System.IO;
+using OxyPlot.Series;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,8 +28,8 @@ namespace ProgrammSystem.Web.vm
         private List<double> viscIn;
         private List<string[]> dataForTable;
         private DataTable dt;
-        private List<DataPoint> tempInCanal;
-        private List<DataPoint> viscInCanal;
+        private PlotModel viscInCanalModel;
+        private PlotModel tempInCanalModel;
         private string? textMessage;
 
         #endregion
@@ -133,27 +138,28 @@ namespace ProgrammSystem.Web.vm
             }
         }
 
-        public List<DataPoint> TempInCanal
+
+        public PlotModel TempInCanalModel
         {
             get
             {
-                return tempInCanal;
+                return tempInCanalModel;
             }
             set
             {
-                tempInCanal = value;
+                tempInCanalModel = value;
             }
         }
 
-        public List<DataPoint> ViscInCanal
+        public PlotModel ViscInCanalModel
         {
             get
             {
-                return viscInCanal;
+                return viscInCanalModel;
             }
             set
             {
-                viscInCanal = value;
+                viscInCanalModel = value;
             }
         }
 
@@ -194,8 +200,16 @@ namespace ProgrammSystem.Web.vm
             DT.Columns.Add(column);
 
             List<string[]> d = new List<string[]>();
-            List<DataPoint> tp = new List<DataPoint>();
-            List<DataPoint> np = new List<DataPoint>();
+
+            PlotModel t = new PlotModel { Title = "Распределение температуры материала по длине канала:" };
+            t.Axes.Add(new OxyPlot.Axes.LinearAxis { Position = AxisPosition.Left, Title = "Температура материала, С" });
+            t.Axes.Add(new OxyPlot.Axes.LinearAxis { Position = AxisPosition.Bottom, Title = "Длина канала, м" });
+            PlotModel v = new PlotModel { Title = "Распределение вязкости материала по длине канала:" };
+            v.Axes.Add(new OxyPlot.Axes.LinearAxis { Position = AxisPosition.Left, Title = "Вязкость материала, Па*с" });
+            v.Axes.Add(new OxyPlot.Axes.LinearAxis { Position = AxisPosition.Bottom, Title = "Длина канала, м" });
+            var ls1 = new OxyPlot.Series.LineSeries();
+            var ls2 = new OxyPlot.Series.LineSeries();
+
             for (int i = 0; i < Len.Count; i++)
             {
                 //string[] str = new string[] { Math.Round(Len[i], 2).ToString(), Math.Round(TempIn[i], 2).ToString(), Math.Round(ViscIn[i], 2).ToString() };
@@ -207,13 +221,17 @@ namespace ProgrammSystem.Web.vm
                 row["visc"] = Math.Round(ViscIn[i], 2).ToString();
                 DT.Rows.Add(row);
 
-                tp.Add(new DataPoint(Math.Round(Len[i], 2), Math.Round(TempIn[i], 2)));
-                np.Add(new DataPoint(Math.Round(Len[i], 2), Math.Round(ViscIn[i], 2)));
+                ls1.Points.Add(new DataPoint(Math.Round(Len[i], 2), Math.Round(TempIn[i], 2)));
+                ls2.Points.Add(new DataPoint(Math.Round(Len[i], 2), Math.Round(ViscIn[i], 2)));
             }
 
             DataForTable = d;
-            TempInCanal = tp;
-            ViscInCanal = np;
+
+            t.Series.Add(ls1);
+            TempInCanalModel = t;
+
+            v.Series.Add(ls2);
+            ViscInCanalModel = v;
 
             sw.Stop();
             TimeSpan time = sw.Elapsed;
@@ -223,6 +241,15 @@ namespace ProgrammSystem.Web.vm
             string elaosedTime = String.Format("{0:00}.{1:00}", time.Seconds, time.Milliseconds / 10);
             string str = "Время расчета и визуализации = " + elaosedTime.ToString() + " c," + "  объем затраченной оперативной памяти = " + Math.Round(memuse / 1024.0 / 1024.0, 2).ToString() + " МБ";
             TextMessage = str;
+
+            string path = Environment.CurrentDirectory;
+
+            var pngExporter1 = new PngExporter { Width = 600, Height = 400, Background = OxyColors.White };
+            pngExporter1.ExportToFile(TempInCanalModel, path + "/temp.png");
+
+            var pngExporter2 = new PngExporter { Width = 600, Height = 400, Background = OxyColors.White };
+            pngExporter2.ExportToFile(ViscInCanalModel, path + "/visc.png");
+
         }
 
         #region Methods        

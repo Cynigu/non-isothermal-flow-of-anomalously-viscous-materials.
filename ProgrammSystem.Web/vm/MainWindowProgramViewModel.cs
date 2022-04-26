@@ -278,30 +278,6 @@ namespace ProgrammSystem.Web.vm
 
         private void CreateReport()
         {
-            //длина=сервис.методсервиса
-            //_res = _mathService.Calculation(weight, height, lenght, ro, c, temp0, speedU, tempU, m0, b, tempR, n, koefU, step);
-
-            //sw = new Stopwatch();
-            //sw.Start();
-
-            //pr = Process.GetCurrentProcess();
-            //memory0 = pr.WorkingSet64;
-
-            //CheckCalculate = true;
-
-            //новое окно как в апп хмл.кс
-            //var builderBase = new ContainerBuilder();
-
-            //builderBase.RegisterModule(new ContextFactoriesModule());
-            //builderBase.RegisterModule(new ServicesModule());
-
-            //var containerBase = builderBase.Build();
-
-            //var viewmodelBase = new ResultWindowViewModel(_res, ref sw, ref memory0);
-            //var viewBase = new ResultWindow { DataContext = viewmodelBase };
-
-            //viewBase.Show();
-
             SaveFileDialog saveFileDialog = new SaveFileDialog();
             if (saveFileDialog.ShowDialog() == true)
                 if (_fileExcelService.CreateExcel(saveFileDialog.FileName, typeOfMaterial, weight, height, lenght, ro, c, temp0, speedU, tempU, m0, b, tempR, n, koefU, step, _res))

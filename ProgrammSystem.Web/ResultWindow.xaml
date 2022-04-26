@@ -4,7 +4,6 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProgrammSystem.Web"
-        xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
         xmlns:oxy="http://oxyplot.org/wpf"
         mc:Ignorable="d"
         Title="ResultWindow" SizeToContent="Height" Width="800">
@@ -22,11 +21,11 @@
                     <DataGridTextColumn Header="Температура материала, С" Width="*"
                     Binding = "{Binding temp}" />
                     <DataGridTextColumn Header="Вязкость материала, Па*с" Width="*"
-                    Binding = "{Binding visc}" /> 
+                    Binding = "{Binding visc}" />
                 </DataGrid.Columns>
             </DataGrid>
             <Grid>
-                <oxy:Plot Title="Распределение температуры материала по длине канала:" Height="300">
+                <!--<oxy:Plot Title="Распределение температуры материала по длине канала:" Height="300">
                     <oxy:Plot.Axes>
                         <oxy:LinearAxis Position="Bottom" Title="Длина канала, м" />
                         <oxy:LinearAxis Position="Left" Title="Температура материала, С" />
@@ -34,10 +33,12 @@
                     <oxy:Plot.Series>
                         <oxy:LineSeries ItemsSource="{Binding TempInCanal}"/>
                     </oxy:Plot.Series>
-                </oxy:Plot>
+                </oxy:Plot>-->
+
+                <oxy:PlotView Model="{Binding TempInCanalModel}" Height="300"/>
             </Grid>
             <Grid>
-                <oxy:Plot Title="Распределение вязкости материала по длине канала:" Height="300">
+                <!--<oxy:Plot Title="Распределение вязкости материала по длине канала:" Height="300">
                     <oxy:Plot.Axes>
                         <oxy:LinearAxis Position="Bottom" Title="Длина канала, м" />
                         <oxy:LinearAxis Position="Left" Title="Вязкость материала, Па*с" />
@@ -45,8 +46,10 @@
                     <oxy:Plot.Series>
                         <oxy:LineSeries ItemsSource="{Binding ViscInCanal}"/>
                     </oxy:Plot.Series>
-                </oxy:Plot>
+                </oxy:Plot>-->
+                <oxy:PlotView Model="{Binding ViscInCanalModel}" Height="300"/>
             </Grid>
+            
             <TextBlock Text="{Binding TextMessage}"/>
         </StackPanel>
     </Grid>
