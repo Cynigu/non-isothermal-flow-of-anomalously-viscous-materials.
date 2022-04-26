@@ -9,7 +9,10 @@
         Title="ResultWindow" SizeToContent="Height" Width="800">
     <Grid>
         <StackPanel>
-            <TextBlock Text="Критериальные показатели процесса:"/>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Критериальные показатели процесса:                                                                                   "/>
+                <Button Command="{Binding Path=ReportSpeedCommand}" FontSize="14" Content="Исследование влияния скорости крашки канала"/>
+            </StackPanel>            
             <TextBlock Text="{Binding Q}"/>
             <TextBlock Text="{Binding Temp}"/>
             <TextBlock Text="{Binding Visc}"/>
@@ -24,29 +27,11 @@
                     Binding = "{Binding visc}" />
                 </DataGrid.Columns>
             </DataGrid>
+            
             <Grid>
-                <!--<oxy:Plot Title="Распределение температуры материала по длине канала:" Height="300">
-                    <oxy:Plot.Axes>
-                        <oxy:LinearAxis Position="Bottom" Title="Длина канала, м" />
-                        <oxy:LinearAxis Position="Left" Title="Температура материала, С" />
-                    </oxy:Plot.Axes>
-                    <oxy:Plot.Series>
-                        <oxy:LineSeries ItemsSource="{Binding TempInCanal}"/>
-                    </oxy:Plot.Series>
-                </oxy:Plot>-->
-
                 <oxy:PlotView Model="{Binding TempInCanalModel}" Height="300"/>
             </Grid>
             <Grid>
-                <!--<oxy:Plot Title="Распределение вязкости материала по длине канала:" Height="300">
-                    <oxy:Plot.Axes>
-                        <oxy:LinearAxis Position="Bottom" Title="Длина канала, м" />
-                        <oxy:LinearAxis Position="Left" Title="Вязкость материала, Па*с" />
-                    </oxy:Plot.Axes>
-                    <oxy:Plot.Series>
-                        <oxy:LineSeries ItemsSource="{Binding ViscInCanal}"/>
-                    </oxy:Plot.Series>
-                </oxy:Plot>-->
                 <oxy:PlotView Model="{Binding ViscInCanalModel}" Height="300"/>
             </Grid>
             

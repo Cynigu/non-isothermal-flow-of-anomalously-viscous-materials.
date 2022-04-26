@@ -12,6 +12,8 @@ using OxyPlot.Series;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Autofac;
+using ProgrammSystem.BLL.Autofac;
 
 namespace ProgrammSystem.Web.vm
 {
@@ -164,7 +166,7 @@ namespace ProgrammSystem.Web.vm
         }
 
         #endregion
-
+        public RelayCommand ReportSpeedCommand { get; set; }
         #region Commands
         #endregion
 
@@ -250,11 +252,26 @@ namespace ProgrammSystem.Web.vm
             var pngExporter2 = new PngExporter { Width = 600, Height = 400, Background = OxyColors.White };
             pngExporter2.ExportToFile(ViscInCanalModel, path + "/visc.png");
 
+            ReportSpeedCommand = new RelayCommand(obj => ReportSpeed(res), obj => true);
+
         }
 
         #region Methods        
+        private void ReportSpeed(Results r)
+        {
+            var builderBase = new ContainerBuilder();
 
-        #endregion
+            builderBase.RegisterModule(new ContextFactoriesModule());
+            builderBase.RegisterModule(new ServicesModule());
 
-    }
+            var containerBase = builderBase.Build();
+
+            var viewmodelBase = new SpeedAnalyzeViewModel(r);
+            var viewBase = new SpeedAnalyze { DataContext = viewmodelBase };
+
+            viewBase.Show();
+        }
+            #endregion
+
+        }
 }

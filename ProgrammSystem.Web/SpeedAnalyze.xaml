@@ -1,0 +1,38 @@
+﻿<Window x:Class="ProgrammSystem.Web.SpeedAnalyze"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:ProgrammSystem.Web"
+      mc:Ignorable="d" 
+      xmlns:oxy="http://oxyplot.org/wpf"
+      d:DesignHeight="900" d:DesignWidth="400"
+      Title="Исследование влияния скорости крышки канала" >
+    <Grid>
+        <ScrollViewer>
+        <StackPanel>
+            <DataGrid x:Name="resultsGrid" ItemsSource="{Binding Path=DT}" AutoGenerateColumns="False" HeadersVisibility="Column" IsReadOnly="True">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Скорость крышки канала, м/с" Width="*"
+                    Binding = "{Binding speed}" />
+                    <DataGridTextColumn Header="Производительность канала, кг/ч" Width="*"
+                    Binding = "{Binding q}" />
+                    <DataGridTextColumn Header="Температура продукта, С" Width="*"
+                    Binding = "{Binding temp}" />
+                    <DataGridTextColumn Header="Вязкость продукта, Па*с" Width="*"
+                    Binding = "{Binding visc}" />
+                </DataGrid.Columns>
+            </DataGrid>
+            <Grid>
+                <oxy:PlotView Model="{Binding QInCanalModel}" Height="300"/>
+            </Grid>
+            <Grid>
+                <oxy:PlotView Model="{Binding TempInCanalModel}" Height="300"/>
+            </Grid>
+            <Grid>
+                <oxy:PlotView Model="{Binding ViscInCanalModel}" Height="300"/>
+            </Grid>
+        </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</Window>
