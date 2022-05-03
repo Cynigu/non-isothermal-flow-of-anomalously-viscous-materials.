@@ -51,9 +51,14 @@
                         </StackPanel>
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="Тип материала:" FontWeight="Bold"></TextBlock>
-                        <ComboBox x:Name="comboBoxTypeMaterial" Width="125" Height="30">
-                            <TextBlock>Полипропилен</TextBlock>
+                        <ComboBox x:Name="comboBoxTypeMaterial" Width="125" Height="30" ItemsSource="{Binding TypeMaterialList}"  DisplayMemberPath="Name"
+                            SelectedItem="{Binding CurrentTypeMaterial, Mode=TwoWay}">
+                            <!--<TextBlock>Полипропилен</TextBlock>-->
                         </ComboBox>
+                        <!-- <ComboBox x:Name="Name1" Grid.Column="6" Height="23"
+            SelectedItem="{Binding CPModel.SelectedStatus}"
+            DisplayMemberPath ="название"
+            ItemsSource="{Binding CPModel.Status}" VerticalAlignment="Center"  Grid.Row="1" />-->    
                         </StackPanel>
                         <StackPanel>
                             <TextBlock x:Name="textBlockPm" Text="Параметры свойств материала:" FontWeight="Bold"/>

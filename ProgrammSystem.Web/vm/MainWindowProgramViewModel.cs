@@ -8,6 +8,8 @@ using ProgrammSystem.Web.Commands;
 using ProgramSystem.Bll.Services.Interfaces;
 using System.Diagnostics;
 using Microsoft.Win32;
+using System.Collections.Generic;
+using ProgramSystem.Bll.Services.DTO;
 
 namespace ProgrammSystem.Web.vm
 {
@@ -15,13 +17,17 @@ namespace ProgrammSystem.Web.vm
     {
         private readonly IMathService _mathService;
         private readonly IFileExcelService _fileExcelService;
-        private Results _res;
+        private readonly IMaterialService _materialService;
+        private readonly IMaterialParameterValuesService _materialParameterValue;
+        private Results? _res;
         #region Fields
         private double? lenght; //длина
         private double? weight;//ширина
         private double? height; //глубина
 
         private string? typeOfMaterial;
+        private ICollection<MaterialDTO> typeMaterialList;
+        private MaterialDTO currentTypeMaterial;
         private double? ro;
         private double? c;
         private double? temp0;
@@ -210,6 +216,26 @@ namespace ProgrammSystem.Web.vm
             }
         }
 
+        public ICollection<MaterialDTO> TypeMaterialList
+        {
+            get => typeMaterialList;
+            set
+            {
+                typeMaterialList = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public MaterialDTO CurrentTypeMaterial
+        {
+            get => currentTypeMaterial;
+            set
+            {
+                currentTypeMaterial = value;
+                OnPropertyChanged();
+            }
+        }
+
         #endregion
 
         #region Commands
@@ -217,10 +243,12 @@ namespace ProgrammSystem.Web.vm
         public RelayCommand MainWindowProgramReportCommand { get; set; }
         #endregion
 
-        public MainWindowProgramViewModel(IMathService mathService, IFileExcelService fileExcelService)
+        public MainWindowProgramViewModel(IMathService mathService, IFileExcelService fileExcelService, IMaterialService materialService, IMaterialParameterValuesService materialParameterValue)
         {
             _mathService = mathService;
             _fileExcelService = fileExcelService;
+            _materialService = materialService;
+            _materialParameterValue = materialParameterValue;
 
             TypeOfMaterial = "Полипропилен";
             Lenght = 7.5;
@@ -238,6 +266,30 @@ namespace ProgrammSystem.Web.vm
             N =0.38;
             KoefU =1500;
             CheckCalculate = false;
+
+            var param = _materialService.GetAllMaterialsObjectsAsync();
+
+            ICollection<MaterialDTO> materials = param.Result;
+
+            TypeMaterialList = materials;
+
+            foreach (MaterialDTO material in materials)
+            {
+                CurrentTypeMaterial = material;
+                break;
+            }
+
+            //var valuesMaterial = _materialParameterValue.GetAllMaterialParametrsValues();
+            //ICollection<ParameterValue> val = valuesMaterial.Result;
+
+            //foreach (ParameterValue values in val)
+            //{
+            //    string s = values.ParameterName;
+            //    float f = values.Value;
+
+            //    string h = s + f.ToString();
+            //}
+
 
             MainWindowProgramCalculateCommand = new RelayCommand(obj => CalculateResults(), obj => !CanCalculate());
 

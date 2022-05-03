@@ -37,17 +37,19 @@
                             </StackPanel>
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock  x:Name="textBlockRole" Text="Роль:" />
-                                <ComboBox x:Name="comboBoxRole" Width="130" Height="25"/>
+                                <ComboBox x:Name="comboBoxRole" Width="130" Height="25" ItemsSource="{Binding RoleList}"
+                            SelectedItem="{Binding CurrentRole, Mode=TwoWay}"/>
                             </StackPanel>
                             <Button x:Name="buttonAddLog" Content="Добавить" ></Button>
                             <Button x:Name="buttonDelete" Content="Удалить" ></Button>
                             <Button x:Name="buttonEdit" Content="Изменить"></Button>
                         </StackPanel>
                         <StackPanel>
-                            <DataGrid x:Name="dataGridLog" Width="248" Height="175">
+                            <DataGrid x:Name="dataGridLog" Width="248" Height="175" ItemsSource="{Binding UserList}" AutoGenerateColumns="False" IsReadOnly="True">
                                 <DataGrid.Columns>
-                                    <DataGridTextColumn Header="Логин"></DataGridTextColumn>
-                                    <DataGridTextColumn Header="Пароль"></DataGridTextColumn>
+                                    <DataGridTextColumn Header="Логин" Width="*" Binding="{Binding Path=Login}"></DataGridTextColumn>
+                                    <DataGridTextColumn Header="Пароль" Width="*" Binding="{Binding Path=Password}"></DataGridTextColumn>
+                                    <DataGridTextColumn Header="Роль" Width="*" Binding="{Binding Path=Role}"></DataGridTextColumn>
                                 </DataGrid.Columns>
                             </DataGrid>
                         </StackPanel>
@@ -61,7 +63,8 @@
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock x:Name="textBlockTm" Text="Тип материала:" FontWeight="Bold"></TextBlock>
                                 <TextBox x:Name="textBoxTypeOfMaterial" Text="{Binding TypeOfMaterial}"></TextBox>
-                                <ComboBox x:Name="comboBoxTm" Width="150"></ComboBox>
+                                <ComboBox x:Name="comboBoxTm" Width="150" ItemsSource="{Binding TypeMaterialList}"  DisplayMemberPath="Name"
+                            SelectedItem="{Binding CurrentTypeMaterial, Mode=TwoWay}"></ComboBox>
                             </StackPanel>
                             <TextBlock x:Name="textBlockPm" Text="Параметры свойств материала:" FontWeight="Bold"></TextBlock>
                             <StackPanel Orientation="Horizontal">

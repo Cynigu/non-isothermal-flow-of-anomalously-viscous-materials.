@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ProgramSystem.Bll.Services.DTO;
+using ProgramSystem.Bll.Services.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,11 +10,19 @@ namespace ProgrammSystem.Web.vm
 {
     internal class WindowEditViewModel: ViewModelBase
     {
+        private readonly IUserService _userService;
+        private readonly IMaterialService _materialService;
         #region Fields
         private string? login;
-        private string? password;       
+        private string? password;
+        private List<UserDTO> userList;
+        private List<string> roleList;
+        private string currentRole;
 
         private string? typeOfMaterial;
+        private ICollection<MaterialDTO> typeMaterialList;
+        private MaterialDTO currentTypeMaterial;
+
         private double ro;
         private double c;
         private double temp0;
@@ -58,7 +68,37 @@ namespace ProgrammSystem.Web.vm
                 OnPropertyChanged();
             }
         }
-        
+        public List<UserDTO> UserList
+        {
+            get => userList;
+            set
+            {
+                userList = value;
+                OnPropertyChanged();
+            }
+        }
+        public List<string> RoleList
+        {
+            get => roleList;
+            set
+            {
+                roleList = value;
+                OnPropertyChanged();
+            }
+        }
+        public string CurrentRole
+        {
+            get
+            {
+                return currentRole;
+            }
+            set
+            {
+                currentRole = value;
+                OnPropertyChanged();
+            }
+        }
+
         public string? TypeOfMaterial
         {
             get
@@ -71,6 +111,25 @@ namespace ProgrammSystem.Web.vm
                 OnPropertyChanged();
             }
         }
+        public ICollection<MaterialDTO> TypeMaterialList
+        {
+            get => typeMaterialList;
+            set
+            {
+                typeMaterialList = value;
+                OnPropertyChanged();
+            }
+        }
+        public MaterialDTO CurrentTypeMaterial
+        {
+            get => currentTypeMaterial;
+            set
+            {
+                currentTypeMaterial = value;
+                OnPropertyChanged();
+            }
+        }
+
         public double Ro
         {
             get
@@ -237,9 +296,32 @@ namespace ProgrammSystem.Web.vm
 
         #endregion
 
-        public WindowEditViewModel()
+        public WindowEditViewModel(IUserService userService, IMaterialService materialService)
         {
-            
+            _userService = userService;
+            _materialService = materialService;
+
+            var listUserDB = _userService.GetAllUsers();
+            List<UserDTO> u = new List<UserDTO>();
+            List<string> role = new List<string>();
+            foreach (var user in listUserDB)
+            {
+                u.Add(user);
+                if(!role.Contains(user.Role)) role.Add(user.Role);
+            }
+            UserList=u;
+            RoleList = role;
+            //добавление ролей
+
+            //комбобокс материала
+            var param = _materialService.GetAllMaterialsObjectsAsync();
+            ICollection<MaterialDTO> materials = param.Result;
+            TypeMaterialList = materials;
+            foreach (MaterialDTO material in materials)
+            {
+                CurrentTypeMaterial = material;
+                break;
+            }
         }
 
         #region Methods
