@@ -61,5 +61,15 @@ namespace ProgramSystem.Bll.Services.Services
                 await uow.MaterialRepository.RemoveRangeAsync(x => x.Id == id);
             }
         }
+
+        public async Task EditMatrial(int id, string typeMaterial)
+        {
+            using var uow = new UnitOfWork(_contextFactory.Create());
+            await uow.MaterialRepository.UpdateAsync(new MaterialEntity()
+            {
+                Id = id,
+                Name = typeMaterial
+            });
+        }
     }
 }

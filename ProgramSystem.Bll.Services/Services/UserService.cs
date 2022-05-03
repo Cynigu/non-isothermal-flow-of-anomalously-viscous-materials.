@@ -2,6 +2,7 @@
 using ProgramSystem.Bll.Services.DTO;
 using ProgramSystem.Bll.Services.Interfaces;
 using ProgramSystem.Bll.Services.Mapper;
+using ProgramSystem.Data.Models;
 using ProgramSystem.Data.Repository.Factories;
 using ProgramSystem.Data.Repository.UOW;
 
@@ -65,6 +66,18 @@ namespace ProgramSystem.Bll.Services.Services
             var u= uow.UserRepository.GetEntityQuery().FirstOrDefault(x => x.Login == login && x.Password == password);
             user = u?.ToDto();
             return user;
+        }
+
+        public async Task EditUser(string login, string password, int idUser, string role)
+        {
+            using var uow = new UnitOfWork(_contextFactory.Create());
+            await uow.UserRepository.UpdateAsync(new UserEntity()
+            {
+                Id = idUser,
+                Login = login,
+                Password = password,
+                Role = role
+            });
         }
     }
 }

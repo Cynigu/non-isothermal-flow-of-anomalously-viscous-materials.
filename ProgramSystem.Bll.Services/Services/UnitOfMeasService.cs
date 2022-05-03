@@ -15,6 +15,7 @@ namespace ProgramSystem.Bll.Services.Services
     public class UnitOfMeasService: IUnitOfMeasService
     {
         private readonly ISqlLiteRepositoryContextFactory _contextFactory;
+        private IUnitOfMeasService _unitOfMeasServiceImplementation;
 
         public UnitOfMeasService(ISqlLiteRepositoryContextFactory contextFactory)
         {
@@ -68,6 +69,16 @@ namespace ProgramSystem.Bll.Services.Services
             {
                 await uow.UnitOfMeasRepository.RemoveRangeAsync(x => x.Id == id);
             }
+        }
+
+        public async Task EditUnitOfMeas(int id, string name)
+        {
+            using UnitOfWork uow = new UnitOfWork(_contextFactory.Create());
+            await uow.UnitOfMeasRepository.UpdateAsync(new UnitOfMeasEntity()
+            {
+                Id = id,
+                Name = name
+            });
         }
     }
 }

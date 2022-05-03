@@ -33,5 +33,13 @@ namespace ProgramSystem.Bll.Services.Interfaces
         /// <param name="id"></param>
         Task RemoveUnitOfMeasByIdAsync(int id);
 
+        /// <summary>
+        /// Редактировать ед измерения
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        Task EditUnitOfMeas(int id, string name);
+
     }
 }

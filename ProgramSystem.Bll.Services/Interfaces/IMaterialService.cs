@@ -32,5 +32,13 @@ namespace ProgramSystem.Bll.Services.Interfaces
         /// </summary>
         /// <param name="id"></param>
         Task RemoveMaterialByIdAsync(int id);
+
+        /// <summary>
+        /// Редактировать материал
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="typeMaterial"></param>
+        /// <returns></returns>
+        Task EditMatrial(int id, string typeMaterial);
     }
 }

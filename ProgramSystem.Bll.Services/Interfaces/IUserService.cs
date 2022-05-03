@@ -39,4 +39,14 @@ public interface IUserService
     /// <param name="password"></param>
     /// <returns></returns>
     UserDTO? GetAccountByLoginPassword(string login, string password);
+
+    /// <summary>
+    /// Редактировать пользователя
+    /// </summary>
+    /// <param name="login"></param>
+    /// <param name="password"></param>
+    /// <param name="idUser"></param>
+    /// <param name="role"></param>
+    /// <returns></returns>
+    Task EditUser(string login, string password, int idUser, string role);
 }
