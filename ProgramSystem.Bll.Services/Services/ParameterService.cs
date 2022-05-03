@@ -167,5 +167,17 @@ namespace ProgramSystem.Bll.Services.Services
                 await uow.ParameterRepository.RemoveRangeAsync(x => x.Id == id);
             }
         }
+
+        public async Task EditParameter(int idParameter, string typeParameter, string name, int unitOfMeasId)
+        {
+            using var uow = new UnitOfWork(_contextFactory.Create());
+            await uow.ParameterRepository.UpdateAsync(new ParameterEntity()
+            {
+                Id = idParameter,
+                Name = name,
+                TypeParameter = typeParameter,
+                UnitOfMeasId = unitOfMeasId
+            });
+        }
     }
 }

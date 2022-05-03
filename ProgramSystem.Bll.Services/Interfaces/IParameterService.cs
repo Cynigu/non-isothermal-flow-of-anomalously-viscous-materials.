@@ -62,5 +62,15 @@ namespace ProgramSystem.Bll.Services.Interfaces
         /// </summary>
         /// <param name="id"></param>
         Task RemoveParameterByIdAsync(int id);
+        /// <summary>
+        /// Редактировать параметр 
+        /// </summary>
+        /// <param name="idParameter"></param>
+        /// <param name="typeParameter"></param>
+        /// <param name="name"></param>
+        /// <param name="unitOfMeasId"></param>
+        /// <returns></returns>
+
+        Task EditParameter(int idParameter, string typeParameter, string name, int unitOfMeasId);
     }
 }

@@ -8,6 +8,8 @@ namespace ProgramSystem.Bll.Services.DTO
 {
     public class ParameterValue
     {
+        public int MaterialId { get; set; }
+        public int ParameterId { get; set; }
         /// <summary>
         /// Наименование материала (или тип материала)
         /// </summary>

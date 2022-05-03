@@ -20,8 +20,25 @@ public interface IEmpiricalParameterValuesService
     /// <summary>
     /// Удалить эмпирический параметр по объекту
     /// </summary>
-    /// <param name="parameter"></param>
+    /// <param name="idParameter"></param>
+    /// <param name="idMaterial"></param>
     /// <returns></returns>
-    Task DeleteEmpiricalParameterValue(ParameterValue parameter);
+    Task DeleteEmpiricalParameterValue(int idParameter, int idMaterial);
+
+    /// <summary>
+    /// Получить эспирические параметры со значениями которые относятся к выбранному материалу
+    /// </summary>
+    /// <param name="idMaterial">id материала, для которого нужно получить параметры </param>
+    /// <returns></returns>
+    Task<ICollection<ParameterValue>> GetEmpiricalParametersValuesByIdMaterialId( int idMaterial );
+
+    /// <summary>
+    /// Редактировать эмпирический параметр
+    /// </summary>
+    /// <param name="parameterId">id параметра</param>
+    /// <param name="materialId">id материала</param>
+    /// <param name="changingValue">изменяемое значение</param>
+    /// <returns></returns>
+    Task EditEmpiricalParameterValue(int parameterId, int materialId, float changingValue);
 
 }

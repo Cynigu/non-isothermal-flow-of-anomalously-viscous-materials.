@@ -32,6 +32,8 @@ namespace ProgramSystem.Bll.Services.Services
                 values = await uow.EmpiricalParameterRepository.GetEntityQuery()
                     .Select(x => new ParameterValue()
                     {
+                        MaterialId = x.MaterialId,
+                        ParameterId = x.ParameterId,
                         MaterialName = x.Material.Name,
                         ParameterName = x.Parameter.Name,
                         ParameterType = x.Parameter.TypeParameter,
@@ -94,15 +96,43 @@ namespace ProgramSystem.Bll.Services.Services
                 
         }
 
-        public async Task DeleteEmpiricalParameterValue(ParameterValue parameter)
+        public async Task DeleteEmpiricalParameterValue(int idParameter, int idMaterial)
         {
             using (var uow = new UnitOfWork(_contextFactory.Create()))
             {
                 await uow.EmpiricalParameterRepository.RemoveRangeAsync(x => 
-                    x.Material.Name == parameter.MaterialName
-                    && x.Parameter.Name == parameter.ParameterName
-                    && x.Parameter.UnitOfMeas.Name == parameter.UnitOfMeasName);
+                    x.MaterialId == idMaterial 
+                    && x.ParameterId == idParameter);
             }
+        }
+
+        public async Task<ICollection<ParameterValue>> GetEmpiricalParametersValuesByIdMaterialId(int idMaterial)
+        {
+            using var uow = new UnitOfWork(_contextFactory.Create());
+            ICollection<ParameterValue> parameters = await uow.EmpiricalParameterRepository.GetEntityQuery()
+                .Where(x => x.MaterialId == idMaterial)
+                .Select(y => new ParameterValue()
+                {
+                    ParameterId = y.ParameterId,
+                    MaterialId = y.MaterialId,
+                    ParameterName = y.Parameter.Name,
+                    MaterialName = y.Material.Name,
+                    ParameterType = y.Parameter.TypeParameter,
+                    UnitOfMeasName = y.Parameter.UnitOfMeas.Name,
+                    Value = y.Value,
+                }).ToListAsync();
+            return parameters;
+        }
+
+        public async Task EditEmpiricalParameterValue(int parameterId, int materialId, float changingValue)
+        {
+            using var uow = new UnitOfWork(_contextFactory.Create());
+            var parameter = await uow.EmpiricalParameterRepository.GetEntityQuery()
+                .FirstOrDefaultAsync(x => x.MaterialId == materialId && x.ParameterId == parameterId);
+            if (parameter == null)
+                throw new Exception("Параметр-значение соотвествующий материлом и параметром не найден");
+            parameter.Value = changingValue;
+            await uow.EmpiricalParameterRepository.UpdateAsync(parameter);
         }
     }
 }
