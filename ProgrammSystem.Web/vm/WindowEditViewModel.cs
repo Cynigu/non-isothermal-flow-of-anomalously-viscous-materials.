@@ -1,10 +1,12 @@
-﻿using ProgramSystem.Bll.Services.DTO;
+﻿using ProgrammSystem.Web.Commands;
+using ProgramSystem.Bll.Services.DTO;
 using ProgramSystem.Bll.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace ProgrammSystem.Web.vm
 {
@@ -16,6 +18,7 @@ namespace ProgrammSystem.Web.vm
         private string? login;
         private string? password;
         private List<UserDTO> userList;
+        private UserDTO selectUser;
         private List<string> roleList;
         private string currentRole;
 
@@ -75,6 +78,16 @@ namespace ProgrammSystem.Web.vm
             {
                 userList = value;
                 OnPropertyChanged();
+            }
+        }
+        public UserDTO SelectUser
+        {
+            get => selectUser;
+            set
+            {
+                selectUser = value;
+                OnPropertyChanged();
+                OnSelect_UserChange();
             }
         }
         public List<string> RoleList
@@ -292,7 +305,7 @@ namespace ProgrammSystem.Web.vm
 
 
         #region Commands 
-
+        public RelayCommand AddUserCommand { get; set; }
 
         #endregion
 
@@ -322,13 +335,61 @@ namespace ProgrammSystem.Web.vm
                 CurrentTypeMaterial = material;
                 break;
             }
+
+            AddUserCommand = new RelayCommand(obj => AddUser(), obj => CanAddUser());
         }
 
         #region Methods
-        
+
 
         #endregion
 
+        public void OnSelect_UserChange()
+        {
+            if(SelectUser is not null)
+            {
+                Login = SelectUser.Login;
+                Password = SelectUser.Password;
+                CurrentRole = SelectUser.Role;
+            }
+            
+        }
+
+        private void AddUser()
+        {
+            UserDTO newUser = new UserDTO { Login=Login, Password=Password, Role=CurrentRole};
+            var user = _userService.AddUserAsync(newUser);
+            if (user.Status == TaskStatus.Faulted)
+            {
+                MessageBox.Show("Перепроверьте введенные данные!");
+            }
+
+            var listUserDB = _userService.GetAllUsers();
+            List<UserDTO> u = new List<UserDTO>();
+            List<string> role = new List<string>();
+            foreach (var user1 in listUserDB)
+            {
+                u.Add(user1);
+            }
+            UserList = u;
+
+            //var user = _userService.GetAccountByLoginPassword(Login ?? "", new NetworkCredential("", Password).Password);
+            //var users = _userService.GetAllUsers();
+            //string uString = "";
+            //var builderBase = new ContainerBuilder();
+
+            //builderBase.RegisterModule(new ContextFactoriesModule());
+            //builderBase.RegisterModule(new ServicesModule());
+
+            //var containerBase = builderBase.Build();
+            ////foreach (var u in users)
+            ////{
+            ////    uString += u.Id + " Логин: " + u.Login + " Роль: " + u.Role +"\n";
+            ////}
+            ////MessageBox.Show(uString);
+        }
+
+        private bool CanAddUser() => Login is not null && Password is not null && CurrentRole is not null; //проверка
 
 
 

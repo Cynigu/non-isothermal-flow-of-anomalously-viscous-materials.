@@ -8,7 +8,7 @@
         Title="WindowEdit" Height="450" Width="800">
     <Window.Resources>
         <Style TargetType="Button">
-                <Setter Property="Width" Value="180"></Setter>
+                <Setter Property="Width" Value="182"></Setter>
                 <Setter Property="Height" Value="40"></Setter>
             </Style>
             <Style TargetType="TextBox">
@@ -28,24 +28,25 @@
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
                         <StackPanel>
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock x:Name="textBlockLog" Text="Логин:" />
-                                <TextBox x:Name="textBoxLog" Text="{Binding Login}"/>
+                                <TextBlock x:Name="textBlockLog" Text="Логин:" Width="52"/>
+                                <TextBox x:Name="textBoxLog" Text="{Binding Login}" />
                             </StackPanel>
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock  x:Name="textBlockPassword" Text="Пароль:" />
+                                <TextBlock  x:Name="textBlockPassword" Text="Пароль:" Width="52"/>
                                 <TextBox x:Name="textBoxPassword" Text="{Binding Password}"/>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock  x:Name="textBlockRole" Text="Роль:" />
+                                <TextBlock  x:Name="textBlockRole" Text="Роль:" Width="52"/>
                                 <ComboBox x:Name="comboBoxRole" Width="130" Height="25" ItemsSource="{Binding RoleList}"
                             SelectedItem="{Binding CurrentRole, Mode=TwoWay}"/>
                             </StackPanel>
-                            <Button x:Name="buttonAddLog" Content="Добавить" ></Button>
+                            <Button x:Name="buttonAddLog" Content="Добавить" Command="{Binding Path=AddUserCommand}"></Button>
                             <Button x:Name="buttonDelete" Content="Удалить" ></Button>
                             <Button x:Name="buttonEdit" Content="Изменить"></Button>
                         </StackPanel>
                         <StackPanel>
-                            <DataGrid x:Name="dataGridLog" Width="248" Height="175" ItemsSource="{Binding UserList}" AutoGenerateColumns="False" IsReadOnly="True">
+                            <DataGrid x:Name="dataGridLog" Width="248" Height="175" ItemsSource="{Binding UserList}" AutoGenerateColumns="False" IsReadOnly="True"
+                                      SelectedItem="{Binding Path=SelectUser, Mode=TwoWay}">
                                 <DataGrid.Columns>
                                     <DataGridTextColumn Header="Логин" Width="*" Binding="{Binding Path=Login}"></DataGridTextColumn>
                                     <DataGridTextColumn Header="Пароль" Width="*" Binding="{Binding Path=Password}"></DataGridTextColumn>
