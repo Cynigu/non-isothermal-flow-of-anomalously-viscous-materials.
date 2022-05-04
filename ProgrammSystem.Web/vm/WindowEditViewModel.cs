@@ -14,6 +14,8 @@ namespace ProgrammSystem.Web.vm
     {
         private readonly IUserService _userService;
         private readonly IMaterialService _materialService;
+        private readonly IMaterialParameterValuesService _materialParameterValue;
+        private readonly IEmpiricalParameterValuesService _empiricalParameterValue;
         #region Fields
         private string? login;
         private string? password;
@@ -25,6 +27,7 @@ namespace ProgrammSystem.Web.vm
         private string? typeOfMaterial;
         private ICollection<MaterialDTO> typeMaterialList;
         private MaterialDTO currentTypeMaterial;
+        private int currentIdMaterial;
 
         private double ro;
         private double c;
@@ -139,6 +142,17 @@ namespace ProgrammSystem.Web.vm
             set
             {
                 currentTypeMaterial = value;
+                currentIdMaterial = value.Id;
+                UpdateTextBox(currentIdMaterial);
+                OnPropertyChanged();
+            }
+        }
+        public int CurrentIdMaterial
+        {
+            get => currentIdMaterial;
+            set
+            {
+                currentIdMaterial = value;
                 OnPropertyChanged();
             }
         }
@@ -306,13 +320,17 @@ namespace ProgrammSystem.Web.vm
 
         #region Commands 
         public RelayCommand AddUserCommand { get; set; }
+        public RelayCommand DeleteUserCommand { get; set; }
+        public RelayCommand EditUserCommand { get; set; }
 
         #endregion
 
-        public WindowEditViewModel(IUserService userService, IMaterialService materialService)
+        public WindowEditViewModel(IUserService userService, IMaterialService materialService, IMaterialParameterValuesService materialParameterValuesService, IEmpiricalParameterValuesService empiricalParameterValuesService)
         {
             _userService = userService;
             _materialService = materialService;
+            _materialParameterValue = materialParameterValuesService;
+            _empiricalParameterValue = empiricalParameterValuesService;
 
             var listUserDB = _userService.GetAllUsers();
             List<UserDTO> u = new List<UserDTO>();
@@ -333,10 +351,15 @@ namespace ProgrammSystem.Web.vm
             foreach (MaterialDTO material in materials)
             {
                 CurrentTypeMaterial = material;
+                CurrentIdMaterial = material.Id;
                 break;
             }
+            int id = CurrentIdMaterial;
+            UpdateTextBox(id);
 
-            AddUserCommand = new RelayCommand(obj => AddUser(), obj => CanAddUser());
+            AddUserCommand = new RelayCommand(obj => AddUser(), obj => CanUser());
+            DeleteUserCommand = new RelayCommand(obj => DeleteUser(), obj => CanUser());
+            EditUserCommand = new RelayCommand(obj => EditUser(), obj => CanUser());
         }
 
         #region Methods
@@ -363,15 +386,7 @@ namespace ProgrammSystem.Web.vm
             {
                 MessageBox.Show("Перепроверьте введенные данные!");
             }
-
-            var listUserDB = _userService.GetAllUsers();
-            List<UserDTO> u = new List<UserDTO>();
-            List<string> role = new List<string>();
-            foreach (var user1 in listUserDB)
-            {
-                u.Add(user1);
-            }
-            UserList = u;
+            UpdateTable();
 
             //var user = _userService.GetAccountByLoginPassword(Login ?? "", new NetworkCredential("", Password).Password);
             //var users = _userService.GetAllUsers();
@@ -389,9 +404,96 @@ namespace ProgrammSystem.Web.vm
             ////MessageBox.Show(uString);
         }
 
-        private bool CanAddUser() => Login is not null && Password is not null && CurrentRole is not null; //проверка
+        private bool CanUser() => Login is not null && Password is not null && CurrentRole is not null; //проверка
 
+        private void DeleteUser()
+        {
+            UserDTO oldU = SelectUser;
+            if (oldU is not null)
+            {
+                var user = _userService.RemoveRangeAsync(new int[] { oldU.Id });
+                if (user.Status == TaskStatus.Faulted)
+                {
+                    MessageBox.Show("Перепроверьте введенные данные!2");
+                }
+            }
+            else MessageBox.Show("Перепроверьте введенные данные!");
 
+            UpdateTable();
+        }
+        
+        private void EditUser()
+        {
+            UserDTO newUser = new UserDTO { Login = Login, Password = Password, Role = CurrentRole };
+            UserDTO oldUser = SelectUser;
+            if (oldUser is not null)
+            {
+                var user = _userService.EditUser(newUser.Login, newUser.Password, oldUser.Id, newUser.Role);
+                if (user.Status == TaskStatus.Faulted)
+                {
+                    MessageBox.Show("Перепроверьте введенные данные!");
+                }
+            }
+            else MessageBox.Show("Перепроверьте введенные данные!");
+
+            UpdateTable();
+        }
+
+        private void UpdateTable()
+        {
+            var listUserDB = _userService.GetAllUsers();
+            List<UserDTO> u = new List<UserDTO>();
+            List<string> role = new List<string>();
+            foreach (var user1 in listUserDB)
+            {
+                u.Add(user1);
+            }
+            UserList = u;
+        }
+
+        private void UpdateTextBox(int id)
+        {
+            var parametersMaterialTask = _materialParameterValue.GetAllMaterialParametersValuesByIdMaterialId(id);
+            ICollection<ParameterValue> parameterValues = parametersMaterialTask.Result;
+            foreach (ParameterValue p in parameterValues)
+            {
+                switch (p.ParameterName)
+                {
+                    case "Плотность, ρ":
+                        Ro = p.Value;
+                        break;
+                    case "Удельная теплоемкость, c":
+                        C = p.Value;
+                        break;
+                    case "Температура плавления, T0":
+                        Temp0 = p.Value;
+                        break;
+                }
+            }
+            var parametersEmphTask = _empiricalParameterValue.GetEmpiricalParametersValuesByIdMaterialId(id);
+            parameterValues = parametersEmphTask.Result;
+            foreach (ParameterValue p in parameterValues)
+            {
+                switch (p.ParameterName)
+                {
+                    case "Коэффициент консистенции материала при температуре приведения, μ0":
+                        M0 = p.Value;
+                        break;
+                    case "Температурный коэффициент вязкости материала, b":
+                        B = Math.Round(p.Value, 3);
+                        break;
+                    case "Температура приведения, Tr":
+                        TempR = p.Value;
+                        break;
+                    case "Индекс течения материала, n":
+                        N = Math.Round(p.Value, 3);
+                        break;
+                    case "Коэффициент теплоотдачи от крышки канала к материалу, Tu":
+                        KoefU = p.Value;
+                        break;
+                }
+            }
+        }
 
     }
 }

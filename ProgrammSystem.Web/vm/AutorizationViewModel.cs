@@ -88,7 +88,8 @@ namespace ProgrammSystem.Web.vm
             else if (user.Role == "admin")
             {
                // MessageBox.Show("Вход под админом\n Пользователь " + user.Login);
-                var viewmodelBase = new WindowEditViewModel(containerBase.Resolve<IUserService>(), containerBase.Resolve<IMaterialService>());
+                var viewmodelBase = new WindowEditViewModel(containerBase.Resolve<IUserService>(), containerBase.Resolve<IMaterialService>(),
+                    containerBase.Resolve<IMaterialParameterValuesService>(), containerBase.Resolve<IEmpiricalParameterValuesService>());
                 var viewBase = new WindowEdit { DataContext = viewmodelBase };
 
                 viewBase.Show();
@@ -97,7 +98,8 @@ namespace ProgrammSystem.Web.vm
             {
                 //MessageBox.Show("Вход под исследователем\n Пользователь " + user.Login);
                 
-                var viewmodelBase = new MainWindowProgramViewModel(containerBase.Resolve<IMathService>(), containerBase.Resolve<IFileExcelService>(), containerBase.Resolve<IMaterialService>(), containerBase.Resolve<IMaterialParameterValuesService>());
+                var viewmodelBase = new MainWindowProgramViewModel(containerBase.Resolve<IMathService>(), containerBase.Resolve<IFileExcelService>(), 
+                    containerBase.Resolve<IMaterialService>(), containerBase.Resolve<IMaterialParameterValuesService>(), containerBase.Resolve<IEmpiricalParameterValuesService>());
                 var viewBase = new MainWindowProgram { DataContext = viewmodelBase };
 
                 viewBase.Show();

@@ -41,8 +41,8 @@
                             SelectedItem="{Binding CurrentRole, Mode=TwoWay}"/>
                             </StackPanel>
                             <Button x:Name="buttonAddLog" Content="Добавить" Command="{Binding Path=AddUserCommand}"></Button>
-                            <Button x:Name="buttonDelete" Content="Удалить" ></Button>
-                            <Button x:Name="buttonEdit" Content="Изменить"></Button>
+                            <Button x:Name="buttonDelete" Content="Удалить" Command="{Binding Path=DeleteUserCommand}"></Button>
+                            <Button x:Name="buttonEdit" Content="Изменить" Command="{Binding Path=EditUserCommand}"></Button>
                         </StackPanel>
                         <StackPanel>
                             <DataGrid x:Name="dataGridLog" Width="248" Height="175" ItemsSource="{Binding UserList}" AutoGenerateColumns="False" IsReadOnly="True"

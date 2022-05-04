@@ -10,6 +10,7 @@ using System.Diagnostics;
 using Microsoft.Win32;
 using System.Collections.Generic;
 using ProgramSystem.Bll.Services.DTO;
+using System;
 
 namespace ProgrammSystem.Web.vm
 {
@@ -19,6 +20,7 @@ namespace ProgrammSystem.Web.vm
         private readonly IFileExcelService _fileExcelService;
         private readonly IMaterialService _materialService;
         private readonly IMaterialParameterValuesService _materialParameterValue;
+        private readonly IEmpiricalParameterValuesService _empiricalParameterValue;
         private Results? _res;
         #region Fields
         private double? lenght; //длина
@@ -28,6 +30,7 @@ namespace ProgrammSystem.Web.vm
         private string? typeOfMaterial;
         private ICollection<MaterialDTO> typeMaterialList;
         private MaterialDTO currentTypeMaterial;
+        private int currentIdMaterial;
         private double? ro;
         private double? c;
         private double? temp0;
@@ -225,13 +228,23 @@ namespace ProgrammSystem.Web.vm
                 OnPropertyChanged();
             }
         }
-
         public MaterialDTO CurrentTypeMaterial
         {
             get => currentTypeMaterial;
             set
             {
                 currentTypeMaterial = value;
+                currentIdMaterial = value.Id;
+                UpdateTextBox(currentIdMaterial);
+                OnPropertyChanged();
+            }
+        }
+        public int CurrentIdMaterial
+        {
+            get => currentIdMaterial;
+            set
+            {
+                currentIdMaterial = value;
                 OnPropertyChanged();
             }
         }
@@ -243,28 +256,19 @@ namespace ProgrammSystem.Web.vm
         public RelayCommand MainWindowProgramReportCommand { get; set; }
         #endregion
 
-        public MainWindowProgramViewModel(IMathService mathService, IFileExcelService fileExcelService, IMaterialService materialService, IMaterialParameterValuesService materialParameterValue)
+        public MainWindowProgramViewModel(IMathService mathService, IFileExcelService fileExcelService, IMaterialService materialService, IMaterialParameterValuesService materialParameterValue, IEmpiricalParameterValuesService empiricalParameterValue)
         {
             _mathService = mathService;
             _fileExcelService = fileExcelService;
             _materialService = materialService;
             _materialParameterValue = materialParameterValue;
-
-            TypeOfMaterial = "Полипропилен";
+            _empiricalParameterValue = empiricalParameterValue;
             Lenght = 7.5;
             Weight = 0.2;
             Height = 0.003;
-            Ro =900;
-            C =2230;
-            Temp0 =172;
             SpeedU =1.5;
             TempU =180;
             Step =1;
-            M0 =1500;
-            B =0.014;
-            TempR =185;
-            N =0.38;
-            KoefU =1500;
             CheckCalculate = false;
 
             var param = _materialService.GetAllMaterialsObjectsAsync();
@@ -279,17 +283,9 @@ namespace ProgrammSystem.Web.vm
                 break;
             }
 
-            //var valuesMaterial = _materialParameterValue.GetAllMaterialParametrsValues();
-            //ICollection<ParameterValue> val = valuesMaterial.Result;
+            int id = CurrentIdMaterial;
 
-            //foreach (ParameterValue values in val)
-            //{
-            //    string s = values.ParameterName;
-            //    float f = values.Value;
-
-            //    string h = s + f.ToString();
-            //}
-
+            UpdateTextBox(id);
 
             MainWindowProgramCalculateCommand = new RelayCommand(obj => CalculateResults(), obj => !CanCalculate());
 
@@ -336,6 +332,50 @@ namespace ProgrammSystem.Web.vm
                     MessageBox.Show("Сохранение прошло успешно!");
                 else MessageBox.Show("Произошла ошибка!");
 
+        }
+
+        private void UpdateTextBox(int id)
+        {
+            var parametersMaterialTask = _materialParameterValue.GetAllMaterialParametersValuesByIdMaterialId(id);
+            ICollection<ParameterValue> parameterValues = parametersMaterialTask.Result;
+            foreach (ParameterValue p in parameterValues)
+            {
+                switch (p.ParameterName)
+                {
+                    case "Плотность, ρ":
+                        Ro = p.Value;
+                        break;
+                    case "Удельная теплоемкость, c":
+                        C = p.Value;
+                        break;
+                    case "Температура плавления, T0":
+                        Temp0 = p.Value;
+                        break;
+                }
+            }
+            var parametersEmphTask = _empiricalParameterValue.GetEmpiricalParametersValuesByIdMaterialId(id);
+            parameterValues = parametersEmphTask.Result;
+            foreach (ParameterValue p in parameterValues)
+            {
+                switch (p.ParameterName)
+                {
+                    case "Коэффициент консистенции материала при температуре приведения, μ0":
+                        M0 = p.Value;
+                        break;
+                    case "Температурный коэффициент вязкости материала, b":
+                        B = Math.Round(p.Value, 3);
+                        break;
+                    case "Температура приведения, Tr":
+                        TempR = p.Value;
+                        break;
+                    case "Индекс течения материала, n":
+                        N = Math.Round(p.Value, 3);
+                        break;
+                    case "Коэффициент теплоотдачи от крышки канала к материалу, Tu":
+                        KoefU = p.Value;
+                        break;
+                }
+            }
         }
 
 
