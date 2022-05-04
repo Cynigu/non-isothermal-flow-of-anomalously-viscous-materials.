@@ -11,6 +11,7 @@ using Microsoft.Win32;
 using System.Collections.Generic;
 using ProgramSystem.Bll.Services.DTO;
 using System;
+using System.Data;
 
 namespace ProgrammSystem.Web.vm
 {
@@ -21,6 +22,7 @@ namespace ProgrammSystem.Web.vm
         private readonly IMaterialService _materialService;
         private readonly IMaterialParameterValuesService _materialParameterValue;
         private readonly IEmpiricalParameterValuesService _empiricalParameterValue;
+        private readonly IParameterService _parameterService;
         private Results? _res;
         #region Fields
         private double? lenght; //длина
@@ -49,6 +51,8 @@ namespace ProgrammSystem.Web.vm
         internal static Stopwatch sw;
         internal static long memory0;
         internal static Process pr;
+
+        private DataTable dtParameters;
 
         private bool checkCalculate;
 
@@ -249,6 +253,19 @@ namespace ProgrammSystem.Web.vm
             }
         }
 
+        public DataTable DTParameters
+        {
+            get
+            {
+                return dtParameters;
+            }
+            set
+            {
+                dtParameters = value;
+            }
+        }
+
+
         #endregion
 
         #region Commands
@@ -256,13 +273,14 @@ namespace ProgrammSystem.Web.vm
         public RelayCommand MainWindowProgramReportCommand { get; set; }
         #endregion
 
-        public MainWindowProgramViewModel(IMathService mathService, IFileExcelService fileExcelService, IMaterialService materialService, IMaterialParameterValuesService materialParameterValue, IEmpiricalParameterValuesService empiricalParameterValue)
+        public MainWindowProgramViewModel(IMathService mathService, IFileExcelService fileExcelService, IMaterialService materialService, IMaterialParameterValuesService materialParameterValue, IEmpiricalParameterValuesService empiricalParameterValue, IParameterService parameterService)
         {
             _mathService = mathService;
             _fileExcelService = fileExcelService;
             _materialService = materialService;
             _materialParameterValue = materialParameterValue;
             _empiricalParameterValue = empiricalParameterValue;
+            _parameterService = parameterService;
             Lenght = 7.5;
             Weight = 0.2;
             Height = 0.003;
@@ -290,6 +308,8 @@ namespace ProgrammSystem.Web.vm
             MainWindowProgramCalculateCommand = new RelayCommand(obj => CalculateResults(), obj => !CanCalculate());
 
             MainWindowProgramReportCommand = new RelayCommand(obj => CreateReport(), obj => CheckCalculate);
+
+            UpdateDT();
         }
 
         #region Methods
@@ -377,6 +397,37 @@ namespace ProgrammSystem.Web.vm
                 }
             }
         }
+
+        private /*async*/ void UpdateDT()
+        {
+            DTParameters = new DataTable();
+            DataColumn column;
+            DataRow row;
+
+            column = new DataColumn();
+            column.DataType = System.Type.GetType("System.String");
+            column.ColumnName = "name";
+            DTParameters.Columns.Add(column);
+
+            column = new DataColumn();
+            column.DataType = System.Type.GetType("System.String");
+            column.ColumnName = "ed";
+            DTParameters.Columns.Add(column);
+
+            column = new DataColumn();
+            column.DataType = System.Type.GetType("System.Double");
+            column.ColumnName = "value";
+            DTParameters.Columns.Add(column);
+
+            //await _parameterService.GetAllParametersObjectsByTypeParameterAsync();
+            var f = _parameterService.GetAllParametersObjectsByTypeParameterAsync().Result;
+
+            foreach(ParameterDTO par in f)
+            {
+                if (par.Name != "Плотность") ;
+            }
+        }
+
 
 
         #endregion

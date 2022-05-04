@@ -99,7 +99,7 @@ namespace ProgrammSystem.Web.vm
                 //MessageBox.Show("Вход под исследователем\n Пользователь " + user.Login);
                 
                 var viewmodelBase = new MainWindowProgramViewModel(containerBase.Resolve<IMathService>(), containerBase.Resolve<IFileExcelService>(), 
-                    containerBase.Resolve<IMaterialService>(), containerBase.Resolve<IMaterialParameterValuesService>(), containerBase.Resolve<IEmpiricalParameterValuesService>());
+                    containerBase.Resolve<IMaterialService>(), containerBase.Resolve<IMaterialParameterValuesService>(), containerBase.Resolve<IEmpiricalParameterValuesService>(), containerBase.Resolve<IParameterService>());
                 var viewBase = new MainWindowProgram { DataContext = viewmodelBase };
 
                 viewBase.Show();

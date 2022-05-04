@@ -319,9 +319,9 @@ namespace ProgrammSystem.Web.vm
 
 
         #region Commands 
-        public RelayCommand AddUserCommand { get; set; }
-        public RelayCommand DeleteUserCommand { get; set; }
-        public RelayCommand EditUserCommand { get; set; }
+        public AsyncCommand AddUserCommand { get; set; }
+        public AsyncCommand DeleteUserCommand { get; set; }
+        public AsyncCommand EditUserCommand { get; set; }
 
         #endregion
 
@@ -357,9 +357,9 @@ namespace ProgrammSystem.Web.vm
             int id = CurrentIdMaterial;
             UpdateTextBox(id);
 
-            AddUserCommand = new RelayCommand(obj => AddUser(), obj => CanUser());
-            DeleteUserCommand = new RelayCommand(obj => DeleteUser(), obj => CanUser());
-            EditUserCommand = new RelayCommand(obj => EditUser(), obj => CanUser());
+            AddUserCommand = new AsyncCommand(AddUser, CanUser);
+            DeleteUserCommand = new AsyncCommand(DeleteUser, CanUser);
+            EditUserCommand = new AsyncCommand(EditUser, CanUser);
         }
 
         #region Methods
@@ -378,14 +378,10 @@ namespace ProgrammSystem.Web.vm
             
         }
 
-        private void AddUser()
+        private async Task AddUser()
         {
             UserDTO newUser = new UserDTO { Login=Login, Password=Password, Role=CurrentRole};
-            var user = _userService.AddUserAsync(newUser);
-            if (user.Status == TaskStatus.Faulted)
-            {
-                MessageBox.Show("Перепроверьте введенные данные!");
-            }
+            await _userService.AddUserAsync(newUser);
             UpdateTable();
 
             //var user = _userService.GetAccountByLoginPassword(Login ?? "", new NetworkCredential("", Password).Password);
@@ -406,42 +402,35 @@ namespace ProgrammSystem.Web.vm
 
         private bool CanUser() => Login is not null && Password is not null && CurrentRole is not null; //проверка
 
-        private void DeleteUser()
+        private async Task DeleteUser()
         {
             UserDTO oldU = SelectUser;
             if (oldU is not null)
             {
-                var user = _userService.RemoveRangeAsync(new int[] { oldU.Id });
-                if (user.Status == TaskStatus.Faulted)
-                {
-                    MessageBox.Show("Перепроверьте введенные данные!2");
-                }
+                await _userService.RemoveRangeAsync(new int[] { oldU.Id });
+                
             }
             else MessageBox.Show("Перепроверьте введенные данные!");
 
             UpdateTable();
         }
         
-        private void EditUser()
+        private async Task EditUser()
         {
             UserDTO newUser = new UserDTO { Login = Login, Password = Password, Role = CurrentRole };
             UserDTO oldUser = SelectUser;
             if (oldUser is not null)
             {
-                var user = _userService.EditUser(newUser.Login, newUser.Password, oldUser.Id, newUser.Role);
-                if (user.Status == TaskStatus.Faulted)
-                {
-                    MessageBox.Show("Перепроверьте введенные данные!");
-                }
+                await _userService.EditUser(newUser.Login, newUser.Password, oldUser.Id, newUser.Role);                
             }
             else MessageBox.Show("Перепроверьте введенные данные!");
 
             UpdateTable();
         }
 
-        private void UpdateTable()
+        private async void UpdateTable()
         {
-            var listUserDB = _userService.GetAllUsers();
+            var listUserDB = /*await */_userService.GetAllUsers();
             List<UserDTO> u = new List<UserDTO>();
             List<string> role = new List<string>();
             foreach (var user1 in listUserDB)
