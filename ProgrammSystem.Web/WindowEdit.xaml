@@ -45,7 +45,7 @@
                             <Button x:Name="buttonEdit" Content="Изменить" Command="{Binding Path=EditUserCommand}"></Button>
                         </StackPanel>
                         <StackPanel>
-                            <DataGrid x:Name="dataGridLog" Width="248" Height="175" ItemsSource="{Binding UserList}" AutoGenerateColumns="False" IsReadOnly="True"
+                            <DataGrid x:Name="dataGridLog" Width="248" Height="195" ItemsSource="{Binding UserList}" AutoGenerateColumns="False" IsReadOnly="True"
                                       SelectedItem="{Binding Path=SelectUser, Mode=TwoWay}">
                                 <DataGrid.Columns>
                                     <DataGridTextColumn Header="Логин" Width="*" Binding="{Binding Path=Login}"></DataGridTextColumn>
@@ -57,9 +57,27 @@
                     </StackPanel>
                 </TabItem.Content>
             </TabItem>
-            <TabItem Header="Тип материала">
+            <TabItem Header="Материал">
                 <TabItem.Content>
-                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <StackPanel  HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Название материала:"/>
+                            <TextBox Text="{Binding NameMaterial}"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Button Content="Добавить" Command="{Binding Path=AddMaterialCommand}"/>
+                            <Button Content="Изменить" Command="{Binding Path=EditMaterialCommand}"/>
+                            <Button Content="Удалить" Command="{Binding Path=DeleteMaterialCommand}"/>
+                        </StackPanel>
+                        <DataGrid Width="550" Height="195" ItemsSource="{Binding MaterialList}" AutoGenerateColumns="False" IsReadOnly="True"
+                                      SelectedItem="{Binding Path=CurrentMaterial, Mode=TwoWay}">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Id" Width="*" Binding="{Binding Path=Id}"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Название" Width="*" Binding="{Binding Path=Name}"></DataGridTextColumn>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </StackPanel>
+                    <!--<StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
                         <StackPanel>
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock x:Name="textBlockTm" Text="Тип материала:" FontWeight="Bold"></TextBlock>
@@ -111,30 +129,97 @@
 
                         </StackPanel>
                     </StackPanel>
-                    <!--<DataGrid x:Name="dataGrid" Width="248" Canvas.Left="260" Canvas.Top="23" HorizontalAlignment="Left" VerticalAlignment="Top" Height="175">
+                    --><!--<DataGrid x:Name="dataGrid" Width="248" Canvas.Left="260" Canvas.Top="23" HorizontalAlignment="Left" VerticalAlignment="Top" Height="175">
                         </DataGrid>-->
                 </TabItem.Content>
             </TabItem>
-            <TabItem Header="Добавление параметра">
+            <TabItem Header="Параметры">
                 <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="Название: "/>
-                        <TextBox Text="{Binding Name}"/>
+                        <TextBox Text="{Binding NamePar}"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="Единица измерения: "/>
-                        <TextBox Text="{Binding Unit}"/>
+                        <ComboBox Width="150" ItemsSource="{Binding UnitList}"  DisplayMemberPath="Name"
+                            SelectedItem="{Binding CurrentUnit, Mode=TwoWay}"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
-                        <Button Content="Добавить"/>
-                        <Button Content="Удалить"/>
-                        <Button Content="Изменить"/>
+                        <TextBlock Text="Тип параметра: "/>
+                        <ComboBox Width="150" ItemsSource="{Binding TypeParametersList}" 
+                            SelectedItem="{Binding CurrentTypeParameter, Mode=TwoWay}"/>
                     </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Button Content="Добавить" Command="{Binding Path=AddParameterCommand}"/>
+                        <Button Content="Изменить" Command="{Binding Path=EditParameterCommand}"/>
+                        <Button Content="Удалить" Command="{Binding Path=DeleteParameterCommand}"/>
+                    </StackPanel>
+                    <DataGrid Width="546" Height="195" ItemsSource="{Binding ParametersList}" AutoGenerateColumns="False" IsReadOnly="True"
+                                      SelectedItem="{Binding Path=CurrentParameter, Mode=TwoWay}">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Id" Width="*" Binding="{Binding Path=Id}"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Тип параметра" Width="*" Binding="{Binding Path=TypeParameter}"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Название" Width="*" Binding="{Binding Path=Name}"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Единица измерения" Width="*" Binding="{Binding Path=UnitOfMeasName}"></DataGridTextColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
                     <StackPanel>
-                        <Button x:Name="copyOfDataBase" Content="Резервная копия базы данных" Width="540"/>
+                        <Button x:Name="copyOfDataBase" Content="Резервная копия базы данных" Width="546"/>
                     </StackPanel>
-                    <!--<DataGrid x:Name="dataGrid" Width="248" Height="auto">
-                        </DataGrid>-->
+                </StackPanel>
+            </TabItem>
+            <TabItem Header="Единица измерения">
+                <StackPanel  HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Название единицы измерения:"/>
+                        <TextBox Text="{Binding NameUnit}"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Button Content="Добавить" Command="{Binding Path=AddUnitCommand}"/>
+                        <Button Content="Изменить" Command="{Binding Path=EditUnitCommand}"/>
+                        <Button Content="Удалить" Command="{Binding Path=DeleteUnitCommand}"/>
+                    </StackPanel>
+                    <DataGrid Width="550" Height="195" ItemsSource="{Binding UnitList}" AutoGenerateColumns="False" IsReadOnly="True"
+                                      SelectedItem="{Binding Path=CurrentUnit, Mode=TwoWay}">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Id" Width="*" Binding="{Binding Path=Id}"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Название" Width="*" Binding="{Binding Path=Name}"></DataGridTextColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </StackPanel>
+            </TabItem>
+            <TabItem Header="Значения">
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Материал: "/>
+                        <ComboBox Width="150" ItemsSource="{Binding MaterialList}"  DisplayMemberPath="Name"
+                            SelectedItem="{Binding CurrentMaterial, Mode=TwoWay}"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Параметр: "/>
+                        <ComboBox Width="150" ItemsSource="{Binding ParametersList}"  DisplayMemberPath="Name"
+                            SelectedItem="{Binding CurrentParameter, Mode=TwoWay}"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Величина: "/>
+                        <TextBox Text="{Binding Value}" Width="150"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Button Content="Добавить" Command="{Binding Path=AddValueCommand}"/>
+                        <Button Content="Изменить" Command="{Binding Path=EditValueCommand}"/>
+                        <Button Content="Удалить" Command="{Binding Path=DeleteValueCommand}"/>
+                    </StackPanel>
+                    <DataGrid Width="800" Height="195" ItemsSource="{Binding ParametersValueList}" AutoGenerateColumns="False" IsReadOnly="True"
+                                      SelectedItem="{Binding Path=CurrentParamValue, Mode=TwoWay}">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Id" Width="*" Binding="{Binding Path=MaterialId}"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Название" Width="*" Binding="{Binding Path=MaterialName}"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Параметр" Width="*" Binding="{Binding Path=ParameterName}"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Тип параметра" Width="*" Binding="{Binding Path=ParameterType}"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Величина" Width="*" Binding="{Binding Path=Value}"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Единица измерения" Width="*" Binding="{Binding Path=UnitOfMeasName}"></DataGridTextColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
                 </StackPanel>
             </TabItem>
         </TabControl>

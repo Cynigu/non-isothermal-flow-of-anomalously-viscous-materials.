@@ -241,6 +241,7 @@ namespace ProgrammSystem.Web.vm
                 currentIdMaterial = value.Id;
                 UpdateTextBox(currentIdMaterial);
                 OnPropertyChanged();
+                UpdateDT(currentIdMaterial);
             }
         }
         public int CurrentIdMaterial
@@ -309,7 +310,7 @@ namespace ProgrammSystem.Web.vm
 
             MainWindowProgramReportCommand = new RelayCommand(obj => CreateReport(), obj => CheckCalculate);
 
-            UpdateDT();
+            UpdateDT(id);
         }
 
         #region Methods
@@ -398,7 +399,7 @@ namespace ProgrammSystem.Web.vm
             }
         }
 
-        private /*async*/ void UpdateDT()
+        private /*async*/ void UpdateDT(int id)
         {
             DTParameters = new DataTable();
             DataColumn column;
@@ -424,7 +425,41 @@ namespace ProgrammSystem.Web.vm
 
             foreach(ParameterDTO par in f)
             {
-                if (par.Name != "Плотность") ;
+                switch (par.Name) {
+                    case "Ширина, W":
+                        break;
+                    case "Длина, H":
+                          break;
+                      case "Глубина, L":
+                          break;
+                      case "Плотность, ρ":
+                          break;
+                      case "Удельная теплоемкость, c":
+                          break;
+                      case "Температура плавления, T0":
+                          break;
+                      case "Скорость крышки, Vu":
+                          break;
+                      case "Температура крышки, Tu":
+                          break;
+                      case "Коэффициент консистенции материала при температуре приведения, μ0":
+                          break;
+                      case "Температурный коэффициент вязкости материала, b":
+                          break;
+                      case "Температура приведения, Tr":
+                          break;
+                      case "Индекс течения материала, n":
+                          break;
+                      case "Коэффициент теплоотдачи от крышки канала к материалу, Tu":
+                          break;
+                    default:
+                        row = DTParameters.NewRow();
+                        row["name"]=par.Name;
+                        row["ed"] = par.UnitOfMeasName;
+                        
+                        break;
+                }
+                    
             }
         }
 
