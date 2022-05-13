@@ -208,27 +208,27 @@ namespace ProgramSystem.Bll.Services.Services
             int leng = type.Length+10;
             sheet.SetColumnWidth(1, leng * 256);
 
-            string pathPng = Environment.CurrentDirectory;
+            //string pathPng = Environment.CurrentDirectory;
 
-            byte[] dataT = File.ReadAllBytes(pathPng+"/temp.png");
-            int pictureIndexT = workbook.AddPicture(dataT, PictureType.PNG);
-            ICreationHelper helperT = workbook.GetCreationHelper();
-            IDrawing drawingT = sheet.CreateDrawingPatriarch();
-            IClientAnchor anchorT = helperT.CreateClientAnchor();
-            anchorT.Col1 = 0;//0 index based column
-            anchorT.Row1 = 24;//0 index based row
-            IPicture pictureT = drawingT.CreatePicture(anchorT, pictureIndexT);
-            pictureT.Resize();
+            //byte[] dataT = File.ReadAllBytes(pathPng+"/temp.png");
+            //int pictureIndexT = workbook.AddPicture(dataT, PictureType.PNG);
+            //ICreationHelper helperT = workbook.GetCreationHelper();
+            //IDrawing drawingT = sheet.CreateDrawingPatriarch();
+            //IClientAnchor anchorT = helperT.CreateClientAnchor();
+            //anchorT.Col1 = 0;//0 index based column
+            //anchorT.Row1 = 24;//0 index based row
+            //IPicture pictureT = drawingT.CreatePicture(anchorT, pictureIndexT);
+            //pictureT.Resize();
 
-            byte[] dataV = File.ReadAllBytes(pathPng + "/visc.png");
-            int pictureIndexV = workbook.AddPicture(dataV, PictureType.PNG);
-            ICreationHelper helperV = workbook.GetCreationHelper();
-            IDrawing drawingV = sheet.CreateDrawingPatriarch();
-            IClientAnchor anchorV = helperV.CreateClientAnchor();
-            anchorV.Col1 = 0;//0 index based column
-            anchorV.Row1 = 45;//0 index based row
-            IPicture pictureV = drawingV.CreatePicture(anchorV, pictureIndexV);
-            pictureV.Resize();
+            //byte[] dataV = File.ReadAllBytes(pathPng + "/visc.png");
+            //int pictureIndexV = workbook.AddPicture(dataV, PictureType.PNG);
+            //ICreationHelper helperV = workbook.GetCreationHelper();
+            //IDrawing drawingV = sheet.CreateDrawingPatriarch();
+            //IClientAnchor anchorV = helperV.CreateClientAnchor();
+            //anchorV.Col1 = 0;//0 index based column
+            //anchorV.Row1 = 45;//0 index based row
+            //IPicture pictureV = drawingV.CreatePicture(anchorV, pictureIndexV);
+            //pictureV.Resize();
 
             using (FileStream stream = new FileStream(path+".xlsx", FileMode.Create, FileAccess.Write))
             {

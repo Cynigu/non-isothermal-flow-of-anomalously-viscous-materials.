@@ -32,7 +32,7 @@ namespace ProgramSystem.Bll.Services.Services
                 results.TempInside.Add(T);
                 nu = (double)mu0 * Math.Exp(-(double)b * (T - (double)Tr)) * Math.Pow(Ydot, (double)n - 1);
                 results.ViscosityInside.Add(nu);
-                if (i + (double)step > (double)L && check)
+                if (i + (double)step >= (double)L && check && Math.Round(i,2)!=L)
                 {
                     i = (double)L- (double)step;
                     check = false;
@@ -46,7 +46,7 @@ namespace ProgramSystem.Bll.Services.Services
             double speed, QcS, QS, YdotS, qyS, TS, nuS;
             check = true;
 
-            for (double i = 0; i <= H; i += 0.01)
+            for (double i = 0.01; i <= H; i += 0.01)
             {
                 speed = (double)Vu / (double)H * i;
                 results.SpeedInCanal.Add(speed);
@@ -55,7 +55,7 @@ namespace ProgramSystem.Bll.Services.Services
                 QS = (double)ro * QcS * 3600;
                 results.QWithSpeed.Add(QS);
 
-                YdotS = speed / (double)H;
+                YdotS = (double)speed / (double)H;
                 qyS = (double)H * (double)W * (double)mu0 * Math.Pow(YdotS, (double)n + 1);
                 TS = (double)Tr + (1 / (double)b) * Math.Log(((double)b * qyS + (double)W * (double)alphau) / ((double)b * (double)qa) * (1 - Math.Exp(-(double)b * (double)qa * (double)L / ((double)ro * (double)c * QcS)))
                     + Math.Exp((double)b * ((double)T0 - (double)Tr - (double)qa / ((double)ro * (double)c * (double)QcS) * (double)L)));
@@ -64,7 +64,7 @@ namespace ProgramSystem.Bll.Services.Services
                 nuS = (double)mu0 * Math.Exp(-(double)b * (TS - (double)Tr)) * Math.Pow(YdotS, (double)n - 1);
                 results.ViscWithSpeed.Add(nuS);
                
-                if (i + 0.01 > (double)H && check)
+                if (i + 0.01 > (double)H && check && Math.Round(i, 2) != H)
                 {
                     i = (double)H - 0.01;
                     check = false;

@@ -90,18 +90,6 @@ namespace ProgrammSystem.Web.vm
                 OnPropertyChanged();
             }
         }
-        public string? TypeOfMaterial
-        {
-            get
-            {
-                return typeOfMaterial;
-            }
-            set
-            {
-                typeOfMaterial = value;
-                OnPropertyChanged();
-            }
-        }
         public double? Ro
         {
             get => ro;
@@ -238,10 +226,10 @@ namespace ProgrammSystem.Web.vm
             set
             {
                 currentTypeMaterial = value;
-                currentIdMaterial = value.Id;
-                UpdateTextBox(currentIdMaterial);
+                CurrentIdMaterial = value.Id;
+                UpdateTextBox(CurrentIdMaterial);
                 OnPropertyChanged();
-                UpdateDT(currentIdMaterial);
+                UpdateDT(CurrentIdMaterial);
             }
         }
         public int CurrentIdMaterial
@@ -263,6 +251,7 @@ namespace ProgrammSystem.Web.vm
             set
             {
                 dtParameters = value;
+                OnPropertyChanged();
             }
         }
 
@@ -310,7 +299,7 @@ namespace ProgrammSystem.Web.vm
 
             MainWindowProgramReportCommand = new RelayCommand(obj => CreateReport(), obj => CheckCalculate);
 
-            UpdateDT(id);
+            //UpdateDT(id);
         }
 
         #region Methods
@@ -349,7 +338,7 @@ namespace ProgrammSystem.Web.vm
         {
             SaveFileDialog saveFileDialog = new SaveFileDialog();
             if (saveFileDialog.ShowDialog() == true)
-                if (_fileExcelService.CreateExcel(saveFileDialog.FileName, typeOfMaterial, weight, height, lenght, ro, c, temp0, speedU, tempU, m0, b, tempR, n, koefU, step, _res))
+                if (_fileExcelService.CreateExcel(saveFileDialog.FileName, CurrentTypeMaterial.Name, weight, height, lenght, ro, c, temp0, speedU, tempU, m0, b, tempR, n, koefU, step, _res))
                     MessageBox.Show("Сохранение прошло успешно!");
                 else MessageBox.Show("Произошла ошибка!");
 
@@ -401,6 +390,7 @@ namespace ProgrammSystem.Web.vm
 
         private /*async*/ void UpdateDT(int id)
         {
+            DataTable DTParameters1 = new DataTable();
             DTParameters = new DataTable();
             DataColumn column;
             DataRow row;
@@ -408,40 +398,40 @@ namespace ProgrammSystem.Web.vm
             column = new DataColumn();
             column.DataType = System.Type.GetType("System.String");
             column.ColumnName = "name";
-            DTParameters.Columns.Add(column);
+            DTParameters1.Columns.Add(column);
 
             column = new DataColumn();
             column.DataType = System.Type.GetType("System.String");
             column.ColumnName = "ed";
-            DTParameters.Columns.Add(column);
+            DTParameters1.Columns.Add(column);
 
             column = new DataColumn();
             column.DataType = System.Type.GetType("System.Double");
             column.ColumnName = "value";
-            DTParameters.Columns.Add(column);
+            DTParameters1.Columns.Add(column);
 
             //await _parameterService.GetAllParametersObjectsByTypeParameterAsync();
-            var f = _parameterService.GetAllParametersObjectsByTypeParameterAsync().Result;
-
-            foreach(ParameterDTO par in f)
+            var f = _empiricalParameterValue.GetEmpiricalParametersValuesByIdMaterialId(CurrentTypeMaterial.Id).Result;
+           
+            foreach (ParameterValue par in f)
             {
-                switch (par.Name) {
-                    case "Ширина, W":
-                        break;
-                    case "Длина, H":
-                          break;
-                      case "Глубина, L":
-                          break;
-                      case "Плотность, ρ":
-                          break;
-                      case "Удельная теплоемкость, c":
-                          break;
-                      case "Температура плавления, T0":
-                          break;
-                      case "Скорость крышки, Vu":
-                          break;
-                      case "Температура крышки, Tu":
-                          break;
+                switch (par.ParameterName) {
+                    //case "Ширина, W":
+                    //    break;
+                    //case "Длина, H":
+                    //      break;
+                    //  case "Глубина, L":
+                    //      break;
+                    //  case "Плотность, ρ":
+                    //      break;
+                    //  case "Удельная теплоемкость, c":
+                    //      break;
+                    //  case "Температура плавления, T0":
+                    //      break;
+                    //  case "Скорость крышки, Vu":
+                    //      break;
+                    //  case "Температура крышки, Tu":
+                          //break;
                       case "Коэффициент консистенции материала при температуре приведения, μ0":
                           break;
                       case "Температурный коэффициент вязкости материала, b":
@@ -453,14 +443,18 @@ namespace ProgrammSystem.Web.vm
                       case "Коэффициент теплоотдачи от крышки канала к материалу, Tu":
                           break;
                     default:
-                        row = DTParameters.NewRow();
-                        row["name"]=par.Name;
+                        row = DTParameters1.NewRow();
+                        row["name"]=par.ParameterName;
                         row["ed"] = par.UnitOfMeasName;
-                        
+                        row["value"] = Math.Round(par.Value,3);
+                        DTParameters1.Rows.Add(row);
                         break;
                 }
-                    
+
             }
+            DTParameters = DTParameters1;
+           
+            
         }
 
 

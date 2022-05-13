@@ -157,6 +157,7 @@ namespace ProgrammSystem.Web.vm
                     nameMaterial = currentMaterial.Name;
                     CurrentMaterialId = currentMaterial.Id;
                     NameMaterial=currentMaterial.Name;
+                    UpdateTableValue();
                 }
                 OnPropertyChanged();
             }
@@ -461,7 +462,7 @@ namespace ProgrammSystem.Web.vm
                     {
                         if (p.Id == currentParameterValue.ParameterId) { CurrentParameter = p; break; }
                     }
-                    Value = currentParameterValue.Value;
+                    Value = Math.Round(currentParameterValue.Value,3);
                 }
                 OnPropertyChanged();
             }

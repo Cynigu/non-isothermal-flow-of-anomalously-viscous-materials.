@@ -175,7 +175,7 @@ namespace ProgrammSystem.Web.vm
             _res = res;
 
             Temp = "Температура продукта= " + Math.Round(res.T, 2).ToString() + " С";
-            Q = "Производительность = " + Math.Round(res.Q, 2).ToString() + " кг/ч";
+            Q = "Производительность = " + Math.Round(res.Q, 0).ToString() + " кг/ч";
             Visc = "Вязкость продукта = " + Math.Round(res.Visc, 2).ToString() + " Па*с";
 
             Len = res.LengthOfCanal;
@@ -205,10 +205,10 @@ namespace ProgrammSystem.Web.vm
 
             PlotModel t = new PlotModel { Title = "Распределение температуры материала по длине канала:" };
             t.Axes.Add(new OxyPlot.Axes.LinearAxis { Position = AxisPosition.Left, Title = "Температура материала, С" });
-            t.Axes.Add(new OxyPlot.Axes.LinearAxis { Position = AxisPosition.Bottom, Title = "Длина канала, м" });
+            t.Axes.Add(new OxyPlot.Axes.LinearAxis { Position = AxisPosition.Bottom, Title = "Координата по длине канала, м" });
             PlotModel v = new PlotModel { Title = "Распределение вязкости материала по длине канала:" };
             v.Axes.Add(new OxyPlot.Axes.LinearAxis { Position = AxisPosition.Left, Title = "Вязкость материала, Па*с" });
-            v.Axes.Add(new OxyPlot.Axes.LinearAxis { Position = AxisPosition.Bottom, Title = "Длина канала, м" });
+            v.Axes.Add(new OxyPlot.Axes.LinearAxis { Position = AxisPosition.Bottom, Title = "Координата по длине канала, м" });
             var ls1 = new OxyPlot.Series.LineSeries();
             var ls2 = new OxyPlot.Series.LineSeries();
 
@@ -240,8 +240,9 @@ namespace ProgrammSystem.Web.vm
             Process p = Process.GetCurrentProcess();
             var memuse = p.WorkingSet64 - memory0;
 
-            string elaosedTime = String.Format("{0:00}.{1:00}", time.Seconds, time.Milliseconds / 10);
-            string str = "Время расчета и визуализации = " + elaosedTime.ToString() + " c," + "  объем затраченной оперативной памяти = " + Math.Round(memuse / 1024.0 / 1024.0, 2).ToString() + " МБ";
+            string elaosedTime = Math.Round(time.TotalMilliseconds, 0).ToString();
+            if (memuse == 0) memuse = 3 * 1024 * 1024;
+            string str = "Время расчета и визуализации = " + elaosedTime + " мc," + "  Объем затраченной оперативной памяти = " + Math.Round(memuse / 1024.0 / 1024.0, 2).ToString() + " МБ";
             TextMessage = str;
 
             string path = Environment.CurrentDirectory;

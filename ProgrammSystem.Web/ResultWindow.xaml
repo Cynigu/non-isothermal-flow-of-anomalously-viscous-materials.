@@ -6,11 +6,12 @@
         xmlns:local="clr-namespace:ProgrammSystem.Web"
         xmlns:oxy="http://oxyplot.org/wpf"
         mc:Ignorable="d"
-        Title="ResultWindow" SizeToContent="Height" Width="800">
+        Title="ResultWindow" SizeToContent="Height" Width="800" >
     <Grid>
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
         <StackPanel>
             <StackPanel Orientation="Horizontal">
-                <TextBlock Text="Критериальные показатели процесса:                                                                                   "/>
+                <TextBlock Text="Критериальные показатели процесса:                                                         "/>
                 <Button Command="{Binding Path=ReportSpeedCommand}" FontSize="14" Content="Исследование влияния скорости крашки канала"/>
             </StackPanel>            
             <TextBlock Text="{Binding Q}"/>
@@ -37,5 +38,6 @@
             
             <TextBlock Text="{Binding TextMessage}"/>
         </StackPanel>
+        </ScrollViewer>
     </Grid>
 </Window>

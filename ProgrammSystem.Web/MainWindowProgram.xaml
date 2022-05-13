@@ -128,7 +128,7 @@
                 </StackPanel>
             </StackPanel>
             <TextBlock Text="Дополнительные параметры:"></TextBlock>
-            <DataGrid x:Name="resultsGrid" ItemsSource="{Binding Path=DTParameters}" AutoGenerateColumns="False" HeadersVisibility="Column">
+            <DataGrid x:Name="resultsGrid" ItemsSource="{Binding Path=DTParameters}" AutoGenerateColumns="False" HeadersVisibility="Column" CanUserAddRows="False">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Название параметра" Width="*" IsReadOnly="True"
                     Binding = "{Binding name}" />
