@@ -7,6 +7,7 @@ using Autofac;
 using ProgrammSystem.BLL.Autofac;
 using ProgrammSystem.Web.Commands;
 using ProgramSystem.Bll.Services.Interfaces;
+using ProgramSystem.Data.Repository.Factories;
 
 namespace ProgrammSystem.Web.vm
 {
@@ -90,7 +91,7 @@ namespace ProgrammSystem.Web.vm
                // MessageBox.Show("Вход под админом\n Пользователь " + user.Login);
                 var viewmodelBase = new WindowEditViewModel(containerBase.Resolve<IUserService>(), containerBase.Resolve<IMaterialService>(),
                     containerBase.Resolve<IMaterialParameterValuesService>(), containerBase.Resolve<IEmpiricalParameterValuesService>(),containerBase.Resolve<IUnitOfMeasService>(),
-                    containerBase.Resolve<IParameterService>());
+                    containerBase.Resolve<IParameterService>(), containerBase.Resolve<SqlLiteRepositoryContextFactory>());
                 var viewBase = new WindowEdit { DataContext = viewmodelBase };
 
                 viewBase.Show();

@@ -237,6 +237,8 @@ namespace ProgrammSystem.Web.vm
 
             sw.Stop();
             TimeSpan time = sw.Elapsed;
+
+
             Process p = Process.GetCurrentProcess();
             var memuse = p.WorkingSet64 - memory0;
 

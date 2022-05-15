@@ -5,7 +5,7 @@ namespace ProgramSystem.Data.Repository.Factories
 {
     public class SqlLiteRepositoryContextFactory : ISqlLiteRepositoryContextFactory
     {
-        private string _connectionString;
+        public string _connectionString;
 
         public SqlLiteRepositoryContextFactory(string connectionString)
         {

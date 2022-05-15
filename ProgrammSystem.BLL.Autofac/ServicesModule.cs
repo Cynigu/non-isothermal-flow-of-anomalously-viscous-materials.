@@ -26,6 +26,7 @@ namespace ProgrammSystem.BLL.Autofac
 
             builder.Register(c => new MathService()).As<IMathService>();
             builder.Register(c => new FileExcelService()).As<IFileExcelService>();
+            builder.Register(c => new SqlLiteRepositoryContextFactory("Data Source = rpkDB.db"));
         }
     }
 }

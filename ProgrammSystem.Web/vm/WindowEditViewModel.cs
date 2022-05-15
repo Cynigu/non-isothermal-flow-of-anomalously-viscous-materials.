@@ -1,8 +1,13 @@
-﻿using ProgrammSystem.Web.Commands;
+﻿using Microsoft.Data.Sqlite;
+using Microsoft.Win32;
+using ProgrammSystem.BLL.Autofac;
+using ProgrammSystem.Web.Commands;
 using ProgramSystem.Bll.Services.DTO;
 using ProgramSystem.Bll.Services.Interfaces;
+using ProgramSystem.Data.Repository.Factories;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,6 +23,7 @@ namespace ProgrammSystem.Web.vm
         private readonly IEmpiricalParameterValuesService _empiricalParameterValue;
         private readonly IUnitOfMeasService _unitOfMeasService;
         private readonly IParameterService _parameterService;
+        private readonly SqlLiteRepositoryContextFactory _factory;
         #region Fields
         private string? login;
         private string? password;
@@ -503,11 +509,12 @@ namespace ProgrammSystem.Web.vm
         public AsyncCommand AddValueCommand { get; set; }
         public AsyncCommand DeleteValueCommand { get; set; }
         public AsyncCommand EditValueCommand { get; set; }
+        public AsyncCommand BackupCommand { get; set; }
 
         #endregion
 
         public WindowEditViewModel(IUserService userService, IMaterialService materialService, IMaterialParameterValuesService materialParameterValuesService, IEmpiricalParameterValuesService empiricalParameterValuesService, IUnitOfMeasService unitOfMeasService,
-            IParameterService parameterService)
+            IParameterService parameterService, SqlLiteRepositoryContextFactory contextFactory)
         {
             _userService = userService;
             _materialService = materialService;
@@ -515,6 +522,7 @@ namespace ProgrammSystem.Web.vm
             _empiricalParameterValue = empiricalParameterValuesService;
             _unitOfMeasService = unitOfMeasService;
             _parameterService = parameterService;
+            _factory = contextFactory;
 
             var listUserDB = _userService.GetAllUsers();
             List<UserDTO> u = new List<UserDTO>();
@@ -613,6 +621,8 @@ namespace ProgrammSystem.Web.vm
             AddValueCommand = new AsyncCommand(AddValue, CanValueAddEdit);
             DeleteValueCommand = new AsyncCommand(DeleteValue, CanValueDel);
             EditValueCommand = new AsyncCommand(EditValue, CanValueAddEdit);
+
+            BackupCommand = new AsyncCommand(BackupCreate, CanBackup);
         }
 
         #region Methods
@@ -670,6 +680,7 @@ namespace ProgrammSystem.Web.vm
         private bool CanValueAddEdit() => CurrentMaterial is not null  && CurrentParameter is not null  && Value > 0; //проверка
         private bool CanValueDel() => CurrentMaterial is not null && CurrentParameter is not null; //проверка
 
+        private bool CanBackup() => true;
         private async Task DeleteUser()
         {
             UserDTO oldU = SelectUser;
@@ -898,6 +909,17 @@ namespace ProgrammSystem.Web.vm
             }
 
             UpdateTableValue();
+        }
+
+        private async Task BackupCreate()
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            if (saveFileDialog.ShowDialog() == true)
+            {               
+                File.Copy("rpkDB.db", saveFileDialog.FileName+".db",true);
+                MessageBox.Show("Сохранение прошло успешно!");
+            }
+            
         }
     }
 }

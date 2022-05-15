@@ -165,7 +165,7 @@
                             </DataGrid.Columns>
                         </DataGrid>
                         <StackPanel>
-                            <Button x:Name="copyOfDataBase" Content="Резервная копия базы данных" Width="546"/>
+                            <Button x:Name="copyOfDataBase" Content="Резервная копия базы данных" Width="546" Command="{Binding Path=BackupCommand}"/>
                         </StackPanel>
                     </StackPanel>
                 </StackPanel>
