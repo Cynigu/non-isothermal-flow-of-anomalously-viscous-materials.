@@ -66,15 +66,8 @@ namespace ProgrammSystem.Web.vm
             set
             {
                 //if (value is null) lenght = 0;
-                if (value > 0)
-                {
-                    lenght = value;
-                   
-                }
-                else
-                {
-                    lenght = 0;
-                }
+                if (value is null) lenght = 0;
+                else lenght = value;
                 OnPropertyChanged();
             }
         }
@@ -284,7 +277,7 @@ namespace ProgrammSystem.Web.vm
             Height = 0.003;
             SpeedU =1.5;
             TempU =180;
-            Step =1;
+            Step =0.5;
             CheckCalculate = false;
 
             var param = _materialService.GetAllMaterialsObjectsAsync();
