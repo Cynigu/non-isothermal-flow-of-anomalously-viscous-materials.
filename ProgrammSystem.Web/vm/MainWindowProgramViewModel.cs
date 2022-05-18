@@ -65,8 +65,16 @@ namespace ProgrammSystem.Web.vm
             get => lenght;
             set
             {
-                if (value is null) lenght = 0;
-                else lenght = value;
+                //if (value is null) lenght = 0;
+                if (value > 0)
+                {
+                    lenght = value;
+                   
+                }
+                else
+                {
+                    lenght = 0;
+                }
                 OnPropertyChanged();
             }
         }
@@ -452,8 +460,7 @@ namespace ProgrammSystem.Web.vm
                 }
 
             }
-            DTParameters = DTParameters1;
-           
+            DTParameters = DTParameters1;   
             
         }
 

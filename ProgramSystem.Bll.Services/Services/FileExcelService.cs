@@ -51,15 +51,15 @@ namespace ProgramSystem.Bll.Services.Services
 
             IRow row2 = sheet.CreateRow(2);
             ICell cell20 = row2.CreateCell(0); cell20.SetCellValue("Ширина, м"); cell20.CellStyle = style3;
-            ICell cell22 = row2.CreateCell(1); cell22.SetCellValue(Math.Round((double)w,2).ToString()); cell22.CellStyle = style4;
+            ICell cell22 = row2.CreateCell(1); cell22.SetCellValue(Math.Round((double)w,3).ToString()); cell22.CellStyle = style4;
 
             IRow row3 = sheet.CreateRow(3);
             ICell cell30 = row3.CreateCell(0); cell30.SetCellValue("Глубина, м"); cell30.CellStyle = style3;
-            ICell cell33 = row3.CreateCell(1); cell33.SetCellValue(Math.Round((double)h, 2).ToString()); cell33.CellStyle = style4;
+            ICell cell33 = row3.CreateCell(1); cell33.SetCellValue(Math.Round((double)h, 3).ToString()); cell33.CellStyle = style4;
 
             IRow row4 = sheet.CreateRow(4);
             ICell cell40 = row4.CreateCell(0); cell40.SetCellValue("Длина, м"); cell40.CellStyle = style3;
-            ICell cell44 = row4.CreateCell(1); cell44.SetCellValue(Math.Round((double)l, 2).ToString()); cell44.CellStyle = style4;
+            ICell cell44 = row4.CreateCell(1); cell44.SetCellValue(Math.Round((double)l, 3).ToString()); cell44.CellStyle = style4;
 
             IRow row5 = sheet.CreateRow(5);
             ICell cell50 = row5.CreateCell(0); cell50.SetCellValue("Тип материала"); cell50.CellStyle = style2;
@@ -73,15 +73,15 @@ namespace ProgramSystem.Bll.Services.Services
 
             IRow row7 = sheet.CreateRow(7);
             ICell cell70 = row7.CreateCell(0); cell70.SetCellValue("Плотность, кг/м^3"); cell70.CellStyle = style3;
-            ICell cell77 = row7.CreateCell(1); cell77.SetCellValue(Math.Round((double)ro, 2).ToString()); cell77.CellStyle = style4;
+            ICell cell77 = row7.CreateCell(1); cell77.SetCellValue(Math.Round((double)ro, 3).ToString()); cell77.CellStyle = style4;
 
             IRow row8 = sheet.CreateRow(8);
             ICell cell80 = row8.CreateCell(0); cell80.SetCellValue("Удельная теплоемкость, Дж/(кг*С)"); cell80.CellStyle = style3;
-            ICell cell88 = row8.CreateCell(1); cell88.SetCellValue(Math.Round((double)c, 2).ToString()); cell88.CellStyle = style4;
+            ICell cell88 = row8.CreateCell(1); cell88.SetCellValue(Math.Round((double)c, 3).ToString()); cell88.CellStyle = style4;
 
             IRow row9 = sheet.CreateRow(9);
             ICell cell90 = row9.CreateCell(0); cell90.SetCellValue("Температура плавления, С"); cell90.CellStyle = style3;
-            ICell cell99 = row9.CreateCell(1); cell99.SetCellValue(Math.Round((double)T0, 2).ToString()); cell99.CellStyle = style4;
+            ICell cell99 = row9.CreateCell(1); cell99.SetCellValue(Math.Round((double)T0, 3).ToString()); cell99.CellStyle = style4;
 
             IRow row10 = sheet.CreateRow(10);
             ICell cell100 = row10.CreateCell(0);
@@ -97,11 +97,11 @@ namespace ProgramSystem.Bll.Services.Services
 
             IRow row12 = sheet.CreateRow(12);
             ICell cell120 = row12.CreateCell(0); cell120.SetCellValue("Скорость крышки, м/с"); cell120.CellStyle = style3;
-            ICell cell1212 = row12.CreateCell(1); cell1212.SetCellValue(Math.Round((double)Vu, 2).ToString()); cell1212.CellStyle = style4;
+            ICell cell1212 = row12.CreateCell(1); cell1212.SetCellValue(Math.Round((double)Vu, 3).ToString()); cell1212.CellStyle = style4;
 
             IRow row13 = sheet.CreateRow(13);
             ICell cell130 = row13.CreateCell(0); cell130.SetCellValue("Температура крышки, С"); cell130.CellStyle = style3;
-            ICell cell1313 = row13.CreateCell(1); cell1313.SetCellValue(Math.Round((double)Tu, 2).ToString()); cell1313.CellStyle = style4;
+            ICell cell1313 = row13.CreateCell(1); cell1313.SetCellValue(Math.Round((double)Tu, 3).ToString()); cell1313.CellStyle = style4;
 
             IRow row14 = sheet.CreateRow(14);
             ICell cell140 = row14.CreateCell(0);
@@ -117,23 +117,23 @@ namespace ProgramSystem.Bll.Services.Services
 
             IRow row16 = sheet.CreateRow(16);
             ICell cell160 = row16.CreateCell(0); cell160.SetCellValue("Коэффициент консистенции при температуре приведения, Па*с^n"); cell160.CellStyle = style3;
-            ICell cell1616 = row16.CreateCell(1); cell1616.SetCellValue(Math.Round((double)mu0, 2).ToString()); cell1616.CellStyle = style4;
+            ICell cell1616 = row16.CreateCell(1); cell1616.SetCellValue(Math.Round((double)mu0, 3).ToString()); cell1616.CellStyle = style4;
 
             IRow row17 = sheet.CreateRow(17);
             ICell cell17 = row17.CreateCell(0); cell17.SetCellValue("Температурный коэффициент вязкости, 1/С"); cell17.CellStyle = style3;
-            ICell cell1717 = row17.CreateCell(1); cell1717.SetCellValue(Math.Round((double)b, 2).ToString()); cell1717.CellStyle = style4;
+            ICell cell1717 = row17.CreateCell(1); cell1717.SetCellValue(Math.Round((double)b, 3).ToString()); cell1717.CellStyle = style4;
 
             IRow row18 = sheet.CreateRow(18);
             ICell cell180 = row18.CreateCell(0); cell180.SetCellValue("Температура приведения, С"); cell180.CellStyle = style3;
-            ICell cell1818 = row18.CreateCell(1); cell1818.SetCellValue(Math.Round((double)Tr, 2).ToString()); cell1818.CellStyle = style4;
+            ICell cell1818 = row18.CreateCell(1); cell1818.SetCellValue(Math.Round((double)Tr, 3).ToString()); cell1818.CellStyle = style4;
 
             IRow row19 = sheet.CreateRow(19);
             ICell cell190 = row19.CreateCell(0); cell190.SetCellValue("Индекс течения"); cell190.CellStyle = style3;
-            ICell cell1919 = row19.CreateCell(1); cell1919.SetCellValue(Math.Round((double)n, 2).ToString()); cell1919.CellStyle = style4;
+            ICell cell1919 = row19.CreateCell(1); cell1919.SetCellValue(Math.Round((double)n, 3).ToString()); cell1919.CellStyle = style4;
 
             IRow row20 = sheet.CreateRow(20);
             ICell cell200 = row20.CreateCell(0); cell200.SetCellValue("Коэффициент теплоотдачи от крышки канала к материалу, Вт/(м^2*С)"); cell200.CellStyle = style3;
-            ICell cell2020 = row20.CreateCell(1); cell2020.SetCellValue(Math.Round((double)alphau, 2).ToString()); cell2020.CellStyle = style4;
+            ICell cell2020 = row20.CreateCell(1); cell2020.SetCellValue(Math.Round((double)alphau, 3).ToString()); cell2020.CellStyle = style4;
 
             IRow row21 = sheet.CreateRow(21);
             ICell cell210 = row21.CreateCell(0);
@@ -143,7 +143,7 @@ namespace ProgramSystem.Bll.Services.Services
 
             IRow row22 = sheet.CreateRow(22);
             ICell cell220 = row22.CreateCell(0); cell220.SetCellValue("Шаг расчета по длине канала, м"); cell220.CellStyle = style3;
-            ICell cell2222 = row22.CreateCell(1); cell2222.SetCellValue(Math.Round((double)step, 2).ToString()); cell2222.CellStyle = style4;
+            ICell cell2222 = row22.CreateCell(1); cell2222.SetCellValue(Math.Round((double)step, 3).ToString()); cell2222.CellStyle = style4;
 
             IRow row0res = sheet.GetRow(0);
             ICell cell0res = row0res.CreateCell(3);
@@ -160,17 +160,17 @@ namespace ProgramSystem.Bll.Services.Services
             IRow row2res = sheet.GetRow(2);
             ICell cell2res3 = row2res.CreateCell(3); cell2res3.SetCellValue("Производительность процесса, кг/ч"); cell2res3.CellStyle = style3;
             sheet.AddMergedRegion(new NPOI.SS.Util.CellRangeAddress(2, 2, 3, 4));
-            ICell cell2res5 = row2res.CreateCell(5); cell2res5.SetCellValue(Math.Round((double)r.Q, 2).ToString()); cell2res5.CellStyle = style4;
+            ICell cell2res5 = row2res.CreateCell(5); cell2res5.SetCellValue(Math.Round((double)r.Q, 3).ToString()); cell2res5.CellStyle = style4;
 
             IRow row3res = sheet.GetRow(3);
             ICell cell3res3 = row3res.CreateCell(3); cell3res3.SetCellValue("Температура продукта, С"); cell3res3.CellStyle = style3;
             sheet.AddMergedRegion(new NPOI.SS.Util.CellRangeAddress(3, 3, 3, 4));
-            ICell cell3res5 = row3res.CreateCell(5); cell3res5.SetCellValue(Math.Round((double)r.T, 2).ToString()); cell3res5.CellStyle = style4;
+            ICell cell3res5 = row3res.CreateCell(5); cell3res5.SetCellValue(Math.Round((double)r.T, 3).ToString()); cell3res5.CellStyle = style4;
 
             IRow row4res = sheet.GetRow(4);
             ICell cell4res3 = row4res.CreateCell(3); cell4res3.SetCellValue("Вязкость продукта, Па*с"); cell4res3.CellStyle = style3;
             sheet.AddMergedRegion(new NPOI.SS.Util.CellRangeAddress(4, 4, 3, 4));
-            ICell cell4res5 = row4res.CreateCell(5); cell4res5.SetCellValue(Math.Round((double)r.Visc, 2).ToString()); cell4res5.CellStyle = style4;
+            ICell cell4res5 = row4res.CreateCell(5); cell4res5.SetCellValue(Math.Round((double)r.Visc, 3).ToString()); cell4res5.CellStyle = style4;
 
             IRow row5res = sheet.GetRow(5);
             ICell cell280 = row5res.CreateCell(3);
@@ -195,9 +195,9 @@ namespace ProgramSystem.Bll.Services.Services
                 {
                     rowT = sheet.GetRow(cellCount);
                 }
-                cell3=rowT.CreateCell(3); cell3.SetCellValue(Math.Round((double)r.LengthOfCanal[i], 2).ToString());
-                cell4 = rowT.CreateCell(4); cell4.SetCellValue(Math.Round((double)r.TempInside[i], 2).ToString());
-                cell5 = rowT.CreateCell(5); cell5.SetCellValue(Math.Round((double)r.ViscosityInside[i], 2).ToString());
+                cell3=rowT.CreateCell(3); cell3.SetCellValue(Math.Round((double)r.LengthOfCanal[i], 3).ToString());
+                cell4 = rowT.CreateCell(4); cell4.SetCellValue(Math.Round((double)r.TempInside[i], 3).ToString());
+                cell5 = rowT.CreateCell(5); cell5.SetCellValue(Math.Round((double)r.ViscosityInside[i], 3).ToString());
             }    
 
             sheet.SetColumnWidth(0, 70 * 256);
