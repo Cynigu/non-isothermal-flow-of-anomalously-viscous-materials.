@@ -20,7 +20,7 @@ namespace ProgrammSystem.Web
         {
             e.Handled = !char.IsDigit(e.Text.Last()) && !e.Text.Last().Equals('.');
             TextBox tb = sender as TextBox;
-            if (e.Text == "0") tb.Background = Brushes.Red;
+            if (tb.Text == "0") tb.Background = Brushes.Red;
             else tb.Background = Brushes.White;
         }
     }
