@@ -915,8 +915,14 @@ namespace ProgrammSystem.Web.vm
         {
             SaveFileDialog saveFileDialog = new SaveFileDialog();
             if (saveFileDialog.ShowDialog() == true)
-            {               
-                File.Copy("rpkDB.db", saveFileDialog.FileName+".db",true);
+            {
+                SqliteConnection sqliteConnection = new SqliteConnection("Data Source = rpkDB.db.db");
+                SqliteCommand sqlCmd = sqliteConnection.CreateCommand();
+                sqlCmd.CommandText = $"VACUUM INTO '{ saveFileDialog.FileName + ".db"}'";
+                sqliteConnection.Open();
+                sqlCmd.ExecuteNonQuery();
+                sqliteConnection.Close();
+
                 MessageBox.Show("Сохранение прошло успешно!");
             }
             
