@@ -30,6 +30,7 @@
             <Button x:Name="buttonCalc" Command="{Binding Path=MainWindowProgramCalculateCommand}" FontSize="14" Content="Вычисление"></Button>
             <Button x:Name="buttonReport" FontSize="14" Content="Отчет" Command="{Binding Path=MainWindowProgramReportCommand}"></Button>
             <Button Command="{Binding Path=MainWindowProgramUpdateCommand}" FontSize="14" Content="Обновить БД"></Button>
+            <Button Command="{Binding Path=ComputationalExperimentCommand}" Width="auto" FontSize="14" Content="Вычислительный эксперемент"></Button>
         </StackPanel>
         <StackPanel>
             <StackPanel Orientation="Horizontal">

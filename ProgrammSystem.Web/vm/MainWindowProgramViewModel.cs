@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using ProgramSystem.Bll.Services.DTO;
 using System;
 using System.Data;
+using ProgrammSystem.Web.model;
 
 namespace ProgrammSystem.Web.vm
 {
@@ -262,6 +263,8 @@ namespace ProgrammSystem.Web.vm
         #region Commands
         public RelayCommand MainWindowProgramCalculateCommand { get; set; }
         public RelayCommand MainWindowProgramReportCommand { get; set; }
+
+        public RelayCommand ComputationalExperimentCommand { get; set; }
         #endregion
 
         public MainWindowProgramViewModel(IMathService mathService, IFileExcelService fileExcelService, IMaterialService materialService, IMaterialParameterValuesService materialParameterValue, IEmpiricalParameterValuesService empiricalParameterValue, IParameterService parameterService)
@@ -300,10 +303,51 @@ namespace ProgrammSystem.Web.vm
 
             MainWindowProgramReportCommand = new RelayCommand(obj => CreateReport(), obj => CheckCalculate);
 
+            ComputationalExperimentCommand = new RelayCommand(obj => ComputationalExperiment(), obj => CanComputationalExperiment());
+
             //UpdateDT(id);
         }
 
         #region Methods
+        private bool CanComputationalExperiment() => 
+            Weight <= 0 
+            || Height <= 0 
+            || Lenght <= 0 
+            || Ro <= 0
+            || C <= 0
+            || Temp0 <= 0 
+            || M0 <= 0 
+            || B <= 0 
+            || TempR <= 0
+            || N <= 0 
+            || KoefU <= 0 
+            || Step <= 0;
+
+        private void ComputationalExperiment()
+        {
+            if (!CanComputationalExperiment())
+            {
+                return;
+            }
+            var characters = new BaseCharacters(
+                lenght: (double)Lenght,
+                weight: (double)Weight,
+                height: (double)Height,
+                ro: (double)Ro,
+                c: (double)C,
+                temp0: (double)Temp0,
+                step: (double)Step,
+                m0: (double)M0,
+                b: (double)B,
+                tempR: (double)TempR,
+                n: (double)N,
+                koefU: (double)KoefU
+                );
+            var vm = new ComputationalExperimentViewModel(characters);
+            var view = new ComputationalExperimentWindow() { DataContext = vm};
+            view.Show();
+        }
+
         private void CalculateResults()
         {
             //длина=сервис.методсервиса
@@ -456,9 +500,6 @@ namespace ProgrammSystem.Web.vm
             DTParameters = DTParameters1;   
             
         }
-
-
-
         #endregion
 
 
