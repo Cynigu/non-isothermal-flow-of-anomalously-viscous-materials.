@@ -61,7 +61,7 @@ namespace ProgramSystem.Bll.Services.Services
                     + Math.Exp((double)b * ((double)T0 - (double)Tr - (double)qa / ((double)ro * (double)c * (double)QcS) * (double)L)));
                 results.TempWithSpeed.Add(TS);
 
-                nuS = (double)mu0 * Math.Exp(-(double)b * (TS - (double)Tr)) * Math.Pow(YdotS, (double)n - 1);
+        nuS = (double)mu0 * Math.Exp(-(double)b * (TS - (double)Tr)) * Math.Pow(YdotS, (double)n - 1);
                 results.ViscWithSpeed.Add(nuS);
                
                 if (i + 0.01 > (double)H && check && Math.Round(i, 2) != H)
