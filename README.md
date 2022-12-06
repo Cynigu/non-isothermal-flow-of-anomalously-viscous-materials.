@@ -1,4 +1,4 @@
-# ProgrammSystem.Data.Repository
+# non-isothermal-flow-of-anomalously-viscous-materials
 
 Программный комплекс для исследования неизотермического течения аномально-вязких материалов.
 
